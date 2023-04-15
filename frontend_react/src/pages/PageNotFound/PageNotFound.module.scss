@@ -1,0 +1,39 @@
+#wrapper {
+    width: 100vw;
+    height: 100vh;
+    
+}
+
+.error-box {
+    height: 100%;
+    position: fixed;
+    // background: url(/public/image/error-bg.jpg) center center no-repeat #fff!important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.error-body {
+    padding-top: 5%;
+}
+
+.not-found {
+    font-size: 210px;
+    font-weight: 900;
+    line-height: 210px;
+}
+
+.h3{
+    line-height: 30px;
+    font-size: 21px;
+}
+#hover_button {
+    &:hover{
+        color: yellow;
+    }
+}
