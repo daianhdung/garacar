@@ -1,36 +1,30 @@
-import classNames from 'classnames/bind';
+import { useLocation } from 'react-router-dom';
+import Footer from '../components/Footer/Footer';
+import Header from '../components/Header/Header';
+import Sidebar from '../components/Sidebar/Sidebar';
+import config from '~/config';
 
-import styles from './DefaultLayout.module.scss';
-
-
-const cx = classNames.bind(styles)
-
-
-function DefaultLayout() {
+function DefaultLayout({children}) {
+    const location = useLocation();
 
     return (
         <>
-            {/* {isLoading && <LoaderModal isLoading={isLoading} />}
-            <div >
+            <div>
                 <Header />
-                <div style={{ background: 'rgba(245, 245, 250, 1)' }} >
-                    <div className={cx('container')}>
-                        {(location.pathname == config.routes.product || location.pathname == config.routes.bookmark || location.pathname === '/search/' && location.search) ? <div className={cx('inner')}>
-                            <Sidebar1 />
-                            <div className={cx('content')}>
-                                {React.cloneElement(children, { setIsLoading: setIsLoading })}
-                                <Footer />
-                            </div>
-                        </div> : <div className={cx('inner_non_sideber')}>
-                            <div className={cx('content_non_sideber')}>
-                                {React.cloneElement(children, { setIsLoading: setIsLoading })}
-                                <Footer />
-                            </div>
-                        </div>}
-                    </div>
+                <div>
+                    {location.pathname == config.routes.home ||
+                    location.pathname == '/' ? (
+                        <>
+                        <div style={{maxWidth: '1400px'}} className="container-fluid">
+                            {children}
+                        </div>
+                        </>
+                    ) : (
+                        <Sidebar/>
+                    )}
+                    <Footer />
                 </div>
-            </div> */}
-            <h1>Default</h1>
+            </div>
         </>
     );
 }

@@ -15,3 +15,7 @@ spring:
 server:
   servlet:
     context-path: /api
+
+file:
+  upload-dir: /img
+

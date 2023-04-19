@@ -4,11 +4,12 @@ CREATE TABLE "role" (
   "description" VARCHAR(100)
 );
 
-CREATE TABLE "user" (
+CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
   "email" varchar(50) UNIQUE,
-  "password" varchar(50),
+  "password" varchar(100),
   "fullname" varchar(100),
+  "username" varchar(100),
   "phone" varchar(100),
   "address" varchar(100),
   "create_at" TIMESTAMP DEFAULT (now()),
@@ -17,7 +18,8 @@ CREATE TABLE "user" (
 
 CREATE TABLE "category" (
   "id" SERIAL PRIMARY KEY,
-  "name" VARCHAR(50) NOT NULL
+  "name" VARCHAR(50) NOT NULL,
+  "image" varchar(255)
 );
 
 CREATE TABLE "brand" (
@@ -68,7 +70,7 @@ CREATE TABLE "status" (
   "name" varchar(50)
 );
 
-CREATE TABLE "order" (
+CREATE TABLE "orders" (
   "id" SERIAL PRIMARY KEY,
   "fee_ship" int,
   "coupon" float,
@@ -109,7 +111,7 @@ ALTER TABLE "category_brand" ADD FOREIGN KEY ("category_id") REFERENCES "categor
 
 ALTER TABLE "category_brand" ADD FOREIGN KEY ("brand_id") REFERENCES "brand" ("id");
 
-ALTER TABLE "user" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
+ALTER TABLE "users" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 
 ALTER TABLE "product" ADD FOREIGN KEY ("category_id") REFERENCES "category" ("id");
 
@@ -117,14 +119,19 @@ ALTER TABLE "product" ADD FOREIGN KEY ("brand_id") REFERENCES "brand" ("id");
 
 ALTER TABLE "image_product" ADD FOREIGN KEY ("product_id") REFERENCES "product" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "bookmark_product" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+ALTER TABLE "bookmark_product" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
 ALTER TABLE "bookmark_product" ADD FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 
-ALTER TABLE "order" ADD FOREIGN KEY ("status_id") REFERENCES "status" ("id");
+ALTER TABLE "orders" ADD FOREIGN KEY ("status_id") REFERENCES "status" ("id");
 
-ALTER TABLE "order" ADD FOREIGN KEY ("user_id") REFERENCES "user" ("id");
+ALTER TABLE "orders" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
-ALTER TABLE "product_order" ADD FOREIGN KEY ("order_id") REFERENCES "order" ("id");
+ALTER TABLE "product_order" ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("id");
 
 ALTER TABLE "product_order" ADD FOREIGN KEY ("product_id") REFERENCES "product" ("id");
+
+INSERT INTO "role"(name, description ) VALUES ('ROLE_ADMIN', 'Admin');
+INSERT INTO "role"(name, description ) VALUES ('ROLE_USER', 'Customer');
+
+INSERT INTO "users"(email, username, password, fullname, phone, address, role_id ) VALUES ('test@gmail.com','admin_sam', '$2a$10$eAEvZircGvFGZcJSgzMmMO7Z8C7hv19Y5VsbK8yqefVlQhSFUjnfy', 'SAMBUCHE', '0922003033', '199 Đường Gò Dưa, Tam Bình, Thủ Đức, Thành phố Hồ Chí Minh', '1');

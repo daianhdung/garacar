@@ -1,0 +1,30 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    &:hover{
+        background: rgba(104, 153, 222, 0.5);
+        color: rgb(94, 71, 51);
+    }
+}
+
+.image {
+    max-width: 160px;
+    height: 100px;
+    border-radius: 8px;
+
+}
+
+.info {
+    margin-left: 12px;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.name {
+
+}
+
+.price {
+    margin-top: 10px;
+}

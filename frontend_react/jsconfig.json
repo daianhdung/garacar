@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "baseUrl": "../../frontend_reactjs",
+        "baseUrl": ".",
         "paths": {
             "~/*": ["src/*"]
         }

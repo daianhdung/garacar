@@ -1,0 +1,22 @@
+.wrapper {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &::before{
+        background-size: cover;
+        inset: -5px;
+        content: "";
+        
+        position: absolute;
+        z-index: -1;
+        background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url(../../assets/images/background_login.jpg);
+    }
+
+}

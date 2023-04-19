@@ -1,0 +1,53 @@
+.wrapper {
+    padding: 20px 20px 20px 0;
+}
+
+.logo_wrap {
+    padding-bottom: 20px;
+}
+
+.nav_wrap,
+.auth_wrap {
+    padding-top: 20px;
+    padding-bottom: 30px;
+    li {
+        padding: 10px 0;
+        * {
+            margin-left: 15px;
+            font-size: 1.4rem;
+        }
+        span {
+            color: var(--disabled-color);
+            &:hover {
+                color: #333;
+            }
+        }
+        .redirect_icon {
+            font-size: 1.4rem;
+        }
+    }
+
+    .redirect {
+        position: relative;
+        span {
+            color: #333;
+        }
+        &::before{
+            content: "";
+            position: absolute;
+            top: 0.25rem;
+            bottom: 0.25rem;
+            left: 0;
+            right: auto;
+            border-left: 3px solid #5e72e4;
+            border-bottom: 0;
+        }
+        .redirect_icon {
+            color: rgb(118, 118, 199) !important;
+        }
+    }
+}
+
+ul {
+    padding-left: 0 !important;
+}
