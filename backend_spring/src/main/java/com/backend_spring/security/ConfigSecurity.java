@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static com.backend_spring.constant.ApiConstant.*;
+
 @Configuration
 @EnableWebSecurity
 public class ConfigSecurity{
@@ -21,10 +23,7 @@ public class ConfigSecurity{
     @Autowired
     JwtTokenFilter jwtTokenFilter;
 
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+
 
     @Autowired
     CustomAuthenticationProvider customAuthenticationProvider;
@@ -40,7 +39,9 @@ public class ConfigSecurity{
         http.csrf().disable().cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .anyRequest().permitAll();
+                .antMatchers(API_IMAGE, API_LOGIN, API_REFRESH_TOKEN).permitAll()
+                .antMatchers(API_ADMIN).hasAuthority("ROLE_ADMIN")
+                .anyRequest().authenticated();
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

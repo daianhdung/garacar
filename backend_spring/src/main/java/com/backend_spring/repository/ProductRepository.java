@@ -17,8 +17,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     @Query(value = "SELECT * from product ORDER BY amount_of_sold DESC LIMIT 10", nativeQuery = true)
     List<ProductEntity> findByTop10Product();
 
-    ProductEntity findById(int id);
-
     @Query(value = "SELECT * FROM product WHERE name LIKE ?1 LIMIT 5", nativeQuery = true)
     List<ProductEntity> findByKeyword(String name);
 

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Getter
@@ -28,7 +29,7 @@ public class UserEntity {
     @Column(name = "address")
     private String address;
     @Column(name = "create_at")
-    private String createAt;
+    private Timestamp createAt;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

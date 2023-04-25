@@ -40,10 +40,11 @@ CREATE TABLE "product" (
   "main_image" varchar(255),
   "amount_of_sold" int DEFAULT 0,
   "price" int,
-  "detail" text,
+  "description" VARCHAR(1000),
+  "detail" VARCHAR(1000),
   "category_id" int,
-"create_at" TIMESTAMP DEFAULT (now()),
-"create_by" VARCHAR(50),
+  "create_at" TIMESTAMP DEFAULT (now()),
+  "create_by" VARCHAR(50),
   "brand_id" int
 );
 
@@ -78,7 +79,7 @@ CREATE TABLE "orders" (
   "total" float,
   "user_id" int,
   "delivery_address" varchar(100),
-"create_at" TIMESTAMP DEFAULT (now()),
+  "create_at" TIMESTAMP DEFAULT (now()),
   "status_id" int
 );
 
@@ -107,31 +108,190 @@ CREATE TABLE "visitor" (
   "end_time" TIMESTAMP
 );
 
-ALTER TABLE "category_brand" ADD FOREIGN KEY ("category_id") REFERENCES "category" ("id");
+ALTER TABLE
+  "category_brand"
+ADD
+  FOREIGN KEY ("category_id") REFERENCES "category" ("id");
 
-ALTER TABLE "category_brand" ADD FOREIGN KEY ("brand_id") REFERENCES "brand" ("id");
+ALTER TABLE
+  "category_brand"
+ADD
+  FOREIGN KEY ("brand_id") REFERENCES "brand" ("id");
 
-ALTER TABLE "users" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
+ALTER TABLE
+  "users"
+ADD
+  FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 
-ALTER TABLE "product" ADD FOREIGN KEY ("category_id") REFERENCES "category" ("id");
+ALTER TABLE
+  "product"
+ADD
+  FOREIGN KEY ("category_id") REFERENCES "category" ("id");
 
-ALTER TABLE "product" ADD FOREIGN KEY ("brand_id") REFERENCES "brand" ("id");
+ALTER TABLE
+  "product"
+ADD
+  FOREIGN KEY ("brand_id") REFERENCES "brand" ("id");
 
-ALTER TABLE "image_product" ADD FOREIGN KEY ("product_id") REFERENCES "product" ("id") ON DELETE CASCADE;
+ALTER TABLE
+  "image_product"
+ADD
+  FOREIGN KEY ("product_id") REFERENCES "product" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "bookmark_product" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE
+  "bookmark_product"
+ADD
+  FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
-ALTER TABLE "bookmark_product" ADD FOREIGN KEY ("product_id") REFERENCES "product" ("id");
+ALTER TABLE
+  "bookmark_product"
+ADD
+  FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 
-ALTER TABLE "orders" ADD FOREIGN KEY ("status_id") REFERENCES "status" ("id");
+ALTER TABLE
+  "orders"
+ADD
+  FOREIGN KEY ("status_id") REFERENCES "status" ("id");
 
-ALTER TABLE "orders" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE
+  "orders"
+ADD
+  FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
-ALTER TABLE "product_order" ADD FOREIGN KEY ("order_id") REFERENCES "orders" ("id");
+ALTER TABLE
+  "product_order"
+ADD
+  FOREIGN KEY ("order_id") REFERENCES "orders" ("id");
 
-ALTER TABLE "product_order" ADD FOREIGN KEY ("product_id") REFERENCES "product" ("id");
+ALTER TABLE
+  "product_order"
+ADD
+  FOREIGN KEY ("product_id") REFERENCES "product" ("id");
 
-INSERT INTO "role"(name, description ) VALUES ('ROLE_ADMIN', 'Admin');
-INSERT INTO "role"(name, description ) VALUES ('ROLE_USER', 'Customer');
+INSERT INTO
+  "role"(name, description)
+VALUES
+  ('ROLE_ADMIN', 'Admin');
 
-INSERT INTO "users"(email, username, password, fullname, phone, address, role_id ) VALUES ('test@gmail.com','admin_sam', '$2a$10$eAEvZircGvFGZcJSgzMmMO7Z8C7hv19Y5VsbK8yqefVlQhSFUjnfy', 'SAMBUCHE', '0922003033', '199 Đường Gò Dưa, Tam Bình, Thủ Đức, Thành phố Hồ Chí Minh', '1');
+INSERT INTO
+  "role"(name, description)
+VALUES
+  ('ROLE_USER', 'Customer');
+
+INSERT INTO
+  "users"(
+    email,
+    username,
+    password,
+    fullname,
+    phone,
+    address,
+    role_id
+  )
+VALUES
+  (
+    'test@gmail.com',
+    'admin_sam',
+    '$2a$10$eAEvZircGvFGZcJSgzMmMO7Z8C7hv19Y5VsbK8yqefVlQhSFUjnfy',
+    'SAMBUCHE',
+    '0922003033',
+    '199 Đường Gò Dưa, Tam Bình, Thủ Đức, Thành phố Hồ Chí Minh',
+    '1'
+  );
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('Audi', 'Audi.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('BMW', 'BMW.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('Ford', 'Ford.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('Honda', 'Honda.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('Huyndai', 'Hyundai.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('KIA', 'KIA.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('Lexus', 'Lexus.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('Mazda', 'Mazda.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('Mercedes-Benz', 'Mercedes-Benz.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('Nissan', 'Nissan.png');
+
+INSERT INTO
+  "brand"(name, image)
+VALUES
+  ('Suzuki', 'Suzuki.png');
+
+INSERT INTO
+  "category"(name)
+VALUES
+  ('Loa ô tô');
+
+INSERT INTO
+  "category"(name)
+VALUES
+  ('Camera hành trình');
+
+INSERT INTO
+  "category"(name)
+VALUES
+  ('Đèn ô tô');
+
+INSERT INTO
+  "category"(name)
+VALUES
+  ('Màn hình DVD android');
+
+INSERT INTO
+  "category"(name)
+VALUES
+  ('Camera 360');
+
+
+-- CREATE TABLE "product" (
+--   "id" SERIAL PRIMARY KEY,
+--   "name" varchar(100),
+--   "main_image" varchar(255),
+--   "amount_of_sold" int DEFAULT 0,
+--   "price" int,
+--   "description" VARCHAR(1000),
+--   "detail" VARCHAR(1000),
+--   "category_id" int,
+--   "create_at" TIMESTAMP DEFAULT (now()),
+--   "create_by" VARCHAR(50),
+--   "brand_id" int
+-- );
+
+INSERT INTO "product"(name, main_image, price, detail, category_id, brand_id, create_by) VALUES('Test product', 'san-pham-camera-360-z311.jpg',  17000000,'Chi tiết sản phẩm', 1, 2, 'admin')

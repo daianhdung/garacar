@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ImageRepository extends JpaRepository<ImageProductEntity, Integer> {
-    boolean deleteAllByProduct_Id(int id);
+
+    int deleteAllByProductId(int id);
 }

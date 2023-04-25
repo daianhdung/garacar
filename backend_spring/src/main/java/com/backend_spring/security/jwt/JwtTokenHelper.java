@@ -67,7 +67,6 @@ public class JwtTokenHelper {
                 .getSubject();
     }
     public boolean validateToken(String token) {
-        HttpServletResponse response;
         SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(strKey));
         boolean isSuccess = false;
         try {

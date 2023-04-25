@@ -1,16 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Navigate, Outlet } from "react-router-dom";
+import { useLocation, Navigate, Outlet } from "react-router-dom";
+import useAuth from "~/hooks/useAuth";
 
 
 const GuardNotLogin = () => {
-    const isAdmin = useSelector(state => state.auth.isAdmin);
-    const isLogin = useSelector(state => state.auth.isLogin);
-    const user = useSelector(state => state.auth.user);
+    const context = useAuth()
+    const authProvider = context.authProvider
 
-    if (isLogin && !isAdmin) {
+    if (authProvider.isLogin && !authProvider.isAdmin) {
         return <Navigate to="/home" replace />
-    } else if(isLogin && isAdmin) {
+    } else if(authProvider.isLogin && authProvider.isAdmin) {
         return <Navigate to="/admin-home" replace />
     }else{
         return <Outlet/>

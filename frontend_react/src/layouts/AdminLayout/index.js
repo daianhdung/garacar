@@ -18,11 +18,11 @@ function AdminLayout({ children }) {
     const [data, SetData] = useState({})
 
     useEffect(() => {
-        const token = getCookie('tokenJwt')
-        AdminHomeService.getStat(token)
-            .then(response => {
-                // SetData(response)
-            })
+        // const token = getCookie('tokenJwt')
+        // AdminHomeService.getStat(token)
+        //     .then(response => {
+        //         // SetData(response)
+        //     })
     }, [])
 
     return (

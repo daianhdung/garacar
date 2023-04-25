@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Set;
 
 @Setter
@@ -19,13 +20,15 @@ public class ProductEntity {
     @Column(name = "main_image")
     private String mainImage;
     @Column(name = "amount_of_sold")
-    private String amountOfSold;
+    private int amountOfSold;
     @Column(name = "price")
     private float price;
+    @Column(name = "description")
+    private String description;
     @Column(name = "detail")
     private String detail;
     @Column(name = "create_at")
-    private String createAt;
+    private Timestamp createAt;
     @Column(name = "create_by")
     private String createBy;
 
@@ -36,11 +39,11 @@ public class ProductEntity {
     @JoinColumn(name = "brand_id")
     private BrandEntity brand;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private Set<BookmarkProductEntity> bookmarkProducts;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private Set<ImageProductEntity> imageProducts;
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private Set<ProductOrderEntity> productOrders;
 }
 

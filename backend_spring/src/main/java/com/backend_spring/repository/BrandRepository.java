@@ -13,4 +13,6 @@ public interface BrandRepository extends JpaRepository<BrandEntity, Integer> {
     Optional<BrandEntity> findById(int id);
 
     List<BrandEntity> findByIdIsIn(List<Integer> integerList);
+
+
 }

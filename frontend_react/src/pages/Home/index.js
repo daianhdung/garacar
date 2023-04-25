@@ -1,22 +1,18 @@
 import "swiper/css/bundle";
 
-import React from "react";
-import SwiperSlideBrand from "~/components/swiper/swiperslide/SwiperSlideBrand";
-import { useSelector } from "react-redux";
 import images from "~/assets";
+import SwiperSlideBrand from "~/components/swiper/swiperslide/SwiperSlideBrand";
 
 
 function Home() {
 
-    const test = useSelector((state) => state.auth);
-    console.log(test);
 
-    return (<React.Fragment>
+    return (<>
         <SwiperSlideBrand amount={1} width={'100%'} height={300} img={'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png'}/>
         
-        <SwiperSlideBrand amount={4} width={100} height={80} img={images.logo1}/>
-        
-    </React.Fragment>);
+        <SwiperSlideBrand style={{border: '1px solid #000', padding: '5px 0'}} amount={4} width={80} height={60} img={images.logo1}/>
+
+    </>);
 }
 
 export default Home;

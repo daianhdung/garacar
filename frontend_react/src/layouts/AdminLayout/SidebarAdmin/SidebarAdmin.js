@@ -20,24 +20,24 @@ const SidebarData = [
         iconOpened: <FontAwesomeIcon style={{ float: 'right' }} icon={faAngleUp} />,
         subNav: [
             {
-                title: 'List',
+                title: 'Danh sách',
                 path: config.routes.adminOrder,
                 icon: <FontAwesomeIcon icon={faList} />
             }
         ]
     },
     {
-        title: 'Khách hàng',
+        title: 'Tài khoản',
         icon: <FontAwesomeIcon className={cx('redirect_icon', 'text-danger')} icon={faUsers} />,
         iconClosed: <FontAwesomeIcon style={{ float: 'right' }} icon={faAngleDown} />,
         iconOpened: <FontAwesomeIcon style={{ float: 'right' }} icon={faAngleUp} />,
         subNav: [
             {
-                title: 'List',
+                title: 'Danh sách',
                 path: config.routes.adminUser,
                 icon: <FontAwesomeIcon icon={faList} />
             }, {
-                title: 'Form',
+                title: 'Tạo mới',
                 path: config.routes.adminUserInsert,
                 icon: <FontAwesomeIcon icon={faKeyboard} />
             }
@@ -50,11 +50,11 @@ const SidebarData = [
         iconOpened: <FontAwesomeIcon style={{ float: 'right' }} icon={faAngleUp} />,
         subNav: [
             {
-                title: 'List',
+                title: 'Danh sách',
                 path: config.routes.adminProduct,
                 icon: <FontAwesomeIcon icon={faList} />
             }, {
-                title: 'Form',
+                title: 'Tạo mới',
                 path: config.routes.adminProductInsert,
                 icon: <FontAwesomeIcon icon={faKeyboard} />
             }
@@ -67,11 +67,11 @@ const SidebarData = [
         iconOpened: <FontAwesomeIcon style={{ float: 'right' }} icon={faAngleUp} />,
         subNav: [
             {
-                title: 'List',
+                title: 'Danh sách',
                 path: config.routes.adminCoupon,
                 icon: <FontAwesomeIcon icon={faList} />
             }, {
-                title: 'Form',
+                title: 'Tạo mới',
                 path: config.routes.adminCouponInsert,
                 icon: <FontAwesomeIcon icon={faKeyboard} />
             }
@@ -84,12 +84,12 @@ const SidebarData = [
         iconOpened: <FontAwesomeIcon style={{ float: 'right' }} icon={faAngleUp} />,
         subNav: [
             {
-                title: 'List',
-                path: config.routes.adminCoupon,
+                title: 'Danh sách',
+                path: config.routes.adminCategory,
                 icon: <FontAwesomeIcon icon={faList} />
             }, {
-                title: 'Form',
-                path: config.routes.adminCouponInsert,
+                title: 'Tạo mới',
+                path: config.routes.adminCategoryInsert,
                 icon: <FontAwesomeIcon icon={faKeyboard} />
             }
         ]
@@ -101,11 +101,11 @@ const SidebarData = [
         iconOpened: <FontAwesomeIcon style={{ float: 'right' }} icon={faAngleUp} />,
         subNav: [
             {
-                title: 'List',
+                title: 'Danh sách',
                 path: config.routes.adminBrand,
                 icon: <FontAwesomeIcon icon={faList} />
             }, {
-                title: 'Form',
+                title: 'Tạo mới',
                 path: config.routes.adminBrandInsert,
                 icon: <FontAwesomeIcon icon={faKeyboard} />
             }

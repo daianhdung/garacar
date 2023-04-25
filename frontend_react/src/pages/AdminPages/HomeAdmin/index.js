@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import BarChart from "~/components/Chart/BarChart";
 
-import config from '~/config';
 
 const UserData = [
     {
@@ -38,6 +36,7 @@ const UserData = [
 ];
 
 function HomeAdmin() {
+
     const [userData, setUserData] = useState({
         labels: UserData.map((data) => data.year),
         datasets: [

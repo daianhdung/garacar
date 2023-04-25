@@ -28,7 +28,11 @@ const routes = {
      //Admin Brand
      adminBrand: '/admin-brand',
      adminBrandInsert: '/admin-brand-insert',
-     adminBrandUpdate: '/admin-brand-update'
+     adminBrandUpdate: '/admin-brand-update',
+     //Admin Category
+     adminCategory: '/admin-category',
+     adminCategoryInsert: '/admin-category-insert',
+     adminCategoryUpdate: '/admin-category-update'
 };
 
 export default routes;

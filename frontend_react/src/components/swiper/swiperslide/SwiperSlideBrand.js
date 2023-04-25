@@ -24,7 +24,7 @@ function SwiperSlideBrand( prop ) {
             modules={[Pagination, Navigation]}
             className="mySwiper"
         >
-            <SwiperSlide><img src={prop.img} width={prop.width} height={prop.height} className="" alt=""/></SwiperSlide>
+            <SwiperSlide><img style={prop.style} src={prop.img} width={prop.width} height={prop.height} className="" alt=""/></SwiperSlide>
             <SwiperSlide><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png" width={prop.width} height={prop.height} className="" alt=""/></SwiperSlide>
             <SwiperSlide><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png" width={prop.width} height={prop.height} className="" alt=""/></SwiperSlide>
             <SwiperSlide><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/800px-Image_created_with_a_mobile_phone.png" width={prop.width} height={prop.height} className="" alt=""/></SwiperSlide>

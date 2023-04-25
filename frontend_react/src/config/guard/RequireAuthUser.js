@@ -1,17 +1,19 @@
 import React from "react";
-import { useLocation, Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import useAuth from "~/hooks/useAuth";
 
 
 const RequireAuthUser = () => {
     const context = useAuth()
-    const location = useLocation()
-    
-    return (
-        context.authProvider.isLogin
-            ? <Outlet/>
-            : <Navigate to="/login" state={{ from: location }} replace />
-    )
+    const authProvider = context.authProvider
+
+    if (authProvider.isLogin && !authProvider.isAdmin) {
+        return <Navigate to="/home" replace />
+    } else if(authProvider.isLogin && authProvider.isAdmin) {
+        return <Navigate to="/admin-home" replace />
+    }else{
+        return <Outlet/>
+    }
 }
 
 export default RequireAuthUser

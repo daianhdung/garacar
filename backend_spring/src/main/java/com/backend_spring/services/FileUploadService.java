@@ -7,5 +7,5 @@ public interface FileUploadService {
 
     boolean storedFile(MultipartFile file, String nameDirectory);
 
-    Resource loadFileByName(String fileName);
+    Resource loadFileByName(String fileName, String nameDirectory);
 }

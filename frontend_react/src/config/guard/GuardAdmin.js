@@ -1,16 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
+import useAuth from "~/hooks/useAuth";
 
 
 const GuardAdmin = () => {
-    const isAdmin = useSelector(state => state.auth.isAdmin);
-    const isLogin = useSelector(state => state.auth.isLogin);
+
+    const context = useAuth()
     const location = useLocation()
     
 
     return (
-        isAdmin && isLogin
+        context.authProvider.isLogin && context.authProvider.isAdmin
             ? <Outlet/>
             : <Navigate to="/login" state={{ from: location }} replace />
     )

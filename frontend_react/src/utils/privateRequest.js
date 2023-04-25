@@ -4,6 +4,9 @@ import { getCookie, saveCookie } from "./utilsCookie";
 
 export const privateRequest = axios.create({
     baseURL: process.env.REACT_APP_DEFAULT_API_URL,
+    headers: {
+        Authorization: `Bearer ${getCookie('tokenJwt')}`
+    }
 });
 
 
@@ -20,7 +23,7 @@ export const putParamToken = async (path, data, headers) => {
     return response.data;
 }
 
-export const postBodyToken = async (path, json = {}, headers) => {
+export const postBodyToken = async (path, json , headers) => {
     const response = await privateRequest.post(path, json, headers)
     return response.data;
 }
@@ -37,6 +40,11 @@ export const getToken = async (path, headers) => {
 
 export const postTokenHeader = async (path, data, headers) => {
     const response = await privateRequest.post(path, data, headers)
+    return response.data;
+}
+
+export const deteteAdmin = async (path, headers) => {
+    const response = await privateRequest.delete(path, headers)
     return response.data;
 }
 
@@ -57,6 +65,7 @@ privateRequest.interceptors.response.use(
                 const expiredToken = myDecodedToken.exp - myDecodedToken.iat
                 const expiredRefreshToken = myDecodedRefreshToken.exp - myDecodedRefreshToken.iat
                 console.log(response);
+                console.log(expiredToken);
                 saveCookie("tokenJwt", response.data.token, expiredToken)
                 saveCookie("tokenJwtRefresh", response.data.freshToken, expiredRefreshToken)
                 privateRequest.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;

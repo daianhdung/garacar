@@ -37,7 +37,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                     securityContext.setAuthentication(authenticationToken);
                 }
             }else {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             }
         }else {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);

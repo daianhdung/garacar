@@ -1,105 +1,156 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function FormBrand({ brand,  handleUpdate , handleInsert, errors}) {
-    const [formBrand, setFormBrand] = useState(brand ? brand : '')
+function FormBrand({ brand, handleUpdate, handleInsert }) {
+    const [formBrand, setFormBrand] = useState(brand ? brand : '');
+    const [mainImage, SetMainImage] = useState();
+    const [errors, setErrors] = useState({});
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [])
+    }, []);
 
-
-    return (<div>
-        {brand ?
-            <div className="form-update row p-5 fs-2">
-                <div className="row justify-content-center mb-3">
-                    <div className="col-md-4 fw-bold">
-                        <label>Thay đổi thông tin người dùng </label></div>
-                </div>
-                <div className="row">
-                    <div className="form-group col-md-5">
-                        <label htmlFor="name">Họ và tên</label>
-                        <input style={{ height: '40px' }} type="text" className="form-control form-control-lg" id="name" placeholder={formBrand.fullname} onChange={(e) => setFormBrand({ ...formBrand, fullname: e.target.value })} disabled />
-                    </div>
-
-                    <div className="form-group col-md-5">
-                        <label htmlFor="name">Email</label>
-                        <input style={{ height: '40px' }} type="text" className="form-control form-control-lg" id="email" placeholder={formBrand.email} onChange={(e) => setFormBrand({ ...formBrand, email: e.target.value })} disabled />
-                    </div>
-                </div>
-
-
-                <div className="row mt-2">
-                    <div className="form-group col-md-5">
-                        <label htmlFor="name">Số điện thoại</label>
-                        <input style={{ height: '40px' }} type="text" className="form-control form-control-lg" id="phone" placeholder={formBrand.phone} onChange={(e) => setFormBrand({ ...formBrand, phone: e.target.value })} disabled />
-                    </div>
-                    <div className="form-group col-md-5">
-                        <label htmlFor="price">Địa chỉ</label>
-                        <input style={{ height: '40px' }} type="text" className="form-control form-control-lg" id="address" placeholder={formBrand.address} onChange={(e) => setFormBrand({ ...formBrand, address: e.target.value })} disabled />
-                    </div>
-                </div>
-
-                <div className="mt-5">
-                    <button style={{ width: '100px' }} className="me-4 btn btn-outline-info mb-2 btn-lg p-3" onClick={() => { handleUpdate(formBrand) }}>Xác nhận</button>
-                    <button style={{ width: '100px' }} className="btn btn-outline-danger mb-2 btn-lg p-3" onClick={() => navigate(-1)}>Quay lại</button>
-                </div>
-            </div>
-            :
-            //INSERT USER------------------
-            <div className="form-update row p-5 fs-2">
-                <div className="row justify-content-center mb-3">
-                    <div className="col-md-4 fw-bold">
-                        <label>Thêm mới người dùng </label></div>
-                </div>
-                <div className="row">
-                    <div className="form-group col-md-5">
-                        <label htmlFor="name">Họ và tên</label>
-                        <input style={{ height: '40px' }} type="text" className="form-control form-control-lg" id="name" placeholder={formBrand.fullname} onChange={(e) => setFormBrand({ ...formBrand, fullname: e.target.value })} />
-                        {errors.fullname && <span className="text-danger">{errors.fullname}</span>}
-                    </div>
-
-                    <div className="form-group col-md-5">
-                        <label htmlFor="name">Email</label>
-                        <input style={{ height: '40px' }} type="text" className="form-control form-control-lg" id="email" placeholder={formBrand.email} onChange={(e) => setFormBrand({ ...formBrand, email: e.target.value })} />
-                        {errors.email && <span className="text-danger">{errors.email}</span>}
-                    </div>
-                </div>
-
-
-                <div className="row mt-2">
-                    <div className="form-group col-md-5">
-                        <label htmlFor="name">Số điện thoại</label>
-                        <input style={{ height: '40px' }} type="text" className="form-control form-control-lg" id="phone" placeholder={formBrand.phone} onChange={(e) => setFormBrand({ ...formBrand, phone: e.target.value })} />
-                        {errors.phone && <span className="text-danger">{errors.phone}</span>}
-                    </div>
-                    <div className="form-group col-md-5">
-                        <label htmlFor="price">Địa chỉ</label>
-                        <input style={{ height: '40px' }} type="text" className="form-control form-control-lg" id="address" placeholder={formBrand.address} onChange={(e) => setFormBrand({ ...formBrand, address: e.target.value })} />
-                        {errors.address && <span className="text-danger">{errors.address}</span>}
-                    </div>
-                </div>
-
-
-
-                <div className="row mt-2">
-                    <div className="mb-3 col-md-5 h-50">
-                        <label htmlFor="newPassword" className="form-label">Mật khẩu mới</label>
-                        <input style={{ height: '35px' }} type="password" className="form-control form-control-lg" id="newPassword" onChange={(e) =>setFormBrand({ ...formBrand, password: e.target.value })} />
-                        {errors.password && <span className="text-danger">{errors.password}</span>}
-                    </div>
-                </div>
-
-                <div className="mt-5">
-                    <button style={{ width: '100px' }} className="me-4 btn btn-outline-info mb-2 btn-lg p-3" onClick={() => { handleInsert(formBrand) }}>Xác nhận</button>
-                    <button style={{ width: '100px' }} className="btn btn-outline-danger mb-2 btn-lg p-3" onClick={() => navigate(-1)}>Quay lại</button>
-                </div>
-            </div>
+    const handleSubmitUpdate = () => {
+        let newErrors = {};
+        if (!formBrand.name) {
+            newErrors.name = 'Tên bắt buộc';
         }
+        if (!formBrand.image) {
+            newErrors.image = 'Ảnh bắt buộc';
+        }
+        setErrors(newErrors);
+        if (Object.keys(newErrors).length === 0) {
+            handleUpdate(formBrand, mainImage);
+        }
+    };
+    const handleSubmitCreate = () => {
+        let newErrors = {};
+        if (!formBrand.name) {
+            newErrors.name = 'Tên bắt buộc';
+        }
+        setErrors(newErrors);
+        if (Object.keys(newErrors).length === 0) {
+            handleInsert(formBrand, mainImage);
+        }
+    };
 
-    </div>);
+    return (
+        <div>
+            {brand ? (
+                <div className="form-update row p-5 fs-4">
+                    <div className="row justify-content-center mb-3">
+                        <div className="col-md-5 fw-bold">
+                            <label>Thay đổi thông tin thương hiệu </label>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="form-group col-md-5">
+                            <label htmlFor="name">Tên thương hiệu</label>
+                            <input
+                                style={{ height: '40px' }}
+                                type="text"
+                                className="form-control form-control-lg"
+                                id="name"
+                                onChange={(e) => setFormBrand({ ...formBrand, name: e.target.value })}
+                                defaultValue={formBrand.name}
+                            />
+                        </div>
+
+                        <div className="form-group col-md-5">
+                            <label htmlFor="name">Ảnh</label>
+                            <div style={{ maxHeight: '250px', maxWidth: '250px' }}>
+                                {mainImage ? (
+                                    <img className="w-50 h-50" src={URL.createObjectURL(mainImage)} />
+                                ) : (
+                                    <img className="w-50 h-50" src={formBrand.image} />
+                                )}
+                            </div>
+                            <input
+                                type="file"
+                                className="form-control-file"
+                                id="main-image"
+                                onChange={(e) => SetMainImage(e.target.files[0])}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="mt-5">
+                        <button
+                            style={{ width: '100px' }}
+                            className="me-4 btn btn-outline-info mb-2"
+                            onClick={() => {
+                                handleSubmitUpdate();
+                            }}
+                        >
+                            Xác nhận
+                        </button>
+                        <button
+                            style={{ width: '100px' }}
+                            className="btn btn-outline-danger mb-2"
+                            onClick={() => navigate(-1)}
+                        >
+                            Quay lại
+                        </button>
+                    </div>
+                </div>
+            ) : (
+                //INSERT USER------------------
+                <div className="form-update row p-5 fs-4">
+                    <div className="row justify-content-center mb-3">
+                        <div className="col-md-5 fw-bold">
+                            <label>Thêm mới thương hiệu </label>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="form-group col-md-5">
+                            <label htmlFor="name">Tên thương hiệu</label>
+                            <input
+                                style={{ height: '40px' }}
+                                type="text"
+                                className="form-control form-control-lg"
+                                id="name"
+                                onChange={(e) => setFormBrand({ ...formBrand, name: e.target.value })}
+                            />
+                            {errors.name && <span className="text-danger">{errors.name}</span>}
+                        </div>
+
+                        <div className="form-group col-md-5">
+                            <label htmlFor="name">Ảnh</label>
+                            <div style={{ maxHeight: '250px', maxWidth: '250px' }}>
+                                {mainImage && <img className="w-50 h-50" src={URL.createObjectURL(mainImage)} />}
+                            </div>
+                            <input
+                                type="file"
+                                className="form-control-file"
+                                id="main-image"
+                                onChange={(e) => SetMainImage(e.target.files[0])}
+                            />
+                            {errors.image && <span className="text-danger">{errors.image}</span>}
+                        </div>
+                    </div>
+
+                    <div className="mt-5">
+                        <button
+                            style={{ width: '100px' }}
+                            className="me-4 btn btn-outline-info mb-2"
+                            onClick={() => handleSubmitCreate()}
+                        >
+                            Xác nhận
+                        </button>
+                        <button
+                            style={{ width: '100px' }}
+                            className="btn btn-outline-danger mb-2"
+                            onClick={() => navigate(-1)}
+                        >
+                            Quay lại
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 }
 
 export default FormBrand;

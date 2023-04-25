@@ -17,5 +17,5 @@ server:
     context-path: /api
 
 file:
-  upload-dir: /img
+  upload-dir: E:\GaraCarProject\image\
 

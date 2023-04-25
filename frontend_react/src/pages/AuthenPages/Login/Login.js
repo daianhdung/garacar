@@ -1,26 +1,24 @@
 import classNames from 'classnames/bind';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import images from '~/assets';
 import config from '~/config';
 import * as loginService from '~/services/loginService';
 import styles from './Login.module.scss';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '~/app/features/auth/authSlice';
-import { errorToast } from '~/components/Popups';
+import { decodeToken } from 'react-jwt';
 import { validPassword } from '~/utils/regex';
-// import { useJwt } from "react-jwt";
+import useAuth from '~/hooks/useAuth';
+import { saveCookie } from '~/utils/utilsCookie';
 
 const cx = classNames.bind(styles);
 
 function Login({ setIsLoading }) {
     const navigate = useNavigate();
     const location = useLocation();
-    const dispatch = useDispatch();
 
-    const test = useSelector((state) => state.auth);
+    const contextAuth = useAuth()
 
     const from = location.state?.from?.pathname || '/';
 
@@ -55,7 +53,6 @@ function Login({ setIsLoading }) {
     };
 
     const handleClick = () => {
-        setIsLoading(true);
         let newErrors = {};
         if (!state.email) {
             newErrors.email = 'Username bắt buộc';
@@ -68,25 +65,34 @@ function Login({ setIsLoading }) {
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
             const fetchApi = async () => {
+                setIsLoading(true)
                 try {
                     const result = await loginService.login(state.email, state.password);
+                    const myDecodedToken = decodeToken(result.data.token);
+                    const myDecodedRefreshToken = decodeToken(result.data.freshToken);
+                    const expiredToken = myDecodedToken.exp - myDecodedToken.iat
+                    const expiredRefreshToken = myDecodedRefreshToken.exp - myDecodedRefreshToken.iat
+                    const tokenDecoded = JSON.parse(myDecodedToken.sub)
+
                     if (result.success) {
-                        dispatch(login(result.data));
-                        console.log(result.data);
-                        if (result.data.role == 'ROLE_ADMIN') {
-                            navigate('/admin-home', { replace: true });
+                        saveCookie('tokenJwt', result.data.token, expiredToken)
+                        saveCookie('tokenJwtRefresh', result.data.freshToken, expiredRefreshToken)
+                        contextAuth.authProvider.username = tokenDecoded.username
+                        contextAuth.authProvider.isLogin = true
+                        if (result.data.role === 'ROLE_ADMIN') {
+                            contextAuth.authProvider.isAdmin = true
+                            navigate('/admin-home', { replace: true })
                         } else {
-                            navigate(from, { replace: true });
+                            navigate(from, { replace: true })
                         }
-                    } else {
-                        errorToast(result.desc);
                     }
                 } catch (errors) {
-                    errorToast(errors);
-                } finally {
-                    setIsLoading(false);
+                    setIsLoading(false)
+
                 }
+                setIsLoading(false)
             };
+
             fetchApi();
         }
     };

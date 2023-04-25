@@ -15,7 +15,7 @@ function DefaultLayout({children}) {
                     {location.pathname == config.routes.home ||
                     location.pathname == '/' ? (
                         <>
-                        <div style={{maxWidth: '1400px'}} className="container-fluid">
+                        <div style={{maxWidth: '1300px'}} className="container-fluid">
                             {children}
                         </div>
                         </>

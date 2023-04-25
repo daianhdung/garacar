@@ -1,10 +1,29 @@
 import classNames from 'classnames/bind';
 
 import styles from './Footer.module.scss';
+import { useEffect, useState } from 'react';
+import { interval } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 const cx = classNames.bind(styles);
 
 function Footer() {
+    const [time, setTime] = useState('');
+    const [date, setDate] = useState('');
+    const [clockSubscription, setClockSubscription] = useState();
+
+    useEffect(() => {
+        const clock = interval(1000).pipe(map(() => new Date()));
+        const subscription = clock.subscribe((currentTime) => {
+            setTime(currentTime.toLocaleTimeString());
+            const dateObject = new Date(currentTime.toLocaleDateString());
+            const formattedDate = dateObject.toLocaleDateString('en-GB');
+            setDate(formattedDate);
+        });
+        setClockSubscription(subscription);
+        return () => subscription.unsubscribe();
+    }, []);
+
     return (
         <>
             <footer style={{ background: '#23242a' }}>
@@ -130,9 +149,10 @@ function Footer() {
                     </footer>
                 </div>
                 <span>
-                    <div style={{zIndex: '999'}} className={cx('scroll-text-container')}>
+                    <div style={{ zIndex: '999' }} className={cx('scroll-text-container')}>
                         <p className={cx('scroll-text')}>
-                            Ngày giờ hiện tại: Đia chỉ: 199 Đ. Gò Dưa, Bình Chiểu, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam
+                            Ngày giờ hiện tại: {time} {date} Đia chỉ: 199 Đ. Gò Dưa,
+                            Bình Chiểu, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam
                         </p>
                     </div>
                 </span>
