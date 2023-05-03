@@ -4,6 +4,8 @@ import styles from './Footer.module.scss';
 import { useEffect, useState } from 'react';
 import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
+import useViewport from '~/hooks/useViewport';
+import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
 
 const cx = classNames.bind(styles);
 
@@ -24,6 +26,9 @@ function Footer() {
         return () => subscription.unsubscribe();
     }, []);
 
+    const viewPort = useViewport();
+    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+
     return (
         <>
             <footer style={{ background: '#23242a' }}>
@@ -35,7 +40,7 @@ function Footer() {
                             <div className="row mt-4">
                                 {/* Grid column--> */}
                                 <div className="col-lg-4 col-md-12 mb-4 mb-md-0">
-                                    <h5 className="text-uppercase mb-4">About company</h5>
+                                    <h5 className="text-uppercase mb-4">Về chúng tôi</h5>
 
                                     <p>
                                         At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
@@ -71,23 +76,7 @@ function Footer() {
 
                                 {/* Grid column--> */}
                                 <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-                                    <h5 className="text-uppercase mb-4 pb-1">Search something</h5>
-
-                                    <div className="form-outline form-white mb-4">
-                                        <input
-                                            type="text"
-                                            id="formControlLg"
-                                            className="form-control form-control-lg"
-                                        />
-                                        <label className="form-label" htmlFor="formControlLg">
-                                            Search
-                                        </label>
-                                        <div className="form-notch">
-                                            <div className="form-notch-leading" style={{ width: '9px' }}></div>
-                                            <div className="form-notch-middle" style={{ width: '48.8px' }}></div>
-                                            <div className="form-notch-trailing"></div>
-                                        </div>
-                                    </div>
+                                    <h5 className="text-uppercase mb-4 pb-1">Địa chỉ</h5>
 
                                     <ul className="fa-ul" style={{ marginLeft: '1.65em' }}>
                                         <li className="mb-3">
@@ -122,7 +111,7 @@ function Footer() {
 
                                 {/* Grid column--> */}
                                 <div className="col-lg-4 col-md-6 mb-4 mb-md-0">
-                                    <h5 className="text-uppercase mb-4">Opening hours</h5>
+                                    <h5 className="text-uppercase mb-4">Thời gian mở cửa</h5>
 
                                     <table className="table text-center text-white">
                                         <tbody className="font-weight-normal">
@@ -151,7 +140,8 @@ function Footer() {
                 <span>
                     <div style={{ zIndex: '999' }} className={cx('scroll-text-container')}>
                         <p className={cx('scroll-text')}>
-                            Ngày giờ hiện tại: {time} {date} Đia chỉ: 199 Đ. Gò Dưa,
+                            {isMobile ? '' : `Ngày giờ hiện tại: ${time} ${date} `}
+                            Đia chỉ: 199 Đ. Gò Dưa,
                             Bình Chiểu, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam
                         </p>
                     </div>

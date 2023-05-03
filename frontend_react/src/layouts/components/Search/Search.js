@@ -7,36 +7,36 @@ import styles from './Search.module.scss';
 import React, { useEffect, useRef, useState } from 'react';
 import { faCircle, faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import ProductItem from '~/components/ProductItem/ProductItem';
-import { searchProduct } from '~/services/getProductService';
+import { searchProduct } from '~/services/productService';
 import useDebounce from '~/hooks/useDebounce';
+import useViewport from '~/hooks/useViewport';
+import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
 
 const cx = classNames.bind(styles);
 
 function Search() {
-    const [searchValue, setSearchValue] = useState('')
-    const [searchResult, setSearchResult] = useState([])
-    const [showResult, setShowResult] = useState(false)
-    const [loading, setLoading] = useState(false)
-    
-    const debounceValue = useDebounce(searchValue, 500)
+    const [searchValue, setSearchValue] = useState('');
+    const [searchResult, setSearchResult] = useState([]);
+    const [showResult, setShowResult] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const debounceValue = useDebounce(searchValue, 500);
 
     useEffect(() => {
-        if(!debounceValue.trim()){
-            setSearchResult([])
+        if (!debounceValue.trim()) {
+            setSearchResult([]);
             return;
         }
 
         const fetchApiSearchProduct = async () => {
             setLoading(true);
-            const response = await searchProduct(debounceValue)
-            setSearchResult(response)
+            const response = await searchProduct(debounceValue);
+            setSearchResult(response);
             setLoading(false);
-        }
-        
+        };
 
-        fetchApiSearchProduct()
-        
-    }, [debounceValue])
+        fetchApiSearchProduct();
+    }, [debounceValue]);
 
     const inputRef = useRef();
 
@@ -58,39 +58,61 @@ function Search() {
     };
     const [over, setOver] = useState(false);
 
-    return (<div>
-        <Tippy interactive
-            visible={showResult}
-            render={(attrs) => (
-                <div onClick={handleHideResult} className={cx('wrapper')}>
-                    <div className={cx('search_result')} tabIndex="-1" {...attrs}>
-                        {searchResult && searchResult.map((item) => (
-                            <ProductItem key={item.id} data={item} />
-                        ))}
-                        {!searchValue && <h2 align='center'>Nhập vào kết quả tìm kiếm</h2>}
-                        {!searchResult.length > 0 && searchValue && <h2 align='center'>Không tìm thấy kết quả tìm kiếm</h2>}
+    const viewPort = useViewport();
+    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+
+    return (
+        <div className='w-100'>
+            <Tippy
+                interactive
+                visible={showResult}
+                render={(attrs) => (
+                    <div onClick={handleHideResult} className={cx('wrapper')}>
+                        <div className={cx('search_result')} tabIndex="-1" {...attrs}>
+                            {searchResult && searchResult.map((item) => <ProductItem key={item.id} data={item} />)}
+                            {!searchValue ? (
+                                <h5 align="center">Nhập vào kết quả tìm kiếm</h5>
+                            ) : loading ? (
+                                <h5 align="center">Tìm kiếm kết quả ....</h5>
+                            ) : searchResult ? (
+                                ''
+                            ) : (
+                                <h5 align="center">Nhập vào kết quả tìm kiếm</h5>
+                            )}
+                        </div>
                     </div>
-                    
-                </div>
-            )} onClickOutside={handleHideResult}>
-            <div className={cx('search_form')}>
-                <input ref={inputRef}    type="text" placeholder="Tìm kiếm sản phẩm..." value={searchValue} spellCheck={false} onChange={handleChange}
-                    onFocus={() => setShowResult(true)} />
-
-                {searchValue && !loading && (
-                    <button onClick={handleClear} className={cx('clear_input')}>
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
                 )}
+                onClickOutside={handleHideResult}
+            >
+                <div className={cx('search_form')}>
+                    <input
+                        ref={inputRef}
+                        type="text"
+                        placeholder="Tìm kiếm sản phẩm..."
+                        value={searchValue}
+                        spellCheck={false}
+                        onChange={handleChange}
+                        onFocus={() => setShowResult(true)}
+                    />
 
-                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-                <button onMouseOver={() => setOver(true)}
-                    onMouseLeave={() => setOver(false)} className={cx('btn-search')} >
-                    <FontAwesomeIcon style={over ? { color: "black" } : {}} icon={faMagnifyingGlass} />
-                </button>
-            </div>
-        </Tippy>
-    </div>);
+                    {searchValue && !loading && (
+                        <button onClick={handleClear} className={cx('clear_input')}>
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
+                    )}
+
+                    {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
+                    <button
+                        onMouseOver={() => setOver(true)}
+                        onMouseLeave={() => setOver(false)}
+                        className={cx('btn-search')}
+                    >
+                        <FontAwesomeIcon style={over ? { color: 'black' } : {}} icon={faMagnifyingGlass} />
+                    </button>
+                </div>
+            </Tippy>
+        </div>
+    );
 }
 
 export default Search;

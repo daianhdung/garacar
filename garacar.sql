@@ -1,3 +1,6 @@
+--username: persol.project123@gmail.com
+--password: sdhfqvkdzcquvfqd
+
 CREATE TABLE "role" (
   "id" SERIAL PRIMARY KEY,
   "name" VARCHAR(50) NOT NULL,
@@ -43,7 +46,7 @@ CREATE TABLE "product" (
   "description" VARCHAR(1000),
   "detail" VARCHAR(1000),
   "category_id" int,
-  "create_at" TIMESTAMP DEFAULT (now()),
+  "create_at" TIMESTAMP  DEFAULT (now()),
   "create_by" VARCHAR(50),
   "brand_id" int
 );
@@ -279,19 +282,5 @@ INSERT INTO
 VALUES
   ('Camera 360');
 
-
--- CREATE TABLE "product" (
---   "id" SERIAL PRIMARY KEY,
---   "name" varchar(100),
---   "main_image" varchar(255),
---   "amount_of_sold" int DEFAULT 0,
---   "price" int,
---   "description" VARCHAR(1000),
---   "detail" VARCHAR(1000),
---   "category_id" int,
---   "create_at" TIMESTAMP DEFAULT (now()),
---   "create_by" VARCHAR(50),
---   "brand_id" int
--- );
 
 INSERT INTO "product"(name, main_image, price, detail, category_id, brand_id, create_by) VALUES('Test product', 'san-pham-camera-360-z311.jpg',  17000000,'Chi tiết sản phẩm', 1, 2, 'admin')

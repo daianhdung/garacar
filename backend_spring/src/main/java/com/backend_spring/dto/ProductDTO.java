@@ -18,6 +18,8 @@ public class ProductDTO {
 
     private String detail;
 
+    private String description;
+
     private String mainImage;
 
     private int brandId;
@@ -34,9 +36,5 @@ public class ProductDTO {
     private List<String> images;
 
     private int quantity;
-
-    private int totalPage;
-
-    private int currentPage;
 
 }

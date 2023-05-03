@@ -19,6 +19,7 @@ function UpdateProduct() {
             price : formProduct.price,
             brandId : formProduct.brandId,
             categoryId : formProduct.categoryId,
+            description: formProduct.description
         }
         
         const formData = new FormData();

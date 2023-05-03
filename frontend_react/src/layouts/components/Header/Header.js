@@ -2,51 +2,131 @@ import { Link } from 'react-router-dom';
 import images from '~/assets';
 import config from '~/config';
 import Search from '../Search/Search';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+
+import classNames from 'classnames/bind';
+import styles from './Header.module.scss';
+import useViewport from '~/hooks/useViewport';
+import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+
+const cx = classNames.bind(styles);
 
 function Header() {
+    const viewPort = useViewport();
+    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+
     return (
         <>
-            <div className="bg-dark">
-                <div className="container-fluid" style={{ maxWidth: '1300px', maxHeight: '40px' }}>
-                    <div className="row">
-                        <div className="col-md-8">
-                            <ul style={{ display: 'flex', justifyContent: 'flex-start' }} className="navbar text-white">
-                                <li className="nav-item">
-                                    <a href="#" className="text-white">
-                                        <i class="bi bi-telephone-fill"></i> 123-456-789
+            <div style={{ background: '#FFE880' }}>
+                <div
+                    className="container-fluid container container-sm"
+                    style={isMobile ? {} : { maxWidth: '1300px', maxHeight: '40px' }}
+                >
+                    {isMobile ? (
+                        <>
+                            <div className="row">
+                                <div className="nav-item col-6 offset-4">
+                                    <a href="#" className={cx('text-success')}>
+                                        <i className="bi bi-telephone-fill"></i> 123-456-789
                                     </a>
-                                </li>
-                                <li className="ms-3 nav-item">
-                                    <a href="#" className="text-white">
-                                        <i class="bi bi-envelope"></i> contact@yourdomain.com
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="nav-item col-9 offset-3">
+                                    <a href="#" className="text-success">
+                                        <i className="bi bi-envelope"></i> contact@yourdomain.com
                                     </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="col-md-4 text-white">
-                            {/* Facebook --> */}
-                            <a type="button" className="text-white mt-2 mx-3">
-                                <i className="bi bi-facebook"></i>
-                            </a>
-                            {/* Dribbble --> */}
-                            <a type="button" className="text-white mt-2 mx-3">
-                                <i className="bi bi-linkedin"></i>
-                            </a>
-                            {/* Twitter --> */}
-                            <a type="button" className="text-white mt-2 mx-3">
-                                <i className="bi bi-twitter"></i>
-                            </a>
-                            {/* Google + --> */}
-                            <a type="button" className="text-white mt-2 mx-3">
-                                <i className="bi bi-google"></i>
-                            </a>
-                            {/* Linkedin --> */}
-                        </div>
-                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="offset-3 col-8">
+                                    {/* Facebook --> */}
+                                    <Link
+                                        to={config.routes.linkFB}
+                                        target="_blank"
+                                        type="button"
+                                        className="text-primary mt-2 mx-3"
+                                    >
+                                        <i className="bi bi-facebook"></i>
+                                    </Link>
+                                    {/* Dribbble --> */}
+                                    <Link
+                                        to={config.routes.linkYT}
+                                        target="_blank"
+                                        type="button"
+                                        className="text-danger mt-2 mx-3"
+                                    >
+                                        <i className="bi bi-youtube"></i>
+                                    </Link>
+                                    {/* Twitter --> */}
+                                    <a type="button" className="text-info mt-2 mx-3">
+                                        <i className="bi bi-twitter"></i>
+                                    </a>
+                                    {/* Google + --> */}
+                                    <a type="button" className="text-danger mt-2 mx-3">
+                                        <i className="bi bi-instagram"></i>
+                                    </a>
+                                    {/* Linkedin --> */}
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <div className="row">
+                                <div className="col-md-8 col-sm-8 col">
+                                    <ul
+                                        style={{ display: 'flex', justifyContent: 'flex-start' }}
+                                        className="navbar text-dark"
+                                    >
+                                        <li className="nav-item">
+                                            <a href="#" className={cx('text-success')}>
+                                                <i className="bi bi-telephone-fill"></i> 123-456-789
+                                            </a>
+                                        </li>
+                                        <li className="ms-3 nav-item col">
+                                            <a href="#" className="text-success">
+                                                <i className="bi bi-envelope"></i> contact@yourdomain.com
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div className="col-md-4 col-sm-4 text-dark col">
+                                    {/* Facebook --> */}
+                                    <Link
+                                        to={config.routes.linkFB}
+                                        target="_blank"
+                                        type="button"
+                                        className="text-primary mt-2 mx-3"
+                                    >
+                                        <i className="bi bi-facebook"></i>
+                                    </Link>
+                                    {/* Dribbble --> */}
+                                    <Link
+                                        to={config.routes.linkYT}
+                                        target="_blank"
+                                        type="button"
+                                        className="text-danger mt-2 mx-3"
+                                    >
+                                        <i className="bi bi-youtube"></i>
+                                    </Link>
+                                    {/* Twitter --> */}
+                                    <a type="button" className="text-info mt-2 mx-3">
+                                        <i className="bi bi-twitter"></i>
+                                    </a>
+                                    {/* Google + --> */}
+                                    <a type="button" className="text-danger mt-2 mx-3">
+                                        <i className="bi bi-instagram"></i>
+                                    </a>
+                                    {/* Linkedin --> */}
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
             <nav className="navbar navbar-expand-lg">
-                <div className="container-fluid" style={{ maxWidth: '1300px' }}>
+                <div className="container-fluid container container-sm" style={{ maxWidth: '1300px' }}>
                     <Link to={config.routes.home} className="me-4">
                         <img style={{ objectFit: 'cover' }} width="120" height="55" src={images.logo} alt="" />
                     </Link>
@@ -65,20 +145,30 @@ function Header() {
                         <form className="d-flex search_input" role="search">
                             <Search />
                         </form>
-                        <ul
-                            style={{ minWidth: '500px', display: 'flex', justifyContent: 'center' }}
-                            className="mx-5 navbar-nav"
-                        >
+                        <ul style={{ display: 'flex', justifyContent: 'center' }} className="mx-5 navbar-nav">
                             <li className="nav-item navitem_hover">
-                                <a className="nav-link" aria-current="page">
+                                <Link to={config.routes.home} className="nav-link" aria-current="page">
                                     Trang chủ
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item navitem_hover">
-                                <a className="nav-link">Sản phẩm</a>
+                                <Link to={config.routes.product} className="nav-link">
+                                    Sản phẩm
+                                </Link>
                             </li>
                             <li className="nav-item navitem_hover">
-                                <a className="nav-link">Liên hệ</a>
+                                <a className="nav-link">Dịch vụ</a>
+                            </li>
+                            <li className="nav-item navitem_hover">
+                                <Link to={config.routes.contact} className="nav-link">
+                                    Liên hệ
+                                </Link>
+                            </li>
+                            <li className="nav-item navitem_hover">
+                                <Link className="nav-link">
+                                    <FontAwesomeIcon style={{ color: '#4caf50' }} icon={faCartShopping} />
+                                </Link>
+                                {/* <span className={cx('logo_number', 'logo_number_orange')}>{localItems ? cartContext.getTotalQuantityCart() : 0}</span> */}
                             </li>
                         </ul>
                     </div>

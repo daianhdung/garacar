@@ -12,8 +12,8 @@ import { AuthProvider } from './context/AuthProvider';
 function App() {
     return (
         <Router>
-            {/* <CartProvider>
-                <FilterProvider> */}
+            <CartProvider>
+                <FilterProvider>
                     <AuthProvider>
                         <div className="App">
                             <Outlet />
@@ -89,8 +89,8 @@ function App() {
                             </Routes>
                         </div>
                     </AuthProvider>
-                {/* </FilterProvider>
-            </CartProvider> */}
+                </FilterProvider>
+            </CartProvider>
         </Router>
     );
 }

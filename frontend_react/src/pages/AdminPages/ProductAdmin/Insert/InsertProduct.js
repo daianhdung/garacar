@@ -19,6 +19,7 @@ function InsertProduct() {
             price : formProduct.price,
             brandId : formProduct.brandId,
             categoryId : formProduct.categoryId,
+            description: formProduct.description
         }
         
         const formData = new FormData();
@@ -26,8 +27,10 @@ function InsertProduct() {
         if (mainImage) {
             formData.append('mainImage', mainImage, mainImage.name)
         }
-        for(let i = 0; i < images.length; i++){
-            formData.append('images', images[i])
+        if(images){
+            for(let i = 0; i < images.length; i++){
+                formData.append('images', images[i])
+            }
         }
 
         const fetchApiCreateProduct = async () => {

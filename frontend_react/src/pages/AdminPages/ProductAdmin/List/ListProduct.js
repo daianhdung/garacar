@@ -19,7 +19,7 @@ function ListProduct({products , handleDelete}) {
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
-                            <th scope="col">Tên thể loại</th>
+                            <th scope="col">Tên sản phẩm</th>
                             <th scope="col">Ảnh</th>
                             <th scope="col">Thương hiệu</th>
                             <th scope="col">Thể loại</th>
@@ -36,8 +36,8 @@ function ListProduct({products , handleDelete}) {
                                         <td style={{maxWidth: '150px'}}>{product.name}</td>
 
                                         <td><img style={{objectFit: 'contain'}} src={product.mainImage} /></td>
-                                        <td style={{maxWidth: '150px'}}>{product.brandName}</td>
-                                        <td style={{maxWidth: '150px'}}>{product.categoryName}</td>
+                                        <td style={{maxWidth: '150px'}}>{product.brandName ? product.brandName : "không có thương hiệu"}</td>
+                                        <td style={{maxWidth: '150px'}}>{product.categoryName ? product.categoryName : "không có thể loại"}</td>
                                         <td style={{maxWidth: '150px'}}>{formatNumber(product.price)}</td>
 
                                         <td className={cx("table-action")}>

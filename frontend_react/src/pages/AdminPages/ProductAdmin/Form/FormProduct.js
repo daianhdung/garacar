@@ -1,8 +1,10 @@
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function FormProduct({ product, handleUpdate, handleInsert, brands, categories }) {
-    const [formProduct, setFormProduct] = useState(product ? product : { categoryId: 1, brandId: 1 });
+    const [formProduct, setFormProduct] = useState(product ? product : '');
     const [mainImage, SetMainImage] = useState();
     const [images, SetImages] = useState();
     const [errors, setErrors] = useState({});
@@ -48,12 +50,12 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                 <div className="form-update row p-5 fs-4">
                     <div className="row justify-content-center mb-3">
                         <div className="col-md-5 fw-bold">
-                            <label>Thay đổi thông tin thể loại </label>
+                            <label>Thay đổi thông tin sản phẩm </label>
                         </div>
                     </div>
                     <div className="row">
                         <div className="form-group col-md-5">
-                            <label htmlFor="name">Tên thể loại</label>
+                            <label htmlFor="name">Tên sản phẩm</label>
                             <input
                                 style={{ height: '40px' }}
                                 type="text"
@@ -128,7 +130,11 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                                     onChange={(e) => SetMainImage(e.target.files[0])}
                                 />
                                 <div className="mt-3" style={{ maxHeight: '250px', maxWidth: '250px' }}>
-                                    {mainImage ? <img className="w-50 h-50" src={URL.createObjectURL(mainImage)} /> : <img className="w-50 h-50" src={formProduct.mainImage}/>}
+                                    {mainImage ? (
+                                        <img className="w-50 h-50" src={URL.createObjectURL(mainImage)} />
+                                    ) : (
+                                        <img className="w-50 h-50" src={formProduct.mainImage} />
+                                    )}
                                 </div>
                                 {errors.image && <span className="text-danger">{errors.image}</span>}
                             </div>
@@ -144,23 +150,36 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                                 />
                                 <div className="mt-3">
                                     <div className="row">
-                                        {images ?
-                                            [...images].map((item, index) => (
-                                                <div
-                                                    className="col-md-4"
-                                                    key={index}
-                                                    style={{ maxHeight: '300px', maxWidth: '250px' }}
-                                                >
-                                                    <img className="w-100 h-100" src={URL.createObjectURL(item)} />
-                                                </div>
-                                            ))
-                                            : formProduct.images.map(item => (
-                                                <img className="w-50 h-50" src={item}/>
-                                            ))
-                                        }
+                                        {images
+                                            ? [...images].map((item, index) => (
+                                                  <div
+                                                      className="col-md-4"
+                                                      key={index}
+                                                      style={{ maxHeight: '300px', maxWidth: '250px' }}
+                                                  >
+                                                      <img className="w-100 h-100" src={URL.createObjectURL(item)} />
+                                                  </div>
+                                              ))
+                                            : formProduct.images.map((item) => (
+                                                  <img className="w-50 h-50" src={item} />
+                                              ))}
                                     </div>
                                 </div>
                                 {errors.image && <span className="text-danger">{errors.image}</span>}
+                            </div>
+                        </div>
+
+                        <div className="row mt-4">
+                            <label htmlFor="name">Mô tả</label>
+                            <div className="col-md-10">
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    data={formProduct.description}
+                                    onChange={(event, editor) => {
+                                        const data = editor.getData();
+                                        setFormProduct({ ...formProduct, description: data });
+                                    }}
+                                />
                             </div>
                         </div>
                     </div>
@@ -214,7 +233,7 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                                 id="name"
                                 onChange={(e) => setFormProduct({ ...formProduct, price: e.target.value })}
                             />
-                            {errors.name && <span className="text-danger">{errors.name}</span>}
+                            {errors.price && <span className="text-danger">{errors.price}</span>}
                         </div>
                     </div>
 
@@ -227,6 +246,7 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                                 id="brand"
                                 onChange={(e) => setFormProduct({ ...formProduct, brandId: e.target.value })}
                             >
+                                <option value={''}>-- Thương hiệu --</option>
                                 {brands &&
                                     brands.map((item) => (
                                         <option key={item.id} value={item.id}>
@@ -244,6 +264,7 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                                 id="category"
                                 onChange={(e) => setFormProduct({ ...formProduct, categoryId: e.target.value })}
                             >
+                                <option value={''}>-- Thể loại --</option>
                                 {categories &&
                                     categories.map((item) => (
                                         <option key={item.id} value={item.id}>
@@ -294,6 +315,20 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                                 </div>
                             </div>
                             {errors.image && <span className="text-danger">{errors.image}</span>}
+                        </div>
+                    </div>
+
+                    <div className="row mt-4">
+                        <label htmlFor="name">Mô tả</label>
+                        <div className="col-md-10">
+                            <CKEditor
+                                editor={ClassicEditor}
+                                data={formProduct.description}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    setFormProduct({ ...formProduct, description: data });
+                                }}
+                            />
                         </div>
                     </div>
 

@@ -29,20 +29,6 @@ export const getDetailProduct = async(id) => {
     }
 }
 
-export const searchProduct = async (keyword, type = 'less') => {
-    try {
-        const res = await httpRequest.getParams('product/search-product', {
-            params: {
-                keyword,
-                type
-            },
-        });
-        return res.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
-
 export const searchBrandOrCategory = async (brandId, categoryId) => {
     try {
         const res = await httpRequest.getParams('product/search-productby', {

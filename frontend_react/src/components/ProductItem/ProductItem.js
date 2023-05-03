@@ -11,7 +11,7 @@ function ProductItem({ data }) {
 
     return (<Link to={config.routes.detail + '/'+ data.id}>
         <div className={cx('wrapper')}>
-            <img src={process.env.REACT_APP_IMG_URL + data.mainImage} className={cx('image')} alt="Product" />
+            <img src={data.mainImage} className={cx('image')} alt="Product" />
             <div className={cx('info')}>
                 <p className={cx('name')}>{data.name}</p>
                 <span className={cx('price')}>{formatNumber(data.price)}₫</span>

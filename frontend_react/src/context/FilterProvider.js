@@ -1,94 +1,85 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react';
 
-const FilterContext = createContext()
-
-
+const FilterContext = createContext();
 
 export const FilterProvider = ({ children }) => {
-
     const [filter, setFilter] = useState({
-        searchName: "",
-        brandId: [],
-        sizeId: [],
-        categoryId: [],
-        sort: ""
-    })
+        searchKeyword: '',
+        brandIds: [],
+        categoryIds: [],
+        currentPage: 1,
+        totalItemEachPage: '12',
+        sortType: '',
+    });
+
+
     const handleFilter = (newFilter) => {
         setFilter({
             ...filter,
-            ...newFilter
-        })
-    }
-
-
-    const handleCheckSize = (id) => {
-        const isChecked = filter.sizeId.includes(id)
-        console.log(filter.sizeId);
-        var arrayTest = filter.sizeId
-        if (isChecked) {
-            arrayTest = arrayTest.filter(item => item !== id);
-            setFilter({...filter, sizeId: arrayTest})
-        } else {
-            arrayTest.push(id)
-            setFilter({...filter, sizeId: arrayTest})
-        }
-    }
+            ...newFilter,
+        });
+    };
 
     const handleCheckCategory = (id) => {
-        const isChecked = filter.categoryId.includes(id)
-        console.log(filter.categoryId);
-        var arrayTest = filter.categoryId
+        const isChecked = filter.categoryIds.includes(id);
+        let arrayCheck = filter.categoryIds;
         if (isChecked) {
-            arrayTest = arrayTest.filter(item => item !== id);
-            setFilter({...filter, categoryId: arrayTest})
+            arrayCheck = arrayCheck.filter((item) => item !== id);
         } else {
-            arrayTest.push(id)
-            setFilter({...filter, categoryId: arrayTest})
+            arrayCheck.push(id);
         }
-    }
-
-
+        setFilter({ ...filter, categoryIds: arrayCheck });
+    };
 
     const handleCheckBrand = (id) => {
-        const isChecked = filter.brandId.includes(id)
-        console.log(filter.brandId);
-        var arrayTest = filter.brandId
+        const isChecked = filter.brandIds.includes(id);
+        let arrayCheck = filter.brandIds;
         if (isChecked) {
-            arrayTest = arrayTest.filter(item => item !== id);
-            setFilter({...filter, brandId: arrayTest})
+            arrayCheck = arrayCheck.filter((item) => item !== id);
         } else {
-            arrayTest.push(id)
-            setFilter({...filter, brandId: arrayTest})
+            arrayCheck.push(id);
         }
-    }
+        setFilter({ ...filter, brandIds: arrayCheck });
+    };
 
     const handleClickBrand = (idBrand) => {
-        setFilter({...filter, brandId: [idBrand]})
-    }
+        setFilter({ ...filter, brandIds: [idBrand] });
+    };
 
     const handleClickCate = (idCate) => {
-        setFilter({...filter, categoryId: [idCate]})
-    }
+        setFilter({ ...filter, categoryIds: [idCate] });
+    };
 
- 
+    const handleSort = (e) => {
+        setFilter({ ...filter, sortType: e.target.value });
+    };
+
+    const handleCurrentPage = (page) => {
+        setFilter({ ...filter, currentPage: page });
+    };
+
+    const handlePrevPage = () => {
+        setFilter({ ...filter, currentPage: filter.currentPage - 1 });
+    };
+
+    const handleNextPage = () => {
+        setFilter({ ...filter, currentPage: filter.currentPage + 1 });
+    };
 
     const value = {
         filter,
         handleFilter,
-        handleCheckSize,
         handleCheckCategory,
         handleCheckBrand,
+        handleClickCate,
         handleClickBrand,
-        handleClickCate
-    }
+        handleSort,
+        handleCurrentPage,
+        handlePrevPage,
+        handleNextPage,
+    };
 
+    return <FilterContext.Provider value={value}>{children}</FilterContext.Provider>;
+};
 
-
-    return (
-        <FilterContext.Provider value={value}>
-            {children}
-        </FilterContext.Provider>
-    )
-}
-
-export default FilterContext
+export default FilterContext;

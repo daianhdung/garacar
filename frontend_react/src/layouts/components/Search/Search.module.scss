@@ -14,7 +14,13 @@
 .search_form,
 .search_result {
     width: 400px;
-    
+}
+
+@media screen and (max-width: 600px) {
+    .search_form,
+    .search_result {
+        width: 100%;
+    }
 }
 
 .search_form {
@@ -31,7 +37,7 @@
         flex: 1 1 0%;
 
         &::placeholder {
-            color: rgb(32, 161, 165);
+            color: rgb(40, 170, 61);
         }
 
         &:not(:placeholder-shown) ~ .btn-search {
@@ -54,7 +60,8 @@
     }
 }
 
-.clear_input, .loading {
+.clear_input,
+.loading {
     position: absolute;
     right: 45px;
     top: 50%;

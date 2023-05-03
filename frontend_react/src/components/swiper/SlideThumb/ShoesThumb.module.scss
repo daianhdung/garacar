@@ -1,0 +1,28 @@
+.swiper-shoes-wrapper {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.swiper-shoes-thumb {
+    display: flex;
+    text-align: center;
+
+    .swiper-shoes-thumb-wrapper {
+        padding: 5px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 90%;
+            height: 80%;
+        }
+        background-color: rgb(34, 81, 112);
+
+        &:hover {
+            background-color: rgb(108, 178, 224);
+        }
+    }
+}

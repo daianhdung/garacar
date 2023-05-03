@@ -24,9 +24,20 @@
     font-weight: 700;
     font-size: 2.5rem;
     color: #5b5b5b;
-    transition: .3s ease;
+    transition: 0.3s ease;
     &:hover {
         color: #2ac37d;
         transform: scale(1.15);
     }
+}
+
+.block_slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blue_gradient {
+    background: linear-gradient(rgba(255, 255, 255, 0) 22.49%, rgb(255, 255, 255) 73.49%),
+        linear-gradient(264.03deg, rgb(220, 229, 251) -10.27%, rgb(234, 236, 255) 35.65%, rgb(213, 236, 253) 110.66%);
 }

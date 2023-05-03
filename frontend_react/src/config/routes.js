@@ -1,9 +1,13 @@
 const routes = {
     //Default Pages
     home: '/home',
+    product: '/product',
+    contact: '/contact',
+    detail: '/detail',
+    detailId: '/detail/:id',
     
     //Authen Pages
-    login: '/login',
+    login: '/login',    
 
     //Admin Pages
      //Admin route
@@ -32,7 +36,19 @@ const routes = {
      //Admin Category
      adminCategory: '/admin-category',
      adminCategoryInsert: '/admin-category-insert',
-     adminCategoryUpdate: '/admin-category-update'
+     adminCategoryUpdate: '/admin-category-update',
+
+     //Admin Mail
+     adminMail: '/admin-mail',
+     adminMailDetail: '/admin-mail-detail',
+     adminMailDetailId: '/admin-mail-detail/:id',
+
+
+     //Link Social
+     //FB
+     linkFB: 'https://www.facebook.com/alosaigon24h',
+     //YT
+     linkYT: 'https://www.youtube.com/@xanhautosaigon',
 };
 
 export default routes;

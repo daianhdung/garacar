@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity(name = "mail")
 @Getter
@@ -22,5 +24,5 @@ public class MailEntity {
     @Column(name = "message")
     private String message;
     @Column(name = "create_at")
-    private String createAt;
+    private Timestamp createAt;
 }

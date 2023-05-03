@@ -45,7 +45,7 @@ public class AdminProductController {
     @PostMapping("/product")
     public ResponseEntity<?> insertProduct(@RequestParam("productDTO") String productDTO,
                                             @RequestParam(value = "mainImage", required = false) MultipartFile file,
-                                           @RequestParam("images")MultipartFile[] multipartFiles){
+                                           @RequestParam(value = "images", required = false)MultipartFile[] multipartFiles){
         Gson gson = new Gson();
         ProductDTO productDTOParser = gson.fromJson(productDTO,ProductDTO.class);
         DataResponse dataResponse = new DataResponse();

@@ -1,4 +1,4 @@
-import { faAngleDown, faAngleUp, faBagShopping, faBox, faFileCircleCheck, faHome, faKeyboard, faList, faRightFromBracket, faUser, faUsers, faTicket, faStar, faGift } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faBagShopping, faBox, faFileCircleCheck, faHome, faKeyboard, faList, faRightFromBracket, faUser, faUsers, faTicket, faStar, faGift, faMailBulk, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { Link, useLocation } from 'react-router-dom';
@@ -108,6 +108,19 @@ const SidebarData = [
                 title: 'Tạo mới',
                 path: config.routes.adminBrandInsert,
                 icon: <FontAwesomeIcon icon={faKeyboard} />
+            }
+        ]
+    },
+    {
+        title: 'Mail',
+        icon: <FontAwesomeIcon className={cx('redirect_icon', 'text-info')} icon={faEnvelope} />,
+        iconClosed: <FontAwesomeIcon style={{ float: 'right' }} icon={faAngleDown} />,
+        iconOpened: <FontAwesomeIcon style={{ float: 'right' }} icon={faAngleUp} />,
+        subNav: [
+            {
+                title: 'Danh sách',
+                path: config.routes.adminMail,
+                icon: <FontAwesomeIcon icon={faList} />
             }
         ]
     }

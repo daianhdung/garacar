@@ -1,0 +1,1 @@
+export const MOBILE_VIEWPORT_PX = 550;

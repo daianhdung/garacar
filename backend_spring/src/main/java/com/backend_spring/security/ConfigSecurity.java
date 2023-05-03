@@ -39,7 +39,7 @@ public class ConfigSecurity{
         http.csrf().disable().cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers(API_IMAGE, API_LOGIN, API_REFRESH_TOKEN).permitAll()
+                .antMatchers(API_IMAGE, API_LOGIN, API_REFRESH_TOKEN, API_BRAND, API_CATEGORY, API_PRODUCT, API_MAIL).permitAll()
                 .antMatchers(API_ADMIN).hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated();
 

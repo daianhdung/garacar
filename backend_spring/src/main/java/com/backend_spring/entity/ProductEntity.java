@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 @Setter
@@ -45,5 +46,10 @@ public class ProductEntity {
     private Set<ImageProductEntity> imageProducts;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
     private Set<ProductOrderEntity> productOrders;
+
+    @PrePersist
+    public void setCreatedAt() {
+        this.createAt = new Timestamp(System.currentTimeMillis());
+    }
 }
 

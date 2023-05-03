@@ -7,19 +7,32 @@ import CategoryAdmin from '~/pages/AdminPages/CategoryAdmin';
 import InsertCategory from '~/pages/AdminPages/CategoryAdmin/Insert/InsertCategory';
 import UpdateCategory from '~/pages/AdminPages/CategoryAdmin/Update/UpdateCategory';
 import HomeAdmin from '~/pages/AdminPages/HomeAdmin';
-import Login from '~/pages/AuthenPages/Login/Login';
-import config from '../config';
-import Home from '../pages/Home';
+import MailAdmin from '~/pages/AdminPages/MailAdmin';
 import ProductAdmin from '~/pages/AdminPages/ProductAdmin';
 import InsertProduct from '~/pages/AdminPages/ProductAdmin/Insert/InsertProduct';
 import UpdateProduct from '~/pages/AdminPages/ProductAdmin/Update/UpdateProduct';
 import UserAdmin from '~/pages/AdminPages/UserAdmin';
 import InsertUser from '~/pages/AdminPages/UserAdmin/Insert/InsertUser';
 import UpdateUser from '~/pages/AdminPages/UserAdmin/Update/UpdateUser';
+import Login from '~/pages/AuthenPages/Login/Login';
+import Contact from '~/pages/Contact';
+import Detail from '~/pages/Detail';
+import Product from '~/pages/Product';
+import config from '../config';
+import Home from '../pages/Home';
+import MailDetail from '~/pages/AdminPages/MailAdmin/Detail/MailDetail';
+
 
 const publicRoutes = [
     { path: '/', component: Home },
     { path: config.routes.home, component: Home },
+    { path: config.routes.detailId, component: Detail },
+    // { path: config.routes.cart, component: Cart },
+    { path: config.routes.product, component: Product},
+    { path: config.routes.contact, component: Contact},
+    // { path: config.routes.search, component: SearchProduct },
+    // { path: config.routes.order, component: Order, layout: HeaderOnlyLayout },
+    // { path: config.routes.orderSuccess, component: OrderSuccess, layout: HeaderOnlyLayout },
 ];
 const authRoutes = [{ path: config.routes.login, component: Login, layout: AuthenLayout }];
 
@@ -50,6 +63,9 @@ const adminRoutes = [
     { path: config.routes.adminCategory, component: CategoryAdmin, layout: AdminLayout },
     { path: config.routes.adminCategoryInsert, component: InsertCategory, layout: AdminLayout },
     { path: config.routes.adminCategoryUpdate, component: UpdateCategory, layout: AdminLayout },
+    // //Admin Mail
+    { path: config.routes.adminMail, component: MailAdmin, layout: AdminLayout },
+    { path: config.routes.adminMailDetailId, component: MailDetail, layout: AdminLayout },
 ];
 
 export { publicRoutes, authRoutes, adminRoutes };
