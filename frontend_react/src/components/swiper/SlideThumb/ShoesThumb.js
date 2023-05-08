@@ -47,7 +47,7 @@ function ShoesThumb({ children }) {
                     children.map((item, index) => (
                         <SwiperSlide key={index}>
                             <div className={cx('swiper-shoes-thumb-wrapper')}>
-                                <img width={100} height={100} src={item} />
+                                <img width={100} height={80} src={item} />
                             </div>
                         </SwiperSlide>
                     ))}

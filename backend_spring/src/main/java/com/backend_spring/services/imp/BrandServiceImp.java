@@ -2,9 +2,11 @@ package com.backend_spring.services.imp;
 
 import com.backend_spring.dto.BrandDTO;
 import com.backend_spring.entity.BrandEntity;
+import com.backend_spring.entity.ProductEntity;
 import com.backend_spring.repository.BrandRepository;
 import com.backend_spring.services.BrandService;
 import com.backend_spring.services.FileUploadService;
+import com.backend_spring.utils.enumpackage.DirectoryUploads;
 import com.backend_spring.utils.enumpackage.Url;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,9 +41,9 @@ public class BrandServiceImp implements BrandService {
         BrandEntity brand = new BrandEntity();
         brand.setName(brandDTO.getName());
         if (file != null) {
-            boolean isUpload = fileUploadService.storedFile(file, "brand");
-            if (isUpload) {
-                brand.setImage(file.getOriginalFilename());
+            String isUploaded = fileUploadService.storedFile(file, DirectoryUploads.BrandDirectory.getDirectory());
+            if (!isUploaded.isEmpty()) {
+                brand.setImage(isUploaded);
             } else {
                 return false;
             }
@@ -57,9 +59,9 @@ public class BrandServiceImp implements BrandService {
         if (brand.isPresent()) {
             brand.get().setName(brandDTO.getName());
             if (file != null) {
-                boolean isUploaded = fileUploadService.storedFile(file, "brand");
-                if (isUploaded) {
-                    brand.get().setImage(file.getOriginalFilename());
+                String isUploaded = fileUploadService.storedFile(file, DirectoryUploads.BrandDirectory.getDirectory());
+                if (!isUploaded.isEmpty()) {
+                    brand.get().setImage(isUploaded);
                 } else {
                     return false;
                 }
@@ -88,6 +90,8 @@ public class BrandServiceImp implements BrandService {
     @Override
     public boolean deleteBrandById(int idBrand) {
         try {
+            Optional<BrandEntity> brand = brandRepository.findById(idBrand);
+            fileUploadService.deleteFile(brand.get().getImage(), DirectoryUploads.BrandDirectory.getDirectory());
             brandRepository.deleteById(idBrand);
             return true;
         } catch (Exception e) {

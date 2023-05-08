@@ -19,6 +19,7 @@ function InsertUser() {
             email : formUser.email,
             password : formUser.password,
             roleId : formUser.roleId,
+            userName : formUser.userName,
         }
         
         const formData = new FormData();

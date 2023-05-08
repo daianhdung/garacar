@@ -1,21 +1,30 @@
 import { faUps } from '@fortawesome/free-brands-svg-icons';
-import { faBox, faFileCircleCheck, faFileLines, faUpLong, faDownLong, faUsers } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBox,
+    faFileCircleCheck,
+    faFileLines,
+    faUpLong,
+    faDownLong,
+    faUsers,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import React, { Children, useEffect, useState } from 'react';
 
 import styles from './Admin.module.scss';
-import HeaderAdmin from "./HeaderAdmin/HeaderAdmin";
-import SidebarAdmin from "./SidebarAdmin/SidebarAdmin";
-import * as AdminHomeService from "~/services/admin/adminHomeService"
+import HeaderAdmin from './HeaderAdmin/HeaderAdmin';
+import SidebarAdmin from './SidebarAdmin/SidebarAdmin';
+import * as AdminHomeService from '~/services/admin/adminHomeService';
 import { getCookie } from '~/utils/utilsCookie';
 import LoaderModal from '~/components/Modal/LoaderModal/LoaderModal';
+import useViewport from '~/hooks/useViewport';
+import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
 
-const cx = classNames.bind(styles)
+const cx = classNames.bind(styles);
 
 function AdminLayout({ children }) {
-    const [isLoading, setIsLoading] = useState(false)
-    const [data, SetData] = useState({})
+    const [isLoading, setIsLoading] = useState(false);
+    const [data, SetData] = useState({});
 
     useEffect(() => {
         // const token = getCookie('tokenJwt')
@@ -23,19 +32,36 @@ function AdminLayout({ children }) {
         //     .then(response => {
         //         // SetData(response)
         //     })
-    }, [])
+    }, []);
+
+    const [canvasVisible, setCanvasVisible] = useState(false);
+
+    const toggleCanvas = () => {
+        setCanvasVisible(!canvasVisible);
+    };
+
+    const viewPort = useViewport();
+    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
 
     return (
         <>
             {isLoading && <LoaderModal isLoading={isLoading} />}
             <div className={cx('wrapper')}>
-                <div className={cx('wrapper_sidebar')}>
+                <div className={cx('wrapper_sidebar', canvasVisible ? 'toggler-sidebar' : '')}>
+                    {isMobile ? (
+                        <div className={cx('button-hide')} onClick={toggleCanvas}>
+                            <button className="btn btn-outline-danger">
+                                <i className="bi bi-chevron-double-left"></i>
+                            </button>
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                     <SidebarAdmin />
                 </div>
                 <div className={cx('content')}>
                     <div className={cx('wrap_header')}>
                         <div className={cx('inner_header')}>
-
                             <HeaderAdmin />
                         </div>
                     </div>
@@ -53,7 +79,15 @@ function AdminLayout({ children }) {
                                         </div>
                                     </div>
                                     <div className={cx('data_separate')}>
-                                        {data.diffBillOrdered >= 0 ? <span><FontAwesomeIcon icon={faUpLong} /></span> : <span><FontAwesomeIcon icon={faDownLong} /></span>}
+                                        {data.diffBillOrdered >= 0 ? (
+                                            <span>
+                                                <FontAwesomeIcon icon={faUpLong} />
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                <FontAwesomeIcon icon={faDownLong} />
+                                            </span>
+                                        )}
                                         <span>{Math.abs(data.diffBillOrdered)}%</span>
                                         <span>Since last month</span>
                                     </div>
@@ -69,7 +103,15 @@ function AdminLayout({ children }) {
                                         </div>
                                     </div>
                                     <div className={cx('data_separate')}>
-                                        {data.diffNewCustomer >= 0 ? <span><FontAwesomeIcon icon={faUpLong} /></span> : <span><FontAwesomeIcon icon={faDownLong} /></span>}
+                                        {data.diffNewCustomer >= 0 ? (
+                                            <span>
+                                                <FontAwesomeIcon icon={faUpLong} />
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                <FontAwesomeIcon icon={faDownLong} />
+                                            </span>
+                                        )}
                                         <span>{Math.abs(data.diffNewCustomer)}%</span>
                                         <span>Since last month</span>
                                     </div>
@@ -85,7 +127,15 @@ function AdminLayout({ children }) {
                                         </div>
                                     </div>
                                     <div className={cx('data_separate')}>
-                                        {data.diffBillSold >= 0 ? <span><FontAwesomeIcon icon={faUpLong} /></span> : <span><FontAwesomeIcon icon={faDownLong} /></span>}
+                                        {data.diffBillSold >= 0 ? (
+                                            <span>
+                                                <FontAwesomeIcon icon={faUpLong} />
+                                            </span>
+                                        ) : (
+                                            <span>
+                                                <FontAwesomeIcon icon={faDownLong} />
+                                            </span>
+                                        )}
                                         <span>{Math.abs(data.diffBillSold)}%</span>
                                         <span>Since last month</span>
                                     </div>

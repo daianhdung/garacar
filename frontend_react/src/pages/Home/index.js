@@ -126,7 +126,11 @@ function Home() {
 
             {/* 4th Block */}
             <div
-                style={isMobile ? { height: 280, borderRadius: '10px', overFlow: 'hidden' } : { height: 360, borderRadius: '10px', overFlow: 'hidden' }}
+                style={
+                    isMobile
+                        ? { height: 300, borderRadius: '10px', overFlow: 'hidden' }
+                        : { height: 350, borderRadius: '10px', overFlow: 'hidden' }
+                }
                 className={cx('row', 'block_slide', 'p-1', 'blue_gradient')}
             >
                 <div style={{ fontWeight: '700', fontSize: '20px' }}>Sản phẩm nổi bật</div>
@@ -138,7 +142,7 @@ function Home() {
                     modules={[Navigation, Autoplay]}
                     // styleWrap={}
                     spaceBetweenSlide={1}
-                    height={isMobile ? 190 : 250}
+                    height={isMobile ? 190 : 210}
                     width={isMobile ? 150 : 190}
                 />
             </div>
@@ -156,9 +160,15 @@ function Home() {
                                 to={`${config.routes.detail}/${item.id}`}
                                 className="col-md-2 hover_boxShadow col-6 justify-content-center"
                             >
-                                <div className="w-100 mt-3" style={{ minHeight: 310 }}>
-                                    <img height={200} width={isMobile ? 150 : 180} src={item.mainImage} alt="" />
-                                    <div className="fw-bolder font_roboto" style={{ minHeight: 65, fontSize: '14px' }}>
+                                <div
+                                    className="w-100 mt-3 f-center-align"
+                                    style={{ minHeight: 300, flexDirection: 'column' }}
+                                >
+                                    <img height={180} width={isMobile ? 150 : 180} src={item.mainImage} alt="" />
+                                    <div
+                                        className="fw-bolder font_roboto mt-3"
+                                        style={{ minHeight: 50, fontSize: '14px' }}
+                                    >
                                         {item.name}
                                     </div>
                                     <div style={{ textAlign: 'center', color: 'rgb(255, 66, 78)', fontSize: '16px' }}>

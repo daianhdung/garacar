@@ -8,6 +8,8 @@ import { formatNumber } from '~/utils/stringUtils';
 const cx = classNames.bind(styles);
 
 function ListMail({ mails, handleDelete }) {
+    console.log(mails);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -23,7 +25,7 @@ function ListMail({ mails, handleDelete }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {mails.map((mail, index) => {
+                        {mails.length > 0 ? mails.map((mail, index) => {
                             return (
                                 <tr key={index}>
                                     <th scope="row">{index + 1}</th>
@@ -46,7 +48,7 @@ function ListMail({ mails, handleDelete }) {
                                     </td>
                                 </tr>
                             );
-                        })}
+                        }) : <p>không có dữ liệu</p>}
                     </tbody>
                 </table>
             </div>

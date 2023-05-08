@@ -11,6 +11,7 @@ import { searchProduct } from '~/services/productService';
 import useDebounce from '~/hooks/useDebounce';
 import useViewport from '~/hooks/useViewport';
 import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +35,6 @@ function Search() {
             setSearchResult(response);
             setLoading(false);
         };
-
         fetchApiSearchProduct();
     }, [debounceValue]);
 
@@ -62,8 +62,10 @@ function Search() {
     const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
 
     return (
-        <div className='w-100'>
+        <div className="w-100">
             <Tippy
+                maxWidth={'450px'}
+                placement="bottom"
                 interactive
                 visible={showResult}
                 render={(attrs) => (
@@ -74,10 +76,10 @@ function Search() {
                                 <h5 align="center">Nhập vào kết quả tìm kiếm</h5>
                             ) : loading ? (
                                 <h5 align="center">Tìm kiếm kết quả ....</h5>
-                            ) : searchResult ? (
+                            ) : searchResult.length > 0 ? (
                                 ''
                             ) : (
-                                <h5 align="center">Nhập vào kết quả tìm kiếm</h5>
+                                <h5 align="center">Không có sản phẩm</h5>
                             )}
                         </div>
                     </div>
@@ -102,13 +104,16 @@ function Search() {
                     )}
 
                     {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-                    <button
-                        onMouseOver={() => setOver(true)}
-                        onMouseLeave={() => setOver(false)}
-                        className={cx('btn-search')}
-                    >
-                        <FontAwesomeIcon style={over ? { color: 'black' } : {}} icon={faMagnifyingGlass} />
-                    </button>
+                    <Link to={config.routes.product}>
+                        <button
+                            type="button"
+                            onMouseOver={() => setOver(true)}
+                            onMouseLeave={() => setOver(false)}
+                            className={cx('btn-search')}
+                        >
+                            <FontAwesomeIcon style={over ? { color: 'black' } : {}} icon={faMagnifyingGlass} />
+                        </button>
+                    </Link>
                 </div>
             </Tippy>
         </div>

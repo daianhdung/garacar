@@ -5,7 +5,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface FileUploadService {
 
-    boolean storedFile(MultipartFile file, String nameDirectory);
+    String storedFile(MultipartFile file, String nameDirectory);
+
+    boolean deleteFile(String fileName, String nameDirectory);
 
     Resource loadFileByName(String fileName, String nameDirectory);
+
+    String getUniqueFileName(String fileName);
 }

@@ -13,6 +13,7 @@ import com.backend_spring.repository.ImageRepository;
 import com.backend_spring.repository.ProductRepository;
 import com.backend_spring.services.FileUploadService;
 import com.backend_spring.services.ProductService;
+import com.backend_spring.utils.enumpackage.DirectoryUploads;
 import com.backend_spring.utils.enumpackage.Url;
 import com.backend_spring.utils.formatstring.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
@@ -51,6 +53,8 @@ public class ProductServiceImp implements ProductService {
             ProductDTO productDTO = new ProductDTO();
             productDTO.setId(productEntity.getId());
             productDTO.setName(productEntity.getName());
+            productDTO.setSpecification(productEntity.getSpecification());
+            productDTO.setSpecialOffer(productEntity.getSpecialOffer());
             productDTO.setMainImage(Url.ProductsImage.getPath() + productEntity.getMainImage());
             productDTO.setBrandName(productEntity.getBrand() != null ? productEntity.getBrand().getName() : "");
             productDTO.setCategoryName(productEntity.getCategory() != null ? productEntity.getCategory().getName() : "");
@@ -69,6 +73,8 @@ public class ProductServiceImp implements ProductService {
             productDTO.setName(product.get().getName());
             productDTO.setPrice(product.get().getPrice());
             productDTO.setDescription(product.get().getDescription());
+            productDTO.setSpecification(product.get().getSpecification());
+            productDTO.setSpecialOffer(product.get().getSpecialOffer());
 
             if (product.get().getBrand() != null) {
                 productDTO.setBrandId(product.get().getBrand().getId());
@@ -99,12 +105,14 @@ public class ProductServiceImp implements ProductService {
         product.setName(productDTO.getName());
         product.setPrice(productDTO.getPrice());
         product.setDescription(productDTO.getDescription());
+        productDTO.setSpecification(productDTO.getSpecification());
+        productDTO.setSpecialOffer(productDTO.getSpecialOffer());
         product.setBrand(brandRepository.findById(productDTO.getBrandId()).orElse(null));
         product.setCategory(categoryRepository.findById(productDTO.getCategoryId()).orElse(null));
         if (file != null) {
-            boolean isUpload = fileUploadService.storedFile(file, "products");
-            if (isUpload) {
-                product.setMainImage(file.getOriginalFilename());
+            String isUpload = fileUploadService.storedFile(file, DirectoryUploads.ProductDirectory.getDirectory());
+            if (!isUpload.isEmpty()) {
+                product.setMainImage(isUpload);
             } else {
                 return false;
             }
@@ -113,9 +121,9 @@ public class ProductServiceImp implements ProductService {
             Set<ImageProductEntity> imageProductList = new HashSet<>();
             if (multipartFiles != null) {
                 Arrays.stream(multipartFiles).forEach(item -> {
-                    fileUploadService.storedFile(item, "products");
+                    String fileName = fileUploadService.storedFile(item, DirectoryUploads.ProductDirectory.getDirectory());
                     ImageProductEntity imageProduct = new ImageProductEntity();
-                    imageProduct.setName(item.getOriginalFilename());
+                    imageProduct.setName(fileName);
                     imageProduct.setProduct(product);
                     imageProductList.add(imageProduct);
                 });
@@ -136,12 +144,14 @@ public class ProductServiceImp implements ProductService {
         product.get().setName(productDTO.getName());
         product.get().setPrice(productDTO.getPrice());
         product.get().setDescription(productDTO.getDescription());
+        product.get().setSpecification(productDTO.getSpecification());
+        product.get().setSpecialOffer(productDTO.getSpecialOffer());
         product.get().setBrand(brandRepository.findById(productDTO.getBrandId()).orElse(null));
         product.get().setCategory(categoryRepository.findById(productDTO.getCategoryId()).orElse(null));
         if (file != null) {
-            boolean isUpload = fileUploadService.storedFile(file, "products");
-            if (isUpload) {
-                product.get().setMainImage(file.getOriginalFilename());
+            String isUpload = fileUploadService.storedFile(file, DirectoryUploads.ProductDirectory.getDirectory());
+            if (!isUpload.isEmpty()) {
+                product.get().setMainImage(isUpload);
             } else {
                 return false;
             }
@@ -151,9 +161,9 @@ public class ProductServiceImp implements ProductService {
             if (multipartFiles != null) {
                 imageRepository.deleteAllByProductId(idProduct);
                 Arrays.stream(multipartFiles).forEach(item -> {
-                    fileUploadService.storedFile(item, "products");
+                    String fileName = fileUploadService.storedFile(item, DirectoryUploads.ProductDirectory.getDirectory());
                     ImageProductEntity imageProduct = new ImageProductEntity();
-                    imageProduct.setName(item.getOriginalFilename());
+                    imageProduct.setName(fileName);
                     imageProduct.setProduct(product.get());
                     imageProductList.add(imageProduct);
                 });
@@ -170,6 +180,11 @@ public class ProductServiceImp implements ProductService {
     @Override
     public boolean deleteProductById(int idProduct) {
         try {
+            Optional<ProductEntity> product = productRepository.findById(idProduct);
+            fileUploadService.deleteFile(product.get().getMainImage(), DirectoryUploads.ProductDirectory.getDirectory());
+            product.get().getImageProducts().forEach(item -> {
+                fileUploadService.deleteFile(item.getName(), DirectoryUploads.ProductDirectory.getDirectory());
+            });
             productRepository.deleteById(idProduct);
             return true;
         } catch (Exception e) {
@@ -207,7 +222,7 @@ public class ProductServiceImp implements ProductService {
                                     , filterProduct.getBrandIds()
                                     , pageable);
         } else {
-            page = productRepository.findByNameContaining(filterProduct.getSearchKeyword(), pageable);
+            page = productRepository.findByNameContainingIgnoreCase(filterProduct.getSearchKeyword(), pageable);
         }
 
 
@@ -231,7 +246,7 @@ public class ProductServiceImp implements ProductService {
     public List<ProductDTO> searchProduct(String name) {
         Pageable pageable = null;
         name = stringUtil.removeWhiteSpaceBeginAndEnd(name);
-        Page<ProductEntity> page = productRepository.findByNameContaining(name, pageable);
+        Page<ProductEntity> page = productRepository.findByNameContainingIgnoreCase(name, pageable);
 
         List<ProductDTO> productDTOList = page.getContent().stream().map(item -> {
             ProductDTO productDTO = new ProductDTO();

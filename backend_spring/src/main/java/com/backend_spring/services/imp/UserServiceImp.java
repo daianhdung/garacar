@@ -43,8 +43,9 @@ public class UserServiceImp implements UserService {
             userDTO.setId(userEntity.getId());
             userDTO.setFullname(userEntity.getFullName());
 //            userDTO.set(Url.ProductsImage.getPath() + userEntity.getMainImage());
+            userDTO.setUserName(userEntity.getUserName());
             userDTO.setAddress(userEntity.getAddress());
-            userDTO.setRoleName(userEntity.getRole().getName());
+            userDTO.setRoleName(userEntity.getRole().getDescription());
             userDTO.setEmail(userEntity.getEmail());
             userDTO.setPhone(userEntity.getPhone());
             list.add(userDTO);
@@ -63,7 +64,7 @@ public class UserServiceImp implements UserService {
             userDTO.setPhone(user.get().getPhone());
             userDTO.setEmail(user.get().getEmail());
             userDTO.setAddress(user.get().getAddress());
-
+            userDTO.setUserName(user.get().getUserName());
             userDTO.setRoleId(user.get().getRole().getId());
             userDTO.setRoleName(user.get().getRole().getDescription());
 
@@ -80,7 +81,7 @@ public class UserServiceImp implements UserService {
         user.setAddress(userDTO.getAddress());
         user.setEmail(userDTO.getEmail());
         user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-
+        user.setUserName(userDTO.getUserName());
         user.setRole(roleRepository.findById(userDTO.getRoleId()).orElse(null));
 
         try {
@@ -101,7 +102,7 @@ public class UserServiceImp implements UserService {
             user.get().setAddress(userDTO.getAddress());
             user.get().setEmail(userDTO.getEmail());
             user.get().setPassword(passwordEncoder.encode(userDTO.getPassword()));
-
+            user.get().setUserName(userDTO.getUserName());
             user.get().setRole(roleRepository.findById(userDTO.getRoleId()).orElse(null));
         }
 

@@ -21,21 +21,21 @@ function Header() {
             <div style={{ background: '#FFE880' }}>
                 <div
                     className="container-fluid container container-sm"
-                    style={isMobile ? {} : { maxWidth: '1300px', maxHeight: '40px' }}
+                    style={isMobile ? {maxWidth: '100%'} : { maxWidth: '1300px', maxHeight: '40px' }}
                 >
                     {isMobile ? (
                         <>
                             <div className="row">
                                 <div className="nav-item col-6 offset-4">
                                     <a href="#" className={cx('text-success')}>
-                                        <i className="bi bi-telephone-fill"></i> 123-456-789
+                                        <i className="bi bi-telephone-fill"></i> 0922 00 30 33
                                     </a>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="nav-item col-9 offset-3">
                                     <a href="#" className="text-success">
-                                        <i className="bi bi-envelope"></i> contact@yourdomain.com
+                                        <i className="bi bi-envelope"></i> sambuche@gmail.com
                                     </a>
                                 </div>
                             </div>
@@ -59,15 +59,6 @@ function Header() {
                                     >
                                         <i className="bi bi-youtube"></i>
                                     </Link>
-                                    {/* Twitter --> */}
-                                    <a type="button" className="text-info mt-2 mx-3">
-                                        <i className="bi bi-twitter"></i>
-                                    </a>
-                                    {/* Google + --> */}
-                                    <a type="button" className="text-danger mt-2 mx-3">
-                                        <i className="bi bi-instagram"></i>
-                                    </a>
-                                    {/* Linkedin --> */}
                                 </div>
                             </div>
                         </>
@@ -81,12 +72,12 @@ function Header() {
                                     >
                                         <li className="nav-item">
                                             <a href="#" className={cx('text-success')}>
-                                                <i className="bi bi-telephone-fill"></i> 123-456-789
+                                                <i className="bi bi-telephone-fill"></i> 0922 00 30 33
                                             </a>
                                         </li>
                                         <li className="ms-3 nav-item col">
                                             <a href="#" className="text-success">
-                                                <i className="bi bi-envelope"></i> contact@yourdomain.com
+                                                <i className="bi bi-envelope"></i> sambuche@gmail.com
                                             </a>
                                         </li>
                                     </ul>
@@ -110,15 +101,6 @@ function Header() {
                                     >
                                         <i className="bi bi-youtube"></i>
                                     </Link>
-                                    {/* Twitter --> */}
-                                    <a type="button" className="text-info mt-2 mx-3">
-                                        <i className="bi bi-twitter"></i>
-                                    </a>
-                                    {/* Google + --> */}
-                                    <a type="button" className="text-danger mt-2 mx-3">
-                                        <i className="bi bi-instagram"></i>
-                                    </a>
-                                    {/* Linkedin --> */}
                                 </div>
                             </div>
                         </>

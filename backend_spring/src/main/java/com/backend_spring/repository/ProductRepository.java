@@ -20,6 +20,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
     Page<ProductEntity> findByNameContainingAndCategoryIdInOrBrandIdIn(String keyword
             , List<Integer> categoryIds , List<Integer> brandIds, Pageable pageable);
 
-    Page<ProductEntity> findByNameContaining(String keyword, Pageable pageable);
+    Page<ProductEntity> findByNameContainingIgnoreCase(String keyword, Pageable pageable);
 
 }

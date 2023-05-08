@@ -75,7 +75,10 @@ function Detail() {
                                     <div className={cx('left-detail', 'p-2')}>
                                         <ShoesThumb children={product.images} />
                                     </div>
-                                    <div className={cx('detail_description-mobile')} dangerouslySetInnerHTML={{ __html: product.description}}></div>
+                                    <div
+                                        className={cx('detail_description-mobile')}
+                                        dangerouslySetInnerHTML={{ __html: product.description }}
+                                    ></div>
                                 </>
                             )}
                         </>
@@ -93,45 +96,88 @@ function Detail() {
           ><i className="bi bi-plus-circle"></i> Compare</span> */}
                             </div>
                             {product && (
-                                <div className={cx('mid-detail')}>
-                                    <div>
-                                        <div className={cx('left-detail', 'p-2')}>
-                                            <ShoesThumb children={product.images} />
-                                        </div>
-                                    </div>
-                                    <div className={cx('right-detail')}>
-                                        <div className={cx('description')}>
-                                            <h5 className="fw-bold">Tên sản phẩm: {product.name}</h5>
-                                            <div className={cx('description_detail')}>
-                                                <h5 className="my-4">
-                                                    {product.brandName && (
-                                                        <>
-                                                            Thương hiệu: <span>{product.brandName}</span>
-                                                        </>
-                                                    )}
-                                                </h5>
-
-                                                <h5 className={cx('price', 'my-4')}>
-                                                    Giá: <span>{formatNumber(product.price)} VND</span>
-                                                </h5>
-                                                <h5 className="my-4">
-                                                    {product.categoryName && (
-                                                        <>
-                                                            Thể loại: <span>{product.categoryName}</span>
-                                                        </>
-                                                    )}
-                                                </h5>
+                                <>
+                                    <div className={cx('mid-detail')}>
+                                        <div>
+                                            <div className={cx('left-detail', 'p-2')}>
+                                                <ShoesThumb children={product.images} />
                                             </div>
-                                            <div className={cx('detail_description')}></div>
+                                        </div>
+                                        <div className={cx('right-detail')}>
+                                            <div className={cx('description')}>
+                                                <h5 className="fw-bold">Tên sản phẩm: {product.name}</h5>
+                                                <div className={cx('description_detail')}>
+                                                    <h5 className="my-2">
+                                                        {product.brandName && (
+                                                            <>
+                                                                Thương hiệu: <span>{product.brandName}</span>
+                                                            </>
+                                                        )}
+                                                    </h5>
+
+                                                    <h5 className={cx('price', 'my-2')}>
+                                                        Giá: <span>{formatNumber(product.price)} VND</span>
+                                                    </h5>
+                                                    <h5 className="my-2">
+                                                        {product.categoryName && (
+                                                            <>
+                                                                Thể loại: <span>{product.categoryName}</span>
+                                                            </>
+                                                        )}
+                                                    </h5>
+                                                </div>
+                                                {product.specification && (
+                                                    <div
+                                                        style={{
+                                                            width: '350px ',
+                                                        }}
+                                                        className="border-theme"
+                                                    >
+                                                        <div className="w-100 p-1 ps-2 text-light bg-theme">
+                                                            THÔNG SỐ KỸ THUẬT
+                                                        </div>
+                                                        <div
+                                                            style={{ listStyleType: 'initial !important' }}
+                                                            className="py-2 px-4 div_ul_init ul_no_margin_bot"
+                                                            dangerouslySetInnerHTML={{ __html: product.specification }}
+                                                        ></div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div
+                                                style={{
+                                                    width: '270px ',
+                                                }}
+                                                className="border-theme mt-3 ul_no_margin_bot"
+                                            >
+                                                <ul className="py-3 px-3" style={{ borderBottom: '1px solid #4caf50' }}>
+                                                    <li>
+                                                        <strong>CHÍNH SÁCH BÁN HÀNG</strong>
+                                                    </li>
+                                                    <li>- FREE Ship HCM bán kính 10 Km</li>
+                                                    <li>- Đổi trả hàng trong 7 ngày. Bảo hành 12 tháng.</li>
+                                                </ul>
+                                                <ul className="py-3 px-3">
+                                                    <li>
+                                                        <strong>CHÍNH SÁCH ĐỔI TRẢ</strong>
+                                                    </li>
+                                                    <li>- Đổi trả theo nhu cầu khách hàng</li>
+                                                    <li>- Đổi trả theo yếu tố khách quan</li>
+                                                    <li>- Hàng giao bị bể vỡ, sai nội dung hoặc bị thiếu</li>
+                                                    <li>- Hàng giao bị lỗi kỹ thuật</li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </>
                             )}
                         </>
                     )}
                 </div>
 
-                <div className="row mb-5">
+                <div className="row mb-4">
                     <ul className="nav nav-pills col-md-6 offset-md-5" role="tablist">
                         <li className="nav-item" role="presentation">
                             <a
@@ -171,14 +217,24 @@ function Detail() {
                         </li>
                     </ul>
                 </div>
-                <div className="tab-content">
+                <div className="tab-content px-4 py-2">
                     <div
                         id="content1"
                         className="tab-pane fade show active"
                         role="tabpanel"
                         aria-labelledby="content1-tab"
                     >
-                        Description
+                        <div
+                            // style={{
+                            //     maxWidth: '450px ',
+                            //     maxHeight: '1110px',
+                            //     textOverflow: 'ellipsis',
+                            //     wordWrap: 'break-word',
+                            //     overflow: 'hidden',
+                            // }}
+                            className={cx('detail_description')}
+                            dangerouslySetInnerHTML={{ __html: product.description }}
+                        ></div>
                     </div>
                     <div id="content2" className="tab-pane fade" role="tabpanel" aria-labelledby="content2-tab">
                         Comment

@@ -165,16 +165,16 @@ function Contact() {
                                         </div>
                                         <div className={cx('flex-col', 'size2')}>
                                             <span className={cx('txt1', 'p-b-20')}> Liên hệ </span>
-                                            <span className={cx('txt3')}> +1 800 1236879 </span>
+                                            <span className={cx('txt3')}> + 0922 00 30 33 </span>
                                         </div>
                                     </div>
                                     <div className={cx('dis-flex', 'size1', 'p-b-47')}>
                                         <div className={cx('txt1', 'p-r-25')}>
-                                            <span className={cx('lnr', 'bi bi-envelope', 'text-info')}></span>
+                                            <span className={cx('lnr', 'bi bi-envelope', 'text-info', 'fs-3')}></span>
                                         </div>
                                         <div className={cx('flex-col', 'size2')}>
                                             <span className={cx('txt1', 'p-b-20')}> Hỗ trợ </span>
-                                            <span className={cx('txt3')}> persol.project123@gmail.com </span>
+                                            <span className={cx('txt3')}> sambuche@gmail.com </span>
                                         </div>
                                     </div>
                                 </div>

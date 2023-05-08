@@ -19,6 +19,7 @@ function UpdateUser() {
             roleId : formUser.roleId,
             address : formUser.address,
             phone : formUser.phone,
+            userName : formUser.userName,
         }
         
         const formData = new FormData();

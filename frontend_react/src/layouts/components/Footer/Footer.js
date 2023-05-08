@@ -91,19 +91,13 @@ function Footer() {
                                             <span className="fa-li">
                                                 <i className="fas fa-envelope"></i>
                                             </span>
-                                            <span className="ms-2">persol.project123@gmail.com</span>
+                                            <span className="ms-2">sambuche@gmail.com</span>
                                         </li>
                                         <li className="mb-3">
                                             <span className="fa-li">
                                                 <i className="fas fa-phone"></i>
                                             </span>
-                                            <span className="ms-2">+ 01 234 567 88</span>
-                                        </li>
-                                        <li className="mb-3">
-                                            <span className="fa-li">
-                                                <i className="fas fa-print"></i>
-                                            </span>
-                                            <span className="ms-2">+ 01 234 567 89</span>
+                                            <span className="ms-2">+ 0922 00 30 33</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -142,7 +136,7 @@ function Footer() {
                         <p className={cx('scroll-text')}>
                             {isMobile ? '' : `Ngày giờ hiện tại: ${time} ${date} `}
                             Đia chỉ: 199 Đ. Gò Dưa,
-                            Bình Chiểu, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam
+                            Tam Bình, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam
                         </p>
                     </div>
                 </span>

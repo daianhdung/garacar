@@ -10,6 +10,8 @@ public class UserDTO {
     private String email;
     private String fullname;
 
+    private String userName;
+
     private String phone;
 
     private String address;

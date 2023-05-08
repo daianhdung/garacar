@@ -60,16 +60,16 @@ function FormUser({ user, handleUpdate, handleInsert, roles }) {
                         </div>
 
                         <div className="form-group col-md-5">
-                            <label htmlFor="name">Địa chỉ</label>
+                            <label htmlFor="name">Username</label>
                             <input
                                 style={{ height: '40px' }}
                                 type="text"
                                 className="form-control form-control-lg"
-                                id="address"
-                                onChange={(e) => setFormUser({ ...formUser, address: e.target.value })}
-                                defaultValue={formUser.address}
+                                id="username"
+                                onChange={(e) => setFormUser({ ...formUser, userName: e.target.value })}
+                                defaultValue={formUser.userName}
                             />
-                            {errors.address && <span className="text-danger">{errors.address}</span>}
+                            {errors.userName && <span className="text-danger">{errors.userName}</span>}
                         </div>
                     </div>
 
@@ -146,6 +146,19 @@ function FormUser({ user, handleUpdate, handleInsert, roles }) {
                             />
                             {errors.password && <span className="text-danger">{errors.password}</span>}
                         </div>
+
+                        <div className="form-group col-md-5">
+                            <label htmlFor="name">Địa chỉ</label>
+                            <input
+                                style={{ height: '40px' }}
+                                type="text"
+                                className="form-control form-control-lg"
+                                id="address"
+                                onChange={(e) => setFormUser({ ...formUser, address: e.target.value })}
+                                defaultValue={formUser.address}
+                            />
+                            {errors.address && <span className="text-danger">{errors.address}</span>}
+                        </div>
                     </div>
 
                     <div className="mt-5">
@@ -189,15 +202,15 @@ function FormUser({ user, handleUpdate, handleInsert, roles }) {
                         </div>
 
                         <div className="form-group col-md-5">
-                            <label htmlFor="name">Địa chỉ</label>
+                            <label htmlFor="name">Username</label>
                             <input
                                 style={{ height: '40px' }}
                                 type="text"
                                 className="form-control form-control-lg"
-                                id="address"
-                                onChange={(e) => setFormUser({ ...formUser, address: e.target.value })}
+                                id="username"
+                                onChange={(e) => setFormUser({ ...formUser, userName: e.target.value })}
                             />
-                            {errors.address && <span className="text-danger">{errors.address}</span>}
+                            {errors.userName && <span className="text-danger">{errors.userName}</span>}
                         </div>
                     </div>
 
@@ -270,6 +283,18 @@ function FormUser({ user, handleUpdate, handleInsert, roles }) {
                                 onChange={(e) => setFormUser({ ...formUser, password: e.target.value })}
                             />
                             {errors.password && <span className="text-danger">{errors.password}</span>}
+                        </div>
+
+                        <div className="form-group col-md-5">
+                            <label htmlFor="name">Địa chỉ</label>
+                            <input
+                                style={{ height: '40px' }}
+                                type="text"
+                                className="form-control form-control-lg"
+                                id="address"
+                                onChange={(e) => setFormUser({ ...formUser, address: e.target.value })}
+                            />
+                            {errors.address && <span className="text-danger">{errors.address}</span>}
                         </div>
                     </div>
 

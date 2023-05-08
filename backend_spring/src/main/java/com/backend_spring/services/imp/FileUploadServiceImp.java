@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Service
 public class FileUploadServiceImp implements FileUploadService {
@@ -30,11 +34,9 @@ public class FileUploadServiceImp implements FileUploadService {
     }
 
 
-
-
     @Override
-    public boolean storedFile(MultipartFile file, String nameDirectory) {
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public String storedFile(MultipartFile file, String nameDirectory) {
+        String fileName = getUniqueFileName(StringUtils.cleanPath(file.getOriginalFilename()));
         try {
             Path directoryPath = Paths.get(rootPath.toString(), nameDirectory);
             if (Files.notExists(directoryPath)) {
@@ -42,9 +44,24 @@ public class FileUploadServiceImp implements FileUploadService {
             }
             Path filePath = directoryPath.resolve(fileName);
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-            return true;
+            return fileName;
         } catch (Exception e) {
             System.out.println("Lỗi save file" + e.getMessage());
+            return "";
+        }
+    }
+
+    @Override
+    public boolean deleteFile(String fileName, String nameDirectory) {
+        try {
+            Path directoryPath = Paths.get(rootPath.toString(), nameDirectory);
+            File file = new File(directoryPath + "/" + fileName);
+            if (file.exists()) {
+                file.delete();
+            }
+            return true;
+        } catch (Exception e) {
+            System.out.println("Lỗi delete file" + e.getMessage());
             return false;
         }
     }
@@ -64,5 +81,14 @@ public class FileUploadServiceImp implements FileUploadService {
             System.out.println("Lỗi đọc file" + e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public String getUniqueFileName(String fileName) {
+        LocalDateTime now = LocalDateTime.now();
+        String timestamp = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+        String extension = fileName.substring(fileName.lastIndexOf("."));
+        String uniqueId = UUID.randomUUID().toString();
+        return timestamp + "_" + uniqueId + extension;
     }
 }

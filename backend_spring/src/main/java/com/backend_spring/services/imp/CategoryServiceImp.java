@@ -7,6 +7,7 @@ import com.backend_spring.entity.CategoryEntity;
 import com.backend_spring.repository.CategoryRepository;
 import com.backend_spring.services.CategoryService;
 import com.backend_spring.services.FileUploadService;
+import com.backend_spring.utils.enumpackage.DirectoryUploads;
 import com.backend_spring.utils.enumpackage.Url;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,9 +58,9 @@ public class CategoryServiceImp implements CategoryService {
         CategoryEntity category = new CategoryEntity();
         category.setName(categoryDTO.getName());
         if (file != null) {
-            boolean isUpload = fileUploadService.storedFile(file, "category");
-            if (isUpload) {
-                category.setImage(file.getOriginalFilename());
+            String isUpload = fileUploadService.storedFile(file, DirectoryUploads.CategoryDirectory.getDirectory());
+            if (!isUpload.isEmpty()) {
+                category.setImage(isUpload);
             } else {
                 return false;
             }
@@ -74,9 +75,9 @@ public class CategoryServiceImp implements CategoryService {
         if (category.isPresent()) {
             category.get().setName(categoryDTO.getName());
             if (file != null) {
-                boolean isUploaded = fileUploadService.storedFile(file, "category");
-                if (isUploaded) {
-                    category.get().setImage(file.getOriginalFilename());
+                String isUpload = fileUploadService.storedFile(file, DirectoryUploads.CategoryDirectory.getDirectory());
+                if (!isUpload.isEmpty()) {
+                    category.get().setImage(isUpload);
                 } else {
                     return false;
                 }
@@ -91,6 +92,8 @@ public class CategoryServiceImp implements CategoryService {
     @Override
     public boolean deleteCategoryById(int idCategory) {
         try {
+            Optional<CategoryEntity> category = categoryRepository.findById(idCategory);
+            fileUploadService.deleteFile(category.get().getImage(), DirectoryUploads.CategoryDirectory.getDirectory());
             categoryRepository.deleteById(idCategory);
             return true;
         } catch (Exception e) {

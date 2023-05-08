@@ -19,7 +19,9 @@ function InsertProduct() {
             price : formProduct.price,
             brandId : formProduct.brandId,
             categoryId : formProduct.categoryId,
-            description: formProduct.description
+            description: formProduct.description,
+            specification : formProduct.specification,
+            specialOffer: formProduct.specialOffer,
         }
         
         const formData = new FormData();

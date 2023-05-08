@@ -20,6 +20,16 @@
     --disabled-color: #9c9c9c;
 }
 
+.text-theme {
+    color: #4caf50;
+}
+.bg-theme {
+    background-color: #4caf50;
+}
+.border-theme {
+    border: 1px solid #4caf50;
+}
+
 ::-webkit-scrollbar {
     width: 0.9em;
 }
@@ -82,6 +92,19 @@ a[href] {
 
 li {
     list-style-type: none;
+}
+.div_ul_init {
+    ul {
+        li {
+            list-style-type: initial !important;
+        }
+    }
+}
+
+.ul_no_margin_bot{
+    ul {
+        margin-bottom: 0;
+    }
 }
 
 button,

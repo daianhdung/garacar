@@ -20,6 +20,16 @@ export const FilterProvider = ({ children }) => {
         });
     };
 
+    console.log(filter);
+
+    const handleKeyword = (name) => {
+        console.log(name);
+        setFilter({
+            ...filter,
+            searchKeyword : name
+        })
+    }
+
     const handleCheckCategory = (id) => {
         const isChecked = filter.categoryIds.includes(id);
         let arrayCheck = filter.categoryIds;
@@ -77,6 +87,7 @@ export const FilterProvider = ({ children }) => {
         handleCurrentPage,
         handlePrevPage,
         handleNextPage,
+        handleKeyword
     };
 
     return <FilterContext.Provider value={value}>{children}</FilterContext.Provider>;

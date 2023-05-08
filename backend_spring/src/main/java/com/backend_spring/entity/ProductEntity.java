@@ -26,8 +26,11 @@ public class ProductEntity {
     private float price;
     @Column(name = "description")
     private String description;
-    @Column(name = "detail")
-    private String detail;
+    @Column(name = "specification")
+    private String specification;
+
+    @Column(name = "special_offer")
+    private String specialOffer;
     @Column(name = "create_at")
     private Timestamp createAt;
     @Column(name = "create_by")

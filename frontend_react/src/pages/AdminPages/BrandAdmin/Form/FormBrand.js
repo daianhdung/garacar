@@ -30,6 +30,9 @@ function FormBrand({ brand, handleUpdate, handleInsert }) {
         if (!formBrand.name) {
             newErrors.name = 'Tên bắt buộc';
         }
+        if (!mainImage) {
+            newErrors.image = 'Ảnh bắt buộc';
+        }
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
             handleInsert(formBrand, mainImage);

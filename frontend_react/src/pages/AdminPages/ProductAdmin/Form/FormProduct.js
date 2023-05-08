@@ -3,6 +3,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 function FormProduct({ product, handleUpdate, handleInsert, brands, categories }) {
     const [formProduct, setFormProduct] = useState(product ? product : '');
     const [mainImage, SetMainImage] = useState();
@@ -35,6 +36,12 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
         let newErrors = {};
         if (!formProduct.name) {
             newErrors.name = 'Tên bắt buộc';
+        }
+        if (!formProduct.price) {
+            newErrors.price = 'Giá bắt buộc';
+        }
+        if (!mainImage) {
+            newErrors.mainImage = 'Ảnh bắt buộc';
         }
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
@@ -170,6 +177,31 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                         </div>
 
                         <div className="row mt-4">
+                            <div className="col-md-5">
+                                <label htmlFor="name">Thông số kỹ thuật</label>
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    data={formProduct.specification}
+                                    onChange={(event, editor) => {
+                                        const data = editor.getData();
+                                        setFormProduct({ ...formProduct, specification: data });
+                                    }}
+                                />
+                            </div>
+                            <div className="col-md-5">
+                                <label htmlFor="name">Ưu đãi, quà tặng</label>
+                                <CKEditor
+                                    editor={ClassicEditor}
+                                    data={formProduct.specialOffer}
+                                    onChange={(event, editor) => {
+                                        const data = editor.getData();
+                                        setFormProduct({ ...formProduct, specialOffer: data });
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="row mt-4">
                             <label htmlFor="name">Mô tả</label>
                             <div className="col-md-10">
                                 <CKEditor
@@ -288,7 +320,7 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                             <div className="mt-3" style={{ maxHeight: '250px', maxWidth: '250px' }}>
                                 {mainImage && <img className="w-50 h-50" src={URL.createObjectURL(mainImage)} />}
                             </div>
-                            {errors.image && <span className="text-danger">{errors.image}</span>}
+                            {errors.mainImage && <span className="text-danger">{errors.mainImage}</span>}
                         </div>
 
                         <div className="form-group col-md-5">
@@ -315,6 +347,31 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
                                 </div>
                             </div>
                             {errors.image && <span className="text-danger">{errors.image}</span>}
+                        </div>
+                    </div>
+
+                    <div className="row mt-4">
+                        <div className="col-md-5">
+                            <label htmlFor="name">Thông số kỹ thuật</label>
+                            <CKEditor
+                                editor={ClassicEditor}
+                                data={formProduct.specification}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    setFormProduct({ ...formProduct, specification: data });
+                                }}
+                            />
+                        </div>
+                        <div className="col-md-5">
+                            <label htmlFor="name">Ưu đãi, quà tặng</label>
+                            <CKEditor
+                                editor={ClassicEditor}
+                                data={formProduct.specialOffer}
+                                onChange={(event, editor) => {
+                                    const data = editor.getData();
+                                    setFormProduct({ ...formProduct, specialOffer: data });
+                                }}
+                            />
                         </div>
                     </div>
 

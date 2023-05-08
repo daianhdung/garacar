@@ -5,17 +5,13 @@ import config from '~/config';
 import styles from './ListProduct.module.scss';
 import { formatNumber } from '~/utils/stringUtils';
 
-
-
 const cx = classNames.bind(styles);
 
-function ListProduct({products , handleDelete}) {
-
-
+function ListProduct({ products, handleDelete }) {
     return (
-        <div className={cx("wrapper")} >
-            <div className={cx("inner")} >
-                <table className='table table-hover table-content'>
+        <div className={cx('wrapper')}>
+            <div className={cx('inner')}>
+                <table className="table table-hover table-content">
                     <thead>
                         <tr>
                             <th scope="col">STT</th>
@@ -28,30 +24,43 @@ function ListProduct({products , handleDelete}) {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            products.map((product,index) => {
-                                return (
-                                    <tr key={index}>
-                                        <th scope="row">{index + 1}</th>
-                                        <td style={{maxWidth: '150px'}}>{product.name}</td>
+                        {products.map((product, index) => {
+                            return (
+                                <tr key={index}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td style={{ maxWidth: '150px' }}>{product.name}</td>
 
-                                        <td><img style={{objectFit: 'contain'}} src={product.mainImage} /></td>
-                                        <td style={{maxWidth: '150px'}}>{product.brandName ? product.brandName : "không có thương hiệu"}</td>
-                                        <td style={{maxWidth: '150px'}}>{product.categoryName ? product.categoryName : "không có thể loại"}</td>
-                                        <td style={{maxWidth: '150px'}}>{formatNumber(product.price)}</td>
+                                    <td>
+                                        <img src={product.mainImage} />
+                                    </td>
+                                    <td style={{ maxWidth: '150px' }}>
+                                        {product.brandName ? product.brandName : 'không có thương hiệu'}
+                                    </td>
+                                    <td style={{ maxWidth: '150px' }}>
+                                        {product.categoryName ? product.categoryName : 'không có thể loại'}
+                                    </td>
+                                    <td style={{ maxWidth: '150px' }}>{formatNumber(product.price)}</td>
 
-                                        <td className={cx("table-action")}>
-                                            <Link to={`${config.routes.adminProductUpdate}?id=${product.id}`}> <i className="bi bi-pencil-square text-info"></i> </Link>     
-                                            <Link to={config.routes.adminProduct} onClick={() => handleDelete(product.id, product.name)}> <i className="bi bi-trash text-danger ms-3"></i> </Link>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        }
+                                    <td className={cx('table-action')}>
+                                        <Link to={`${config.routes.adminProductUpdate}?id=${product.id}`}>
+                                            {' '}
+                                            <i className="bi bi-pencil-square text-info"></i>{' '}
+                                        </Link>
+                                        <Link
+                                            to={config.routes.adminProduct}
+                                            onClick={() => handleDelete(product.id, product.name)}
+                                        >
+                                            {' '}
+                                            <i className="bi bi-trash text-danger ms-3"></i>{' '}
+                                        </Link>
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>
         </div>
-    )
+    );
 }
-export default ListProduct
+export default ListProduct;

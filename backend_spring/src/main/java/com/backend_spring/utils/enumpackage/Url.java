@@ -13,10 +13,10 @@ public enum Url {
 //    ProductsImage("http://localhost:8080/api/uploads/products/");
 
 
-    Root("http://21.241.203.220:8080/"),
-    BrandImage("http://21.241.203.220:8080/api/uploads/brand/"),
-    CategoryImage("http://21.241.203.220:8080/api/uploads/category/"),
-    ProductsImage("http://21.241.203.220:8080/api/uploads/products/");
+    Root("http://21.228.63.215:8080/"),
+    BrandImage("http://21.228.63.215:8080/api/uploads/brand/"),
+    CategoryImage("http://21.228.63.215:8080/api/uploads/category/"),
+    ProductsImage("http://21.228.63.215:8080/api/uploads/products/");
 
     private String path;
 }

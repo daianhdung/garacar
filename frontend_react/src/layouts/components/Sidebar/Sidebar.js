@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import config from '~/config';
@@ -7,6 +7,7 @@ import { getAllBrand } from '~/services/brandService';
 import { getAllCategory } from '~/services/categoryService';
 import { Link, Route, useLocation } from 'react-router-dom';
 import useFilter from '~/hooks/useFilter';
+import useDebounce from '~/hooks/useDebounce';
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +16,27 @@ function Sidebar() {
     const [allCategory, setAllCategory] = useState();
     const [allBrand, setAllBrand] = useState();
 
+    const [keyword, setKeyword] = useState('');
 
+    const debounceValue = useDebounce(keyword, 500);
+
+    const onChangeKeyword = (e) => {
+        const searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setKeyword(searchValue);
+        }
+    };
+
+    useEffect(() => {
+        if (debounceValue) {
+            if (!debounceValue.trim()) {
+                setKeyword([]);
+                return;
+            }
+        }
+
+        filterContext.handleKeyword(debounceValue);
+    }, [debounceValue]);
 
     useEffect(() => {
         const fetchApiGetFilterBar = async () => {
@@ -29,16 +50,17 @@ function Sidebar() {
 
     return (
         <div className={cx('wrapper')}>
-            
             <div className={cx('first_wrapper')}>
                 <div className={cx('filter_div')}>Name</div>
                 <div className="d-flex align-content-start flex-wrap">
                     <div>
                         <input
+                            value={keyword}
                             type="search"
                             placeholder="Search"
                             className="form-control me-2 search_input"
                             aria-label="Search"
+                            onChange={onChangeKeyword}
                         />
                     </div>
                 </div>
