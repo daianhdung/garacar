@@ -46,11 +46,11 @@ export const CartProvider = ({ children }) => {
     var onIncrease = (id) => {
         const updatedItemList = cartProducts.map((item) => {
             if (item.id == id) {
-                if(item.quantity < item.maxOrder){
+                // if(item.quantity < item.maxOrder){
                     item.quantity++
-                }else{
-                    errorToast("Vượt giới hạn order")
-                }
+                // }else{
+                //     errorToast("Vượt giới hạn order")
+                // }
             }
             return item
         })

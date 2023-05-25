@@ -39,4 +39,6 @@ public class UserEntity {
     private Set<OrderEntity> orders;
     @OneToMany(mappedBy = "userEntity")
     private Set<BookmarkProductEntity> bookmarkProducts;
+    @OneToMany(mappedBy = "product")
+    private Set<ProductOrderEntity> productOrders;
 }

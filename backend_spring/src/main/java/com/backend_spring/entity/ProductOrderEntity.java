@@ -20,7 +20,7 @@ public class ProductOrderEntity {
     @Column(name = "amount")
     private int amount;
     @Column(name = "price")
-    private int price;
+    private float price;
     @ManyToOne
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private ProductEntity product;

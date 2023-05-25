@@ -7,12 +7,21 @@ import { Link, useParams } from 'react-router-dom';
 import { getDetailProduct } from '~/services/productService';
 import { formatNumber } from '~/utils/stringUtils';
 import ShoesThumb from '~/components/swiper/SlideThumb/ShoesThumb';
+import { faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CartModal from '~/components/Modal/CartModal/CartModal';
+import useCart from '~/hooks/useCart';
 
 const cx = classNames.bind(styles);
 
 function Detail() {
     const [product, setProduct] = useState('');
     const { id } = useParams();
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const cartContext = useCart();
+    const [count, setCount] = useState(1);
 
     useEffect(() => {
         // setIsLoading(true);
@@ -26,6 +35,49 @@ function Detail() {
         fetchApiDetailProduct();
         // setIsLoading(false);
     }, [id]);
+
+    const onReduce = () => {
+        setCount(count - 1);
+    };
+    const onIncrease = () => {
+        setCount(count + 1);
+    };
+
+    const onSubmit = () => {
+        const item = {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            quantity: count,
+            image: product.mainImage,
+        };
+        cartContext.addToCart(item);
+        setModalOpen(true);
+    };
+
+    const handleChange = (e) => {
+        const inputValue = e.target.value;
+        const newCount = isNaN(inputValue) ? count : Number(inputValue);
+        setCount(newCount);
+    };
+
+    const handleInput = (e) => {
+        const inputValue = e.target.value;
+        setCount(inputValue)
+        // if (inputValue > amount) e.target.value = amount;
+    };
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.keyCode === 27 && modalOpen) {
+                setModalOpen(false);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [modalOpen]);
 
     const viewPort = useViewport();
     const isMobile = viewPort.width <= 500;
@@ -75,10 +127,21 @@ function Detail() {
                                     <div className={cx('left-detail', 'p-2')}>
                                         <ShoesThumb children={product.images} />
                                     </div>
-                                    <div
-                                        className={cx('detail_description-mobile')}
-                                        dangerouslySetInnerHTML={{ __html: product.description }}
-                                    ></div>
+                                    {product.specification && (
+                                        <div
+                                            style={{
+                                                width: '300px ',
+                                            }}
+                                            className="border-theme my-2"
+                                        >
+                                            <div className="w-100 p-1 ps-2 text-light bg-theme">THÔNG SỐ KỸ THUẬT</div>
+                                            <div
+                                                style={{ listStyleType: 'initial !important' }}
+                                                className="py-2 px-4 div_ul_init ul_no_margin_bot"
+                                                dangerouslySetInnerHTML={{ __html: product.specification }}
+                                            ></div>
+                                        </div>
+                                    )}
                                 </>
                             )}
                         </>
@@ -143,6 +206,48 @@ function Detail() {
                                                         ></div>
                                                     </div>
                                                 )}
+                                                <div className="row mt-2">
+                                                    <div className={cx('quantity_setup', 'col-md-9', 'offset-md-2')}>
+                                                        <label>Số lượng</label>
+                                                        <button
+                                                            onClick={onReduce}
+                                                            className={cx('btn-reduce', 'btn')}
+                                                            type="button"
+                                                        >
+                                                            -
+                                                        </button>
+                                                        <input
+                                                            value={count}
+                                                            type="text"
+                                                            title="Số lượng"
+                                                            maxLength="2"
+                                                            id="qty"
+                                                            name="quantity"
+                                                            onInput={handleInput}
+                                                            onChange={handleChange}
+                                                        />
+                                                        <button
+                                                            onClick={onIncrease}
+                                                            className={cx('btn-increase', 'btn')}
+                                                            type="button"
+                                                        >
+                                                            +
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className={cx('button_action')}>
+                                                    <button
+                                                        onClick={onSubmit}
+                                                        className={cx('grow_spin')}
+                                                        type="submit"
+                                                        title="Mua Ngay"
+                                                    >
+                                                        <span>
+                                                            <FontAwesomeIcon icon={faShoppingBag} /> MUA NGAY
+                                                        </span>
+                                                        <div>Giao hành tận nơi hoặc nhận tại cửa hàng</div>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                         <div>
@@ -244,6 +349,7 @@ function Detail() {
                     </div>
                 </div>
             </div>
+            {modalOpen && <CartModal closeModal={() => setModalOpen(false)} />}
         </>
     );
 }

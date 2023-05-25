@@ -5,6 +5,8 @@ const routes = {
     contact: '/contact',
     detail: '/detail',
     detailId: '/detail/:id',
+    order: '/order',
+    orderSuccess: '/order/success/:token',
     
     //Authen Pages
     login: '/login',    

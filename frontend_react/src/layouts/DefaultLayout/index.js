@@ -7,9 +7,10 @@ import config from '~/config';
 
 import classNames from 'classnames/bind';
 import styles from './DefaultLayout.module.scss';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import useViewport from '~/hooks/useViewport';
 import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import LoaderModal from '~/components/Modal/LoaderModal/LoaderModal';
 
 const cx = classNames.bind(styles);
 
@@ -22,11 +23,14 @@ function DefaultLayout({ children }) {
         setCanvasVisible(!canvasVisible);
     };
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const viewPort = useViewport();
     const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
 
     return (
         <>
+            {isLoading && <LoaderModal isLoading={isLoading} />}
             <div>
                 <Header />
                 <div style={{ background: '#f5f5fa' }}>
@@ -34,9 +38,7 @@ function DefaultLayout({ children }) {
                         <div style={{ maxWidth: '1500px' }} className={cx('container-fluid', 'py-4')}>
                             {isMobile ? (
                                 <>
-                                    <div
-                                        className={cx('sidebar-mobile',canvasVisible ? 'toggler-sidebar' : '')}
-                                    >
+                                    <div className={cx('sidebar-mobile', canvasVisible ? 'toggler-sidebar' : '')}>
                                         <div className={cx('button-hide')} onClick={toggleCanvas}>
                                             <button className="btn btn-outline-info">
                                                 <i class="bi bi-chevron-double-left"></i>
@@ -44,19 +46,19 @@ function DefaultLayout({ children }) {
                                         </div>
                                         <Sidebar />
                                     </div>
-                                    <div className={cx('content-mobile')}>{children}</div>
+                                    <div className={cx('content-mobile')}>{React.cloneElement(children, { setIsLoading: setIsLoading })}</div>
                                 </>
                             ) : (
                                 <>
                                     <Sidebar />
-                                    <div className={cx('content')}>{children}</div>
+                                    <div className={cx('content')}>{React.cloneElement(children, { setIsLoading: setIsLoading })}</div>
                                 </>
                             )}
                         </div>
                     ) : (
                         <>
                             <div style={{ maxWidth: '1300px' }} className="container-fluid">
-                                <div className="py-4">{children}</div>
+                                <div className="py-4">{React.cloneElement(children, { setIsLoading: setIsLoading })}</div>
                             </div>
                         </>
                     )}

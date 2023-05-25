@@ -9,10 +9,20 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import useViewport from '~/hooks/useViewport';
 import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import CartModal from '~/components/Modal/CartModal/CartModal';
+import { useState } from 'react';
+import useCart from '~/hooks/useCart';
 
 const cx = classNames.bind(styles);
 
 function Header() {
+
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const cartContext = useCart()
+    const localItems = cartContext.items
+
     const viewPort = useViewport();
     const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
 
@@ -147,15 +157,16 @@ function Header() {
                                 </Link>
                             </li>
                             <li className="nav-item navitem_hover">
-                                <Link className="nav-link">
+                                <Link onClick={() => setModalOpen(true)} className={cx('nav_link_logo', 'nav-link')}>
                                     <FontAwesomeIcon style={{ color: '#4caf50' }} icon={faCartShopping} />
+                                    <span className={cx('logo_number', 'logo_number_orange')}>{localItems ? cartContext.getTotalQuantityCart() : 0}</span>
                                 </Link>
-                                {/* <span className={cx('logo_number', 'logo_number_orange')}>{localItems ? cartContext.getTotalQuantityCart() : 0}</span> */}
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
+            {modalOpen && <CartModal closeModal={() => setModalOpen(false)} />}
         </>
     );
 }

@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 @Entity(name = "orders")
@@ -28,13 +30,19 @@ public class OrderEntity {
     private String deliveryAddress;
 
     @Column(name = "create_at")
-    private String createAt;
+    private Timestamp createAt;
+
+    @Column(name = "order_token")
+    private String orderToken;
+
+    @Column(name = "coupon")
+    private float coupon;
 
 
     @OneToMany(mappedBy = "orders")
     private Set<ProductOrderEntity> productOrders;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private UserEntity users;
 

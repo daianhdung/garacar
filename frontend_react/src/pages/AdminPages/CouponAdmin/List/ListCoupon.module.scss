@@ -1,0 +1,46 @@
+@media screen and (min-width: 601px) {
+    .wrapper {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-size: 1.2rem;
+    }
+    .inner {
+        padding: 10px 10px;
+    }
+    td,
+    th {
+        vertical-align: middle;
+    }
+    td img {
+        width: 100px;
+        height: 100px;
+    }
+    .table-action a {
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .wrapper {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-size: .8rem;
+        overflow-x: auto;
+    }
+    .inner {
+        padding: 5px 5px;
+    }
+    td,
+    th {
+        vertical-align: middle;
+    }
+    td img {
+        width: 40px;
+        height: 40px;
+    }
+    .table-action a {
+        cursor: pointer;
+    }
+}

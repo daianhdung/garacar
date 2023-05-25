@@ -83,6 +83,7 @@ CREATE TABLE "orders" (
   "total" float,
   "user_id" int,
   "delivery_address" varchar(100),
+  "order_token" varchar(50),
   "create_at" TIMESTAMP DEFAULT (now()),
   "status_id" int
 );
@@ -181,6 +182,10 @@ INSERT INTO
   "role"(name, description)
 VALUES
   ('ROLE_USER', 'Customer');
+INSERT INTO
+  "role"(name, description)
+VALUES
+  ('ROLE_ANONYMOUS', 'Anonymous Customer');
 
 INSERT INTO
   "users"(
@@ -285,3 +290,8 @@ VALUES
 
 
 INSERT INTO "product"(name, main_image, price, detail, category_id, brand_id, create_by) VALUES('Test product', 'san-pham-camera-360-z311.jpg',  17000000,'Chi tiết sản phẩm', 1, 2, 'admin')
+
+INSERT INTO "status"(name)  VALUES ('Chưa xác nhận');
+INSERT INTO "status"(name)  VALUES ('Xác nhận');
+INSERT INTO "status"(name)  VALUES ('Hoàn thành');
+INSERT INTO "status"(name)  VALUES ('Đã hủy');

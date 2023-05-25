@@ -6,17 +6,23 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum Url {
+//
+    Root("http://localhost:8080/"),
+    BrandImage("http://localhost:8080/api/uploads/brand/"),
+    CategoryImage("http://localhost:8080/api/uploads/category/"),
+    ProductsImage("http://localhost:8080/api/uploads/products/");
 
-//    Root("http://localhost:8080/"),
-//    BrandImage("http://localhost:8080/api/uploads/brand/"),
-//    CategoryImage("http://localhost:8080/api/uploads/category/"),
-//    ProductsImage("http://localhost:8080/api/uploads/products/");
+//
+//    Root("http://192.168.1.25:8080/"),
+//    BrandImage("http://192.168.1.25:8080/api/uploads/brand/"),
+//    CategoryImage("http://192.168.1.25:8080/api/uploads/category/"),
+//    ProductsImage("http://192.168.1.25:8080/api/uploads/products/");
 
 
-    Root("http://21.228.63.215:8080/"),
-    BrandImage("http://21.228.63.215:8080/api/uploads/brand/"),
-    CategoryImage("http://21.228.63.215:8080/api/uploads/category/"),
-    ProductsImage("http://21.228.63.215:8080/api/uploads/products/");
+//    Root("http://21.228.63.215:8080/"),
+//    BrandImage("http://21.228.63.215:8080/api/uploads/brand/"),
+//    CategoryImage("http://21.228.63.215:8080/api/uploads/category/"),
+//    ProductsImage("http://21.228.63.215:8080/api/uploads/products/");
 
     private String path;
 }

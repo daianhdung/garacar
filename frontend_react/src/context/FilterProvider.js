@@ -20,8 +20,6 @@ export const FilterProvider = ({ children }) => {
         });
     };
 
-    console.log(filter);
-
     const handleKeyword = (name) => {
         console.log(name);
         setFilter({

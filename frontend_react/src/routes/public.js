@@ -21,6 +21,13 @@ import Product from '~/pages/Product';
 import config from '../config';
 import Home from '../pages/Home';
 import MailDetail from '~/pages/AdminPages/MailAdmin/Detail/MailDetail';
+import Order from '~/pages/Order/Order';
+import OrderSuccess from '~/pages/Order/OrderSuccess';
+import CouponAdmin from '~/pages/AdminPages/CouponAdmin';
+import UpdateCoupon from '~/pages/AdminPages/CouponAdmin/Update/UpdateCoupon';
+import InsertCoupon from '~/pages/AdminPages/CouponAdmin/Insert/InsertCoupon';
+import OrderAdmin from '~/pages/AdminPages/OrderAdmin';
+import UpdateOrder from '~/pages/AdminPages/OrderAdmin/Update/UpdateOrder';
 
 
 const publicRoutes = [
@@ -31,8 +38,8 @@ const publicRoutes = [
     { path: config.routes.product, component: Product},
     { path: config.routes.contact, component: Contact},
     // { path: config.routes.search, component: SearchProduct },
-    // { path: config.routes.order, component: Order, layout: HeaderOnlyLayout },
-    // { path: config.routes.orderSuccess, component: OrderSuccess, layout: HeaderOnlyLayout },
+    { path: config.routes.order, component: Order},
+    { path: config.routes.orderSuccess, component: OrderSuccess},
 ];
 const authRoutes = [{ path: config.routes.login, component: Login, layout: AuthenLayout }];
 
@@ -45,12 +52,12 @@ const adminRoutes = [
     { path: config.routes.adminProductInsert, component: InsertProduct, layout: AdminLayout },
     { path: config.routes.adminProductUpdate, component: UpdateProduct, layout: AdminLayout },
     // //Admin Order
-    // { path: config.routes.adminOrder, component: OrderAdmin, layout: AdminLayout },
-    // { path: config.routes.adminOrderUpdate, component: UpdateOrder, layout: AdminLayout },
+    { path: config.routes.adminOrder, component: OrderAdmin, layout: AdminLayout },
+    { path: config.routes.adminOrderUpdate, component: UpdateOrder, layout: AdminLayout },
     // //Admin Coupon
-    // { path: config.routes.adminCoupon, component: CouponAdmin, layout: AdminLayout },
-    // { path: config.routes.adminCouponUpdate, component: UpdateCoupon, layout: AdminLayout },
-    // { path: config.routes.adminCouponInsert, component: InsertCoupon, layout: AdminLayout },
+    { path: config.routes.adminCoupon, component: CouponAdmin, layout: AdminLayout },
+    { path: config.routes.adminCouponUpdate, component: UpdateCoupon, layout: AdminLayout },
+    { path: config.routes.adminCouponInsert, component: InsertCoupon, layout: AdminLayout },
     // //Admin User
     { path: config.routes.adminUser, component: UserAdmin, layout: AdminLayout },
     { path: config.routes.adminUserInsert, component: InsertUser, layout: AdminLayout },

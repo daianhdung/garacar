@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -39,7 +37,8 @@ public class ConfigSecurity{
         http.csrf().disable().cors().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers(API_IMAGE, API_LOGIN, API_REFRESH_TOKEN, API_BRAND, API_CATEGORY, API_PRODUCT, API_MAIL).permitAll()
+                .antMatchers(API_IMAGE, API_LOGIN, API_REFRESH_TOKEN, API_BRAND, API_CATEGORY
+                        , API_PRODUCT, API_MAIL, API_COUNPON, API_ORDER + "/**").permitAll()
                 .antMatchers(API_ADMIN).hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated();
 
