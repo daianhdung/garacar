@@ -14,9 +14,9 @@ public interface CouponService {
 
     CouponDTO getCoupon(int id);
 
-    boolean insertCoupon(CouponDTO couponRequest);
+    boolean insertCoupon(CouponDTO couponDTO);
 
-    boolean updateCoupon(CouponDTO couponRequest);
+    boolean updateCoupon(CouponDTO couponDTO);
 
     boolean deleteCoupon(int id);
 }

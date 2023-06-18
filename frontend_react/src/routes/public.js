@@ -28,6 +28,7 @@ import UpdateCoupon from '~/pages/AdminPages/CouponAdmin/Update/UpdateCoupon';
 import InsertCoupon from '~/pages/AdminPages/CouponAdmin/Insert/InsertCoupon';
 import OrderAdmin from '~/pages/AdminPages/OrderAdmin';
 import UpdateOrder from '~/pages/AdminPages/OrderAdmin/Update/UpdateOrder';
+import Chatbox from '~/components/Chatbox/Chatbox';
 
 
 const publicRoutes = [

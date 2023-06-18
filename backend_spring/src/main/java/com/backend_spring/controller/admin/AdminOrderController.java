@@ -43,10 +43,10 @@ public class AdminOrderController {
         return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/order/updatestatus/{id}/{status}")
-    public ResponseEntity<?> updateStatusOrder(@PathVariable(name = "id") int id, @PathVariable(name = "status") int status) {
+    @PutMapping("/order")
+    public ResponseEntity<?> updateStatusOrder(@RequestBody OrderDTO orderDTO) {
         DataResponse dataResponse = new DataResponse();
-        boolean isSuccess = orderService.updateStatusOrder(id, status);
+        boolean isSuccess = orderService.updateStatusOrder(orderDTO.getId(), orderDTO.getStatusId());
         dataResponse.setDesc("updateStatusOrder");
         dataResponse.setStatus(HttpStatus.OK.value());
         dataResponse.setSuccess(isSuccess);

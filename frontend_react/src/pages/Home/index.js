@@ -55,7 +55,6 @@ function Home() {
                 brandIds: [],
                 categoryIds: [],
             });
-            console.log(responseProduct);
             setProduct(responseProduct.productDTOList);
             SetPage({ ...page, totalPage: responseProduct.totalPage, currentPage: responseProduct.currentPage });
         };

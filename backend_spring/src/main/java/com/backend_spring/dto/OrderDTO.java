@@ -16,6 +16,7 @@ public class OrderDTO {
     private List<Map<String,String>> products;
 
     private float coupon;
+    private String nameCustomer;
 
     private String deliveryAddress;
 

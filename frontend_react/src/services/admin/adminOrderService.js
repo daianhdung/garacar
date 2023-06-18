@@ -25,9 +25,9 @@ export const getOrderById = async(id) => {
         console.log(error);
     }
 }
-export const updateOrderStatus = async(id, status) => {
+export const updateOrderStatus = async(orderDTO) => {
     try{
-        const response = await privateRequest.putBodyToken(`admin/order/updatestatus/${id}/${status}`)
+        const response = await privateRequest.putBodyToken(`admin/order`, orderDTO)
         return response
     }catch(error){
         console.log(error);

@@ -210,9 +210,6 @@ public class ProductServiceImp implements ProductService {
         }
 
         Page<ProductEntity> page;
-        System.out.println(filterProduct.getBrandIds());
-        System.out.println(filterProduct.getCategoryIds());
-        System.out.println(filterProduct.getSearchKeyword());
 
         if (filterProduct.getCategoryIds().size() > 0 || filterProduct.getBrandIds().size() > 0) {
             page = productRepository
@@ -226,7 +223,9 @@ public class ProductServiceImp implements ProductService {
         }
 
 
-        List<ProductDTO> productDTOList = page.getContent().stream().map(item -> {
+        List<ProductDTO> productDTOList = page.getContent()
+                .stream()
+                .map(item -> {
             ProductDTO productDTO = new ProductDTO();
             productDTO.setId(item.getId());
             productDTO.setName(item.getName());
@@ -248,7 +247,9 @@ public class ProductServiceImp implements ProductService {
         name = stringUtil.removeWhiteSpaceBeginAndEnd(name);
         Page<ProductEntity> page = productRepository.findByNameContainingIgnoreCase(name, pageable);
 
-        List<ProductDTO> productDTOList = page.getContent().stream().map(item -> {
+        return page.getContent()
+                .stream()
+                .map(item -> {
             ProductDTO productDTO = new ProductDTO();
             productDTO.setId(item.getId());
             productDTO.setName(item.getName());
@@ -256,7 +257,5 @@ public class ProductServiceImp implements ProductService {
             productDTO.setPrice(item.getPrice());
             return productDTO;
         }).collect(Collectors.toList());
-
-        return productDTOList;
     }
 }

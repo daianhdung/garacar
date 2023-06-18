@@ -39,8 +39,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             }else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             }
-        }else {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
         filterChain.doFilter(request, response);
     }
@@ -48,8 +46,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private String getTokenFromHeader(HttpServletRequest request) {
         String strToken = request.getHeader("Authorization");
         if (StringUtils.hasText(strToken) && strToken.startsWith("Bearer")) {
-            String finalToken = strToken.substring(7);
-            return finalToken;
+            return strToken.substring(7);
         } else  {
             return null;
         }

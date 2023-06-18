@@ -1,9 +1,6 @@
 package com.backend_spring.services.imp;
 
-import com.backend_spring.dto.OrderDTO;
-import com.backend_spring.dto.ProductOrderDTO;
-import com.backend_spring.dto.StatusDTO;
-import com.backend_spring.dto.UserDTO;
+import com.backend_spring.dto.*;
 import com.backend_spring.entity.*;
 import com.backend_spring.repository.*;
 import com.backend_spring.services.OrderService;
@@ -165,8 +162,19 @@ public class OrderServiceImp implements OrderService {
         Optional<OrderEntity> orderEntityOptional = orderRepository.findById(id);
         if (orderEntityOptional.isPresent()) {
             OrderDTO orderDTO = new OrderDTO();
-            OrderEntity orderEntity = orderEntityOptional.get();
-            orderDTO.setStatusId(orderEntity.getStatus().getId());
+            orderDTO.setStatusId(orderEntityOptional.get().getStatus().getId());
+            orderDTO.setNameCustomer(orderEntityOptional.get().getUsers().getFullName());
+            orderDTO.setDeliveryAddress(orderEntityOptional.get().getDeliveryAddress());
+            orderDTO.setStatus(orderEntityOptional.get().getStatus().getName());
+            List<ProductOrderDTO> productDTOList = new ArrayList<>();
+            orderEntityOptional.get().getProductOrders().forEach(item -> {
+                ProductOrderDTO productOrder = new ProductOrderDTO();
+                productOrder.setName(item.getProduct().getName());
+                productOrder.setAmount(item.getAmount());
+                productDTOList.add(productOrder);
+            });
+            orderDTO.setTotal((int) orderEntityOptional.get().getTotal());
+            orderDTO.setProductOrderDTOList(productDTOList);
             return orderDTO;
         }
         return null;

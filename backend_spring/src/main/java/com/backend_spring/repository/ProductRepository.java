@@ -11,7 +11,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
 
 
-    List<ProductEntity> findAllByPriceIsIn(List<Integer> listPrice);
+//    List<ProductEntity> findAllByPriceIsIn(List<Integer> listPrice);
 
     List<ProductEntity> findAllByBrandId(int brandId);
 

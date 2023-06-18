@@ -108,7 +108,6 @@ CREATE TABLE "mail" (
 CREATE TABLE "visitor" (
   "id" SERIAL PRIMARY KEY,
   "ip_address" varchar(50),
-  "count" int,
   "start_time" TIMESTAMP DEFAULT (now()),
   "end_time" TIMESTAMP
 );

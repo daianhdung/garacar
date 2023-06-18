@@ -41,3 +41,39 @@
         }
     }
 }
+
+.message_logo {
+   position: relative;
+   cursor: pointer;
+   user-select: none;
+}
+.message_popup {
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    background-color: rgb(250, 247, 247);
+    border-radius: 8px;
+    right: -30px;
+    top: 45px;
+    z-index: 4;
+}
+.message_popup.none{
+    display: none;
+}
+
+.item-mess{
+    &:hover{
+        background-color: rgba(104, 153, 222, 0.5);
+    }
+}
+
+.text-side{
+    h5 {
+        font-weight: 600;
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+    h6{
+        margin-bottom: 0;
+    }
+}

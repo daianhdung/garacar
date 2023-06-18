@@ -1,4 +1,4 @@
-@media (max-width: 40em){
+@media (max-width: 40em) {
     .nav_link_logo {
         margin-right: 20px;
         position: relative;
@@ -13,5 +13,48 @@
     position: relative;
     &:hover .logo_number {
         color: var(--bs-link-hover-color);
+    }
+}
+
+.drop_down_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    background: rgb(233, 240, 250);
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    overflow: hidden;
+
+    .drop_down_content {
+        overflow: hidden;
+        * {
+            &:hover {
+                background: rgba(104, 153, 222, 0.5);
+                color: rgb(94, 71, 51);
+                overflow: hidden;
+            }
+            text-align: center;
+            width: 150px;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+        .block {
+            display: block;
+        }
+    }
+}
+
+.active {
+    color: var(--active-font) !important;
+    font-weight: 700 !important;
+    position: relative !important;
+    &::before {
+        content: '';
+        height: 10px;
+        width: 60%;
+        transform: translate3d(20%, 200%, 0);
+        position: absolute;
+        border-bottom: 2px solid var(--active-font);
     }
 }

@@ -6,6 +6,11 @@ const provinceOpen = axios.create({
     baseURL: process.env.REACT_APP_PROVINCE_API_URL,
 });
 
+const testAPI = axios.create({
+    baseURL: 'https://api.bigdatacloud.net/',
+});
+
+
 
 export const get = async (path = {}) => {
     const response = await provinceOpen.get(path)
@@ -17,4 +22,4 @@ export const getParams = async (path, options = {}) => {
     return response.data;
 };
 
-export default provinceOpen
+export {provinceOpen, testAPI}

@@ -50,7 +50,7 @@ function Contact() {
                     <div className={cx('wrap-contact')}>
                         <form className={cx('contact-form', 'validate-form')}>
                             <span className={cx('contact100-form-title')}> Liên hệ với chúng tôi </span>
-                            <label className={cx('label-input100')} for="first-name">
+                            <label className={cx('label-input100')} htmlFor="first-name">
                                 Nhập vào tên của bạn *
                             </label>
                             <div className={cx('wrap-input100', 'rs1-wrap-input100', 'validate-input')}>
@@ -73,7 +73,7 @@ function Contact() {
                                 />
                             </div>
                             {errors.fullName && <span className="text-danger">{errors.fullName}</span>}
-                            <label className={cx('label-input100')} for="email">
+                            <label className={cx('label-input100')} htmlFor="email">
                                 Nhập vào email *
                             </label>
                             <div className={cx('wrap-input100', 'validate-input')}>
@@ -88,7 +88,7 @@ function Contact() {
                                 />
                             </div>
                             {errors.email && <span className="text-danger">{errors.email}</span>}
-                            <label className={cx('label-input100')} for="phone">
+                            <label className={cx('label-input100')} htmlFor="phone">
                                 Nhập vào số điện thoại *
                             </label>
                             <div className={cx('wrap-input100')}>
@@ -102,7 +102,7 @@ function Contact() {
                                 />
                             </div>
                             {errors.phone && <span className="text-danger">{errors.phone}</span>}
-                            <label className={cx('label-input100')} for="message">
+                            <label className={cx('label-input100')} htmlFor="message">
                                 Tin nhắn *
                             </label>
                             <div className={cx('wrap-input100', 'validate-input')}>

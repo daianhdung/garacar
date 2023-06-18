@@ -5,23 +5,23 @@ import { MOBILE_VIEWPORT_PX } from "~/utils/constant-var";
 const sortList = [
     {
         name: '',
-        lable: '----- Sắp xếp -----',
+        label: '----- Sắp xếp -----',
     },
     {
         name: 'nameAsc',
-        lable: 'Tên: A-Z',
+        label: 'Tên: A-Z',
     },
     {
         name: 'nameDesc',
-        lable: 'Tên: Z-A',
+        label: 'Tên: Z-A',
     },
     {
         name: 'priceAsc',
-        lable: 'Giá tăng dần',
+        label: 'Giá tăng dần',
     },
     {
         name: 'priceDesc',
-        lable: 'Giá giảm dần',
+        label: 'Giá giảm dần',
     },
 ];
 
@@ -40,7 +40,7 @@ function Sort({ handleSort , value}) {
                     
                     {sortList.map((item) => (
                         <option value={item.name} key={item.name}>
-                            {item.lable}
+                            {item.label}
                         </option>
                     ))}
                 </select>

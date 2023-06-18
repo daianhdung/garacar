@@ -12,4 +12,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     List<UserEntity> getByUserName(String username);
 
     UserEntity findUserEntityByEmail(String email);
+
+    List<UserEntity> findAllByRoleIdIsNot(int roleId);
 }

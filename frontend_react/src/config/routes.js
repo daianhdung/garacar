@@ -1,5 +1,6 @@
 const routes = {
     //Default Pages
+    homePage: '/',
     home: '/home',
     product: '/product',
     contact: '/contact',
@@ -51,6 +52,8 @@ const routes = {
      linkFB: 'https://www.facebook.com/alosaigon24h',
      //YT
      linkYT: 'https://www.youtube.com/@xanhautosaigon',
+
+     linkZalo: 'https://zalo.me/0922003033',
 };
 
 export default routes;

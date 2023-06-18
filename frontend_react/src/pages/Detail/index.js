@@ -95,7 +95,7 @@ function Detail() {
                                 <i className="bi bi-caret-right-fill"></i>
                                 <Link to={config.routes.product}>Sản phẩm</Link>
                                 <i className="bi bi-caret-right-fill"></i>
-                                <span>Product</span>
+                                <span>{product.name}</span>
                                 {/* <span className="compare_icon"
           ><i className="bi bi-plus-circle"></i> Compare</span> */}
                             </div>
@@ -147,14 +147,14 @@ function Detail() {
                         </>
                     ) : (
                         <>
-                            <div className={cx('header-detail')}>
+                            <div className={cx('header-detail', 'p-2')}>
                                 <Link to={config.routes.home} className={cx('link-header')}>
                                     Trang chủ
                                 </Link>
                                 <i className="bi bi-caret-right-fill"></i>
                                 <Link to={config.routes.product}>Sản phẩm</Link>
                                 <i className="bi bi-caret-right-fill"></i>
-                                <span>Product</span>
+                                <span>{product.name}</span>
                                 {/* <span className="compare_icon"
           ><i className="bi bi-plus-circle"></i> Compare</span> */}
                             </div>

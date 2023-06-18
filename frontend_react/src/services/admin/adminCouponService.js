@@ -29,7 +29,7 @@ export const getCouponId = async(id) => {
 
 export const updateCouponById = async(data) => {
     try{
-        const response = await privateRequest.putBodyToken(`admin/coupon/update`, data)
+        const response = await privateRequest.putBodyToken(`admin/coupon`, data)
         return response
     }catch(error){
         console.log(error);

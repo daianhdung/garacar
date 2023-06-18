@@ -17,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.backend_spring.constant.FieldEntityConstant.ROLE_ANONYMOUS;
+
 @Service
 public class UserServiceImp implements UserService {
 
@@ -38,7 +40,7 @@ public class UserServiceImp implements UserService {
     @Override
     public List<UserDTO> getALLUser() {
         List<UserDTO> list = new ArrayList<>();
-        userRepository.findAll().forEach(userEntity -> {
+        userRepository.findAllByRoleIdIsNot(ROLE_ANONYMOUS).forEach(userEntity -> {
             UserDTO userDTO = new UserDTO();
             userDTO.setId(userEntity.getId());
             userDTO.setFullname(userEntity.getFullName());

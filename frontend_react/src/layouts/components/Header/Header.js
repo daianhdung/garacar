@@ -1,27 +1,29 @@
-import { Link } from 'react-router-dom';
+import { faAngleDown, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link, useLocation } from 'react-router-dom';
 import images from '~/assets';
 import config from '~/config';
-import Search from '../Search/Search';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import Search from '../../../components/Search/Search';
 
+import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import styles from './Header.module.scss';
-import useViewport from '~/hooks/useViewport';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
-import CartModal from '~/components/Modal/CartModal/CartModal';
 import { useState } from 'react';
+import CartModal from '~/components/Modal/CartModal/CartModal';
 import useCart from '~/hooks/useCart';
+import useViewport from '~/hooks/useViewport';
+import { searchProduct } from '~/services/productService';
+import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import styles from './Header.module.scss';
 
 const cx = classNames.bind(styles);
 
 function Header() {
-
+    const location = useLocation();
 
     const [modalOpen, setModalOpen] = useState(false);
 
-    const cartContext = useCart()
-    const localItems = cartContext.items
+    const cartContext = useCart();
+    const localItems = cartContext.items;
 
     const viewPort = useViewport();
     const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
@@ -31,7 +33,7 @@ function Header() {
             <div style={{ background: '#FFE880' }}>
                 <div
                     className="container-fluid container container-sm"
-                    style={isMobile ? {maxWidth: '100%'} : { maxWidth: '1300px', maxHeight: '40px' }}
+                    style={isMobile ? { maxWidth: '100%' } : { maxWidth: '1300px', maxHeight: '40px' }}
                 >
                     {isMobile ? (
                         <>
@@ -135,31 +137,72 @@ function Header() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarScroll">
                         <form className="d-flex search_input" role="search">
-                            <Search />
+                            <Search service={searchProduct}/>
                         </form>
                         <ul style={{ display: 'flex', justifyContent: 'center' }} className="mx-5 navbar-nav">
                             <li className="nav-item navitem_hover">
-                                <Link to={config.routes.home} className="nav-link" aria-current="page">
+                                <Link
+                                    to={config.routes.home}
+                                    className={cx(
+                                        'nav-link',
+                                        (location.pathname == config.routes.home ||
+                                            location.pathname == config.routes.homePage) &&
+                                            'active',
+                                    )}
+                                    aria-current="page"
+                                >
                                     Trang chủ
                                 </Link>
                             </li>
                             <li className="nav-item navitem_hover">
-                                <Link to={config.routes.product} className="nav-link">
+                                <Link
+                                    to={config.routes.product}
+                                    className={cx('nav-link', location.pathname == config.routes.product && 'active')}
+                                >
                                     Sản phẩm
                                 </Link>
                             </li>
                             <li className="nav-item navitem_hover">
-                                <a className="nav-link">Dịch vụ</a>
+                                <Tippy
+                                    interactive
+                                    render={(attrs) => (
+                                        <div className={cx('drop_down_wrap')}>
+                                            <div className={cx('drop_down_content')} tabIndex="-1">
+                                                <Link
+                                                    to={config.routes.product}
+                                                    className={cx('block', 'border-bottom')}
+                                                >
+                                                    Sửa chữa
+                                                </Link>
+                                                <Link
+                                                    to={config.routes.product}
+                                                    className={cx('block', 'border-bottom')}
+                                                >
+                                                    Lắp đặt
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    )}
+                                >
+                                    <Link className={cx('nav-link')}>
+                                        Dịch vụ <FontAwesomeIcon style={{verticalAlign : '-0.2em'}} icon={faAngleDown} />
+                                    </Link>
+                                </Tippy>
                             </li>
                             <li className="nav-item navitem_hover">
-                                <Link to={config.routes.contact} className="nav-link">
+                                <Link
+                                    to={config.routes.contact}
+                                    className={cx('nav-link', location.pathname == config.routes.contact && 'active')}
+                                >
                                     Liên hệ
                                 </Link>
                             </li>
                             <li className="nav-item navitem_hover">
                                 <Link onClick={() => setModalOpen(true)} className={cx('nav_link_logo', 'nav-link')}>
                                     <FontAwesomeIcon style={{ color: '#4caf50' }} icon={faCartShopping} />
-                                    <span className={cx('logo_number', 'logo_number_orange')}>{localItems ? cartContext.getTotalQuantityCart() : 0}</span>
+                                    <span className={cx('logo_number', 'logo_number_orange')}>
+                                        {localItems ? cartContext.getTotalQuantityCart() : 0}
+                                    </span>
                                 </Link>
                             </li>
                         </ul>

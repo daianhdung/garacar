@@ -2,8 +2,11 @@ package com.backend_spring.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "visitor")
 @Getter
@@ -15,10 +18,9 @@ public class VisitorEntity {
     private int id;
     @Column(name = "ip_address")
     private String ipAddress;
-    @Column(name = "count")
-    private int count;
     @Column(name = "start_time")
-    private String startTime;
+    @CreationTimestamp
+    private LocalDateTime startTime;
     @Column(name = "end_time")
-    private String endTime;
+    private LocalDateTime endTime;
 }

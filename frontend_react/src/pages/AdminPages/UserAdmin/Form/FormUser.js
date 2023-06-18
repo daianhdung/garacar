@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { validEmail, validPhone } from '~/utils/regex';
 
 function FormUser({ user, handleUpdate, handleInsert, roles }) {
     const [formUser, setFormUser] = useState(user ? user : { roleId: 1 });
@@ -14,12 +15,29 @@ function FormUser({ user, handleUpdate, handleInsert, roles }) {
 
     const handleSubmitUpdate = () => {
         let newErrors = {};
-        if (!formUser.fullname) {
-            newErrors.fullname = 'Tên bắt buộc';
+        if (!formUser.userName) {
+            newErrors.userName = 'Username bắt buộc';
         }
-        // if (!formUser.mainImage) {
-        //     newErrors.mainImage = 'Ảnh bắt buộc';
-        // }
+        if (!formUser.email) {
+            newErrors.email = 'Email bắt buộc';
+        } else if (!validEmail.test(formUser.email)) {
+            newErrors.email = 'Email không hợp lệ';
+        }
+        if (!formUser.fullname) {
+            newErrors.fullname = 'Họ và tên bắt buộc';
+        }
+        if (!formUser.phone) {
+            newErrors.phone = 'Số điện thoại bắt buộc';
+        } else if (!validPhone.test(formUser.phone)) {
+            newErrors.phone = 'Số điện thoại không hợp lệ';
+        }
+        if (!formUser.address) {
+            newErrors.address = 'Địa chỉ bắt buộc';
+        }
+        if (!formUser.password) {
+            newErrors.password = 'Mật khẩu bắt buộc';
+        }
+        
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
             handleUpdate(formUser, mainImage);
@@ -27,9 +45,29 @@ function FormUser({ user, handleUpdate, handleInsert, roles }) {
     };
     const handleSubmitCreate = () => {
         let newErrors = {};
-        if (!formUser.fullname) {
-            newErrors.fullname = 'Tên bắt buộc';
+        if (!formUser.userName) {
+            newErrors.userName = 'Username bắt buộc';
         }
+        if (!formUser.email) {
+            newErrors.email = 'Email bắt buộc';
+        } else if (!validEmail.test(formUser.email)) {
+            newErrors.email = 'Email không hợp lệ';
+        }
+        if (!formUser.fullname) {
+            newErrors.fullname = 'Họ và tên bắt buộc';
+        }
+        if (!formUser.phone) {
+            newErrors.phone = 'Số điện thoại bắt buộc';
+        } else if (!validPhone.test(formUser.phone)) {
+            newErrors.phone = 'Số điện thoại không hợp lệ';
+        }
+        if (!formUser.address) {
+            newErrors.address = 'Địa chỉ bắt buộc';
+        }
+        if (!formUser.password) {
+            newErrors.password = 'Mật khẩu bắt buộc';
+        }
+
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
             handleInsert(formUser, mainImage);

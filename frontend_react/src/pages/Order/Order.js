@@ -12,7 +12,7 @@ import { getProvince, searchDistrictOnCode, searchWardOnCode } from "~/services/
 // import { getUserInform } from "~/services/userService";
 import { formatNumber } from "~/utils/stringUtils";
 import styles from './Order.module.scss';
-import { validEmail } from "~/utils/regex";
+import { validEmail, validPhone } from "~/utils/regex";
 import useAuth from "~/hooks/useAuth";
 
 
@@ -198,6 +198,8 @@ function Order({ setIsLoading }) {
         }
         if (!formInformUser.phone) {
             newErrors.phone = 'Số điện thoại bắt buộc';
+        }else if(!validPhone.test(formInformUser.phone)){
+            newErrors.phone = 'Số điện thoại không hợp lệ';
         }
         if (!formInformUser.address) {
             newErrors.address = 'Địa chỉ bắt buộc';
@@ -249,7 +251,7 @@ function Order({ setIsLoading }) {
                     {errors.email && <span className="text-danger">{errors.email}</span>}
                 </div>
                 <div className="mb-3">
-                    <input placeholder="Họ và tên" style={{ height: '45px' }} type="text" className={`form-control  ${errors.fullname && 'is-invalid'}`} id="fullname" defaultValue={user.fullname} name="fullname" onChange={handleChangeForm} onKeyDown={checkBackspace} disabled={user.fullname} />
+                    <input maxLength={30} placeholder="Họ và tên" style={{ height: '45px' }} type="text" className={`form-control  ${errors.fullname && 'is-invalid'}`} id="fullname" defaultValue={user.fullname} name="fullname" onChange={handleChangeForm} onKeyDown={checkBackspace} disabled={user.fullname} />
                     {errors.fullname && <span className="text-danger">{errors.fullname}</span>}
                 </div>
                 <div className="mb-3">

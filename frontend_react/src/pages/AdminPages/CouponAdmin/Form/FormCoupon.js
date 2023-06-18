@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { validFloat } from '~/utils/regex';
 
 function FormCoupon({ coupon, handleUpdate, handleInsert}) {
     const [formCoupon, setFormCoupon] = useState(coupon ? coupon : "");
@@ -16,6 +17,11 @@ function FormCoupon({ coupon, handleUpdate, handleInsert}) {
         if (!formCoupon.name) {
             newErrors.name = 'Tên bắt buộc';
         }
+        if (!formCoupon.rate) {
+            newErrors.rate = 'Rate bắt buộc';
+        }else if(!validFloat.test(formCoupon.rate)){
+            newErrors.rate = 'Rate phải là số thực';
+        }
 
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {
@@ -26,6 +32,11 @@ function FormCoupon({ coupon, handleUpdate, handleInsert}) {
         let newErrors = {};
         if (!formCoupon.name) {
             newErrors.name = 'Tên bắt buộc';
+        }
+        if (!formCoupon.rate) {
+            newErrors.rate = 'Rate bắt buộc';
+        }else if(!validFloat.test(formCoupon.rate)){
+            newErrors.rate = 'Rate phải là số thực';
         }
         setErrors(newErrors);
         if (Object.keys(newErrors).length === 0) {

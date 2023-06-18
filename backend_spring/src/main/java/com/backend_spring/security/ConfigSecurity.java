@@ -20,9 +20,6 @@ public class ConfigSecurity{
 
     @Autowired
     JwtTokenFilter jwtTokenFilter;
-
-
-
     @Autowired
     CustomAuthenticationProvider customAuthenticationProvider;
     @Bean
@@ -38,7 +35,7 @@ public class ConfigSecurity{
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers(API_IMAGE, API_LOGIN, API_REFRESH_TOKEN, API_BRAND, API_CATEGORY
-                        , API_PRODUCT, API_MAIL, API_COUNPON, API_ORDER + "/**").permitAll()
+                        , API_PRODUCT, API_MAIL, API_COUNPON, API_ORDER + "/**", API_VISITOR, "/ws/**").permitAll()
                 .antMatchers(API_ADMIN).hasAuthority("ROLE_ADMIN")
                 .anyRequest().authenticated();
 

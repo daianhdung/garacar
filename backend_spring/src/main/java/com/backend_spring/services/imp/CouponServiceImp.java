@@ -66,11 +66,11 @@ public class CouponServiceImp implements CouponService {
         return couponDTO;
     }
     @Override
-    public boolean insertCoupon(CouponDTO couponRequest) {
+    public boolean insertCoupon(CouponDTO counponDTO) {
         CouponEntity couponEntity = new CouponEntity();
 
-        couponEntity.setName(couponRequest.getName());
-        couponEntity.setRate((couponRequest.getRate()));
+        couponEntity.setName(counponDTO.getName());
+        couponEntity.setRate((counponDTO.getRate()));
         try {
             couponRepository.save(couponEntity);
             return true;
@@ -80,10 +80,10 @@ public class CouponServiceImp implements CouponService {
     }
 
     @Override
-    public boolean updateCoupon(CouponDTO couponRequest) {
-        CouponEntity couponEntity = couponRepository.findById(couponRequest.getId());
-        couponEntity.setName(couponRequest.getName());
-        couponEntity.setRate((couponRequest.getRate()));
+    public boolean updateCoupon(CouponDTO counponDTO) {
+        CouponEntity couponEntity = couponRepository.findById(counponDTO.getId());
+        couponEntity.setName(counponDTO.getName());
+        couponEntity.setRate((counponDTO.getRate()));
         try {
             couponRepository.save(couponEntity);
             return true;

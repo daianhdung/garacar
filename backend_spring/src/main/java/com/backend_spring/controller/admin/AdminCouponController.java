@@ -50,7 +50,7 @@ public class AdminCouponController {
         return new ResponseEntity<>(dataResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/coupon/update")
+    @PutMapping("/coupon")
     public ResponseEntity<?> updateCoupon(@RequestBody CouponDTO couponDTO) {
         DataResponse dataResponse = new DataResponse();
         boolean isSuccess = couponService.updateCoupon(couponDTO);

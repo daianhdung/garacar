@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
             localStorage.setItem('items', JSON.stringify(items))
             setCartProducts(items)
         }else{
-            const localItems = cartProducts
+            const localItems = JSON.parse(localStorage.getItem('items'))
             localItems.map((itemLocal) => {
                 if (item.id == itemLocal.id) {
                     if(item.maxOrder - (item.quantity + itemLocal.quantity) > 0){

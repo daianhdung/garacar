@@ -11,8 +11,9 @@ function UpdateCoupon() {
     const [formCoupon, setFormCoupon] = useState();
     const [role, setRole] = useState()
 
-    const handleUpdate = (formCoupon, mainImage) => {
+    const handleUpdate = (formCoupon) => {
         const couponDTO = {
+            id : id,
             name : formCoupon.name,
             rate : formCoupon.rate,
         }

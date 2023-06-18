@@ -13,6 +13,9 @@ public class ApiConstant {
     public static final String API_PRODUCT = "/product/**";
     public static final String API_CATEGORY = "/category/**";
     public static final String API_BRAND = "/brand/**";
+
+    public static final String API_VISITOR = "/visitor/**";
+
     public static final String API_SIZE = "/size";
 
     public static final String API_COUNPON = "/coupon";

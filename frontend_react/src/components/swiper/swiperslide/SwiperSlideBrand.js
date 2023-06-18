@@ -39,7 +39,7 @@ function SwiperSlideBrand(prop) {
                         <SwiperSlide key={index}>
                             <Link to={config.routes.product}>
                                 <img
-                                    onClick={() => prop.onClick(item.id)}
+                                    // onClick={() => prop.onClick(item.id)}
                                     style={prop.style}
                                     src={item.image}
                                     width={prop.width}

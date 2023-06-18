@@ -1,21 +1,20 @@
-import classNames from 'classnames/bind';
-import Tippy from '@tippyjs/react/headless';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Tippy from '@tippyjs/react/headless';
+import classNames from 'classnames/bind';
 
-import config from '~/config';
-import styles from './Search.module.scss';
-import React, { useEffect, useRef, useState } from 'react';
-import { faCircle, faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import ProductItem from '~/components/ProductItem/ProductItem';
-import { searchProduct } from '~/services/productService';
+import config from '~/config';
 import useDebounce from '~/hooks/useDebounce';
 import useViewport from '~/hooks/useViewport';
 import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
-import { Link } from 'react-router-dom';
+import styles from './Search.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Search() {
+function Search(prop) {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
@@ -31,7 +30,7 @@ function Search() {
 
         const fetchApiSearchProduct = async () => {
             setLoading(true);
-            const response = await searchProduct(debounceValue);
+            const response = await prop.service(debounceValue);
             setSearchResult(response);
             setLoading(false);
         };

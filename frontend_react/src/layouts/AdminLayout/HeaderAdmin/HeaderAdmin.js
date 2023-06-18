@@ -1,21 +1,30 @@
 import classNames from 'classnames/bind';
 import { Link, NavLink } from 'react-router-dom';
 
+import { faMessage } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react/headless';
+import { useState } from 'react';
 import config from '~/config';
-import Search from '~/layouts/components/Search/Search';
-import styles from './HeaderAdmin.module.scss';
 import useAuth from '~/hooks/useAuth';
 import useViewport from '~/hooks/useViewport';
+import { searchProduct } from '~/services/productService';
 import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import Search from '../../../components/Search/Search';
+import styles from './HeaderAdmin.module.scss';
+import images from '~/assets';
+import useChat from '~/hooks/useChat';
 
 const cx = classNames.bind(styles);
 
 function HeaderAdmin(props) {
     const context = useAuth();
+    const chatSection = useChat()
 
     const viewPort = useViewport();
     const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+
+    const [isPopMessage, setIsPopMessage] = useState(false);
 
     return (
         <>
@@ -26,9 +35,7 @@ function HeaderAdmin(props) {
                             <Link to={config.routes.adminHome}>
                                 <span style={{ color: '#fff' }}>DASH BOARD</span>
                             </Link>
-                            <span className="text-white">
-                                Hi, {context.authProvider.username}
-                            </span>
+                            <span className="text-white">Hi, {context.authProvider.username}</span>
                             <button
                                 className="navbar-toggler"
                                 type="button"
@@ -74,7 +81,25 @@ function HeaderAdmin(props) {
                         <h3 style={{ color: '#fff' }}>DASH BOARD</h3>
                     </Link>
                     <div className={cx('f-spaceb-align', 'right_header')}>
-                        <Search />
+                        <form className="d-flex search_input" role="search">
+                            <Search service={searchProduct} />
+                        </form>
+                        <div className={cx('message_logo')}>
+                            <FontAwesomeIcon onClick={() => setIsPopMessage(!isPopMessage)}  className="mx-4" style={{ fontSize: '1.3rem' }} icon={faMessage} />
+                            <span className={cx('logo_number_red')}>2</span>
+                            <div className={cx('message_popup', !isPopMessage && 'none')}>
+                            <Search/>
+                            {[...chatSection.section.values()].map(item => (
+                                <div key={item.id} className={cx('d-flex', 'py-3', 'item-mess')}>
+                                    <img className='mx-3 rounded-circle' width={50} height={50} src={images.avatarAno} alt="" />
+                                    <div  className={cx('text-dark', 'text-side')}>
+                                        <h5 className=''>{item.name}</h5>
+                                        <h6 className=''>{item.mes}</h6>
+                                    </div>
+                                </div>
+                            ))}
+                            </div>
+                        </div>
                         <div className={cx('f-center-align')}>
                             <Tippy
                                 interactive
@@ -99,14 +124,12 @@ function HeaderAdmin(props) {
                                 )}
                             >
                                 <span className="f-center-align">
-                                    <span style={{ minWidth: '150px' }} className="ms-5">
-                                        Hi, {context.authProvider.username}
-                                    </span>
-                                    <div className={cx('avatar', 'f-center-align', 'ms-3')}>
-                                        <img src={process.env.PUBLIC_URL + '/logo192.png'} />
-                                    </div>
+                                    <span style={{ minWidth: '150px' }}>Hi, {context.authProvider.username}</span>
                                 </span>
                             </Tippy>
+                            <div className={cx('avatar', 'f-center-align', 'ms-3')}>
+                                <img src={process.env.PUBLIC_URL + '/logo192.png'} />
+                            </div>
                         </div>
                     </div>
                 </div>
