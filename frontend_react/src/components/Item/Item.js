@@ -6,7 +6,8 @@ import { formatNumber } from '~/utils/stringUtils';
 import { getCookie } from '~/utils/utilsCookie';
 import styles from './Item.module.scss';
 import useViewport from '~/hooks/useViewport';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import constantObject from '~/utils/constant-var';
+
 // import * as bookmarkService from '~/service/bookmarkService';
 
 const cx = classNames.bind(styles);
@@ -42,7 +43,7 @@ function Item({ product }) {
     // }
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
         <>

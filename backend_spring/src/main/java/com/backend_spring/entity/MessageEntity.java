@@ -28,6 +28,9 @@ public class MessageEntity {
     @Column(name = "create_at")
     private LocalDateTime creatAt;
 
+    @Column(name = "message")
+    private String message;
+
     @ManyToOne
     @JoinColumn(name = "group_id")
     private GroupChatEntity group;

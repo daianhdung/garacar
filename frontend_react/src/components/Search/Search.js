@@ -9,7 +9,8 @@ import ProductItem from '~/components/ProductItem/ProductItem';
 import config from '~/config';
 import useDebounce from '~/hooks/useDebounce';
 import useViewport from '~/hooks/useViewport';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import constantObject from '~/utils/constant-var';
+
 import styles from './Search.module.scss';
 
 const cx = classNames.bind(styles);
@@ -58,7 +59,7 @@ function Search(prop) {
     const [over, setOver] = useState(false);
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
         <div className="w-100">

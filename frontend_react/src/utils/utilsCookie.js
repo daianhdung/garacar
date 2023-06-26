@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 
 export const saveCookie = function saveCookie(name, value, time) {
-    return Cookies.set(name, value, { expires: time / 60 / 60 / 24});
+    return Cookies.set(name, value, { expires: time / 60 / 60 / 24}); //.set nhận vào time là ngày
 }
 
 export const getCookie = function getCookie(name) {

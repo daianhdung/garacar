@@ -9,7 +9,7 @@ import classNames from 'classnames/bind';
 import styles from './DefaultLayout.module.scss';
 import React, { useEffect, useState } from 'react';
 import useViewport from '~/hooks/useViewport';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import constantObject from '~/utils/constant-var';
 import LoaderModal from '~/components/Modal/LoaderModal/LoaderModal';
 import Chatbox from '~/components/Chatbox/Chatbox';
 import images from '~/assets';
@@ -27,6 +27,9 @@ function DefaultLayout({ children }) {
     const location = useLocation();
 
     const [chatActive, setChatActive] = useState(false);
+    const handleActive = () => {
+        setChatActive(true);
+      };
 
     const [canvasVisible, setCanvasVisible] = useState(false);
 
@@ -70,14 +73,14 @@ function DefaultLayout({ children }) {
     }
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
         <>
             {isLoading && <LoaderModal isLoading={isLoading} />}
             <div className={cx('chat-container')}>
                 <div className={cx('wrap_chat', !chatActive && 'hide')}>
-                    <Chatbox />
+                    <Chatbox chatActive={chatActive} handleActive={handleActive}/>
                 </div>
                 {chatActive ? (
                     <>

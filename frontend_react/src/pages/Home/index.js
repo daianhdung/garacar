@@ -13,7 +13,7 @@ import * as categoryService from '~/services/categoryService';
 import * as productService from '~/services/productService';
 import { formatNumber } from '~/utils/stringUtils';
 import styles from './Home.module.scss';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import constantObject from '~/utils/constant-var';
 
 const imageSlider = [
     { image: images.slide1 },
@@ -33,7 +33,7 @@ function Home() {
     const [page, SetPage] = useState({ currentPage: 1 });
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     useEffect(() => {
         const getAllHomeAPI = async () => {

@@ -112,6 +112,26 @@ CREATE TABLE "visitor" (
   "end_time" TIMESTAMP
 );
 
+CREATE TABLE "group_chat" (
+  "id" SERIAL PRIMARY KEY,
+	 "sender_name" VARCHAR(50) NOT NULL,
+  "receiver_name" VARCHAR(50) NOT NULL,
+  "is_seen" BOOLEAN NOT NULL
+"create_at" TIMESTAMP DEFAULT (now())
+);
+
+CREATE TABLE "message" (
+  "id" SERIAL PRIMARY KEY,
+  "sender_name" VARCHAR(50) NOT NULL,
+  "receiver_name" VARCHAR(50) NOT NULL,
+"message" VARCHAR(1000) NOT NULL,
+"create_at" TIMESTAMP DEFAULT (now()),
+	group_id int,
+	CONSTRAINT fk_group
+      FOREIGN KEY(group_id) 
+	  REFERENCES "group_chat"(id)
+);
+
 ALTER TABLE
   "category_brand"
 ADD

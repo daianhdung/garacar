@@ -3,7 +3,7 @@ import styles from './Contact.module.scss';
 import classNames from 'classnames/bind';
 import { createMail } from '~/services/mailService';
 import useViewport from '~/hooks/useViewport';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import constantObject from '~/utils/constant-var';
 
 const cx = classNames.bind(styles);
 
@@ -41,7 +41,7 @@ function Contact() {
     };
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
         <>

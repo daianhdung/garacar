@@ -12,7 +12,7 @@ import CartModal from '~/components/Modal/CartModal/CartModal';
 import useCart from '~/hooks/useCart';
 import useViewport from '~/hooks/useViewport';
 import { searchProduct } from '~/services/productService';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import constantObject from '~/utils/constant-var';
 import styles from './Header.module.scss';
 
 const cx = classNames.bind(styles);
@@ -26,7 +26,7 @@ function Header() {
     const localItems = cartContext.items;
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
         <>
@@ -195,6 +195,14 @@ function Header() {
                                     className={cx('nav-link', location.pathname == config.routes.contact && 'active')}
                                 >
                                     Liên hệ
+                                </Link>
+                            </li>
+                            <li className="nav-item navitem_hover">
+                                <Link
+                                    to={config.routes.contact}
+                                    className={cx('nav-link', location.pathname == config.routes.contact && 'active')}
+                                >
+                                    Tin tức
                                 </Link>
                             </li>
                             <li className="nav-item navitem_hover">

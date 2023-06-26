@@ -26,7 +26,7 @@ import config from '~/config';
 import SubMenu from '~/components/SubMenu/SubMenu';
 import { useState } from 'react';
 import useViewport from '~/hooks/useViewport';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import constantObject from '~/utils/constant-var';
 import useAuth from '~/hooks/useAuth';
 
 const cx = classNames.bind(styles);
@@ -155,7 +155,7 @@ function SidebarAdmin(props) {
     const context = useAuth();
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
         <>

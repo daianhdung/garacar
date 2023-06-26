@@ -4,12 +4,13 @@ import { Link, NavLink } from 'react-router-dom';
 import { faMessage } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react/headless';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import config from '~/config';
 import useAuth from '~/hooks/useAuth';
 import useViewport from '~/hooks/useViewport';
 import { searchProduct } from '~/services/productService';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import constantObject from '~/utils/constant-var';
+
 import Search from '../../../components/Search/Search';
 import styles from './HeaderAdmin.module.scss';
 import images from '~/assets';
@@ -22,9 +23,23 @@ function HeaderAdmin(props) {
     const chatSection = useChat()
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     const [isPopMessage, setIsPopMessage] = useState(false);
+
+    useEffect(() => {
+        if(isPopMessage){
+            chatSection.fetchAllGroup("ADMIN")
+        }
+    }, [isPopMessage])
+    
+    
+
+
+    const addChat = (item) => {
+        chatSection.addChattingSection(item)
+        setIsPopMessage(!isPopMessage)
+    }
 
     return (
         <>
@@ -84,17 +99,17 @@ function HeaderAdmin(props) {
                         <form className="d-flex search_input" role="search">
                             <Search service={searchProduct} />
                         </form>
-                        <div className={cx('message_logo')}>
-                            <FontAwesomeIcon onClick={() => setIsPopMessage(!isPopMessage)}  className="mx-4" style={{ fontSize: '1.3rem' }} icon={faMessage} />
-                            <span className={cx('logo_number_red')}>2</span>
+                        <div  onClick={() => setIsPopMessage(!isPopMessage)}  className={cx('message_logo')}>
+                            <FontAwesomeIcon className="mx-4" style={{ fontSize: '1.3rem' }} icon={faMessage} />
+                            {chatSection.countMessageNotSeen > 0 ? <span className={cx('logo_number_red')}>{chatSection.countMessageNotSeen}</span> : <></>}
                             <div className={cx('message_popup', !isPopMessage && 'none')}>
                             <Search/>
                             {[...chatSection.section.values()].map(item => (
-                                <div key={item.id} className={cx('d-flex', 'py-3', 'item-mess')}>
+                                <div onClick={() => addChat(item)} key={item.id} className={cx('d-flex', 'py-3', 'item-mess')}>
                                     <img className='mx-3 rounded-circle' width={50} height={50} src={images.avatarAno} alt="" />
                                     <div  className={cx('text-dark', 'text-side')}>
-                                        <h5 className=''>{item.name}</h5>
-                                        <h6 className=''>{item.mes}</h6>
+                                        <h5 className={`${item.seen ? '' : 'fw-bold'}`}>{item.customerName}</h5>
+                                        <h6 className={`${item.seen ? '' : 'fw-bold'}`}>{item.senderName == 'ADMIN' ? `Bạn: ${item.lastMessage}` : item.lastMessage}</h6>
                                     </div>
                                 </div>
                             ))}

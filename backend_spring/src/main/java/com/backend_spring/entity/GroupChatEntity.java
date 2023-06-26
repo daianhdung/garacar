@@ -17,9 +17,18 @@ public class GroupChatEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "sender_name")
+    private String senderName;
+
+    @Column(name = "receiver_name")
+    private String receiverName;
+
     @CreationTimestamp
     @Column(name = "create_at")
     private LocalDateTime creatAt;
+
+    @Column(name = "is_seen", columnDefinition = "boolean default false")
+    private Boolean isSeen;
 
     @OneToMany(mappedBy = "group")
     private Set<MessageEntity> messageEntitySet;

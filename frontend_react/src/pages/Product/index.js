@@ -12,7 +12,8 @@ import Paging from '~/components/Paging/Paging';
 
 import styles from './Product.module.scss';
 import useViewport from '~/hooks/useViewport';
-import { MOBILE_VIEWPORT_PX } from '~/utils/constant-var';
+import constantObject from '~/utils/constant-var';
+
 
 const cx = classNames.bind(styles);
 
@@ -49,7 +50,7 @@ function Product() {
     }, [filterContext.filter]);
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
         <>

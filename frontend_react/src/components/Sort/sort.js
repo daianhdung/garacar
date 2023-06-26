@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import useViewport from "~/hooks/useViewport";
-import { MOBILE_VIEWPORT_PX } from "~/utils/constant-var";
+import constantObject from '~/utils/constant-var';
 
 const sortList = [
     {
@@ -28,7 +28,7 @@ const sortList = [
 function Sort({ handleSort , value}) {
 
     const viewPort = useViewport();
-    const isMobile = viewPort.width <= MOBILE_VIEWPORT_PX;
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
         <div>
