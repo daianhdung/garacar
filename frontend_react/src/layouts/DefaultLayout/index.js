@@ -18,7 +18,6 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import * as vitsitorService from '~/services/visitorService';
 import * as thirdPartyService from '~/services/thirdApi';
 
-
 const cx = classNames.bind(styles);
 
 const newVisitorKey = '$2a$10$rIGqLQIOCHWHh95Kvs4te.Q4drx4H5Nmunakg9MDL5zYA1IYhb2NG';
@@ -27,9 +26,10 @@ function DefaultLayout({ children }) {
     const location = useLocation();
 
     const [chatActive, setChatActive] = useState(false);
+
     const handleActive = () => {
         setChatActive(true);
-      };
+    };
 
     const [canvasVisible, setCanvasVisible] = useState(false);
 
@@ -40,14 +40,14 @@ function DefaultLayout({ children }) {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        checkIfNewVisitor()
+        checkIfNewVisitor();
 
         const handleBeforeUnload = () => {
             const ipVisitor = sessionStorage.getItem('ip');
             const visitorDTO = {
-                ipAddress: ipVisitor
-            }
-            vitsitorService.endVisitor(visitorDTO)
+                ipAddress: ipVisitor,
+            };
+            vitsitorService.endVisitor(visitorDTO);
         };
 
         window.onbeforeunload = handleBeforeUnload;
@@ -58,19 +58,19 @@ function DefaultLayout({ children }) {
 
     const checkIfNewVisitor = () => {
         const sessionStorageVisitor = sessionStorage.getItem('visitor');
-        if(!sessionStorageVisitor || sessionStorageVisitor !== newVisitorKey){
+        if (!sessionStorageVisitor || sessionStorageVisitor !== newVisitorKey) {
             const newVisitorFetch = async () => {
-                const reponse = await thirdPartyService.getIpUser()
+                const reponse = await thirdPartyService.getIpUser();
                 sessionStorage.setItem('visitor', newVisitorKey);
                 sessionStorage.setItem('ip', reponse.ipString);
                 const visitorDTO = {
-                    ipAddress: reponse.ipString
-                }
-                const reponseVisitor = await vitsitorService.newVisitor(visitorDTO)
-            }
-            newVisitorFetch()
+                    ipAddress: reponse.ipString,
+                };
+                const reponseVisitor = await vitsitorService.newVisitor(visitorDTO);
+            };
+            newVisitorFetch();
         }
-    }
+    };
 
     const viewPort = useViewport();
     const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
@@ -80,7 +80,7 @@ function DefaultLayout({ children }) {
             {isLoading && <LoaderModal isLoading={isLoading} />}
             <div className={cx('chat-container')}>
                 <div className={cx('wrap_chat', !chatActive && 'hide')}>
-                    <Chatbox chatActive={chatActive} handleActive={handleActive}/>
+                    <Chatbox chatActive={chatActive} handleActive={handleActive} />
                 </div>
                 {chatActive ? (
                     <>
@@ -102,10 +102,15 @@ function DefaultLayout({ children }) {
                             </div>
                         </div>
                     </>
+                   
                 ) : (
                     <>
                         <div onClick={() => setChatActive(true)} className={cx('contain_icon_chat')}>
                             <img style={{ objectFit: 'cover' }} width="35" height="35" src={images.chatIcon} alt="" />
+                            <span className={cx('number_red_message')}>1</span>
+                            <div className={cx('notifi_message')}>
+                                <span>Bạn cần hỗ trợ ? Chat với chúng tôi ngay nhé!</span>
+                            </div>
                         </div>
                     </>
                 )}

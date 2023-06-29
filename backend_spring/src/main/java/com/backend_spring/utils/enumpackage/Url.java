@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 public enum Url {
 //
-    Root("http://localhost:8080/"),
-    BrandImage("http://localhost:8080/api/uploads/brand/"),
-    CategoryImage("http://localhost:8080/api/uploads/category/"),
-    ProductsImage("http://localhost:8080/api/uploads/products/");
+//    Root("http://localhost:8080/"),
+//    BrandImage("http://localhost:8080/api/uploads/brand/"),
+//    CategoryImage("http://localhost:8080/api/uploads/category/"),
+//    ProductsImage("http://localhost:8080/api/uploads/products/");
 
 //
 //    Root("http://192.168.1.22:8080/"),
@@ -19,10 +19,10 @@ public enum Url {
 //    ProductsImage("http://192.168.1.22:8080/api/uploads/products/");
 
 
-//    Root("http://21.228.63.215:8080/"),
-//    BrandImage("http://21.228.63.215:8080/api/uploads/brand/"),
-//    CategoryImage("http://21.228.63.215:8080/api/uploads/category/"),
-//    ProductsImage("http://21.228.63.215:8080/api/uploads/products/");
+    Root("http://21.215.60.30:8080/"),
+    BrandImage("http://21.215.60.30:8080/api/uploads/brand/"),
+    CategoryImage("http://21.215.60.30:8080/api/uploads/category/"),
+    ProductsImage("http://21.215.60.30:8080/api/uploads/products/");
 
     private String path;
 }

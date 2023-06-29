@@ -169,13 +169,13 @@ function Header() {
                                         <div className={cx('drop_down_wrap')}>
                                             <div className={cx('drop_down_content')} tabIndex="-1">
                                                 <Link
-                                                    to={config.routes.product}
+                                                    to={config.routes.feature}
                                                     className={cx('block', 'border-bottom')}
                                                 >
                                                     Sửa chữa
                                                 </Link>
                                                 <Link
-                                                    to={config.routes.product}
+                                                    to={config.routes.feature}
                                                     className={cx('block', 'border-bottom')}
                                                 >
                                                     Lắp đặt
@@ -184,7 +184,7 @@ function Header() {
                                         </div>
                                     )}
                                 >
-                                    <Link className={cx('nav-link')}>
+                                    <Link to={config.routes.feature} className={cx('nav-link', location.pathname == config.routes.feature && 'active')}>
                                         Dịch vụ <FontAwesomeIcon style={{verticalAlign : '-0.2em'}} icon={faAngleDown} />
                                     </Link>
                                 </Tippy>
@@ -199,8 +199,8 @@ function Header() {
                             </li>
                             <li className="nav-item navitem_hover">
                                 <Link
-                                    to={config.routes.contact}
-                                    className={cx('nav-link', location.pathname == config.routes.contact && 'active')}
+                                    to={config.routes.news}
+                                    className={cx('nav-link', location.pathname == config.routes.news && 'active')}
                                 >
                                     Tin tức
                                 </Link>

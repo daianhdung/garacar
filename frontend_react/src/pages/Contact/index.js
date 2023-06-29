@@ -125,20 +125,7 @@ function Contact() {
 
                         {/* Contact */}
                         <div className={cx('left_contact', 'flex-col-c-m')}>
-                            <div className={`${isMobile ? 'mb-3' : 'p-5'}`}>
-                                <iframe
-                                    src={
-                                        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.2179568337347!2d106.73837157475312!3d10.871020389283537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175271257199eed%3A0x928fbd5a62d81bf6!2zWEFOSCBBdXRvIFPDoGkgR8Oybg!5e0!3m2!1svi!2s!4v1682592821807!5m2!1svi!2s'
-                                    }
-                                    width={isMobile ? '100%' : 500}
-                                    height={isMobile ? 350 : 450}
-                                    style={{ border: 0 }}
-                                    allowfullscreen=""
-                                    loading="lazy"
-                                    referrerpolicy="no-referrer-when-downgrade"
-                                ></iframe>
-                            </div>
-                            <div className={`w-100 ${isMobile ? 'px-2' : 'px-5'} pb-5`}>
+                            <div className={`w-100 ${isMobile ? 'px-2' : 'px-5'} pt-5`}>
                                 <div
                                     className={cx('contact-more')}
                                     style={{
@@ -178,6 +165,19 @@ function Contact() {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className={`${isMobile ? 'mb-3' : 'p-5'}`}>
+                                <iframe
+                                    src={
+                                        'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.2179568337347!2d106.73837157475312!3d10.871020389283537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175271257199eed%3A0x928fbd5a62d81bf6!2zWEFOSCBBdXRvIFPDoGkgR8Oybg!5e0!3m2!1svi!2s!4v1682592821807!5m2!1svi!2s'
+                                    }
+                                    width={isMobile ? '100%' : 500}
+                                    height={isMobile ? 350 : 450}
+                                    style={{ border: 0 }}
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                ></iframe>
                             </div>
                         </div>
                     </div>

@@ -32,7 +32,7 @@ export const searchWardOnCode = async (code, depth = 2) => {
 
 export const getIpUser = async () => {
     try {
-        const res = await provinceOpen.testAPI.get(`https://api.bigdatacloud.net/data/client-ip`);
+        const res = await provinceOpen.testAPI.get(`data/client-ip`);
         return res.data
     } catch (err) {
         console.error(err);

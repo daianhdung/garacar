@@ -8,9 +8,10 @@ const routes = {
     detailId: '/detail/:id',
     order: '/order',
     orderSuccess: '/order/success/:token',
-    
+    news: '/news',
     //Authen Pages
-    login: '/login',    
+    login: '/login',
+    feature: '/feature',   
 
     //Admin Pages
      //Admin route

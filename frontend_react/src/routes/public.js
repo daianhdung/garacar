@@ -6,8 +6,14 @@ import UpdateBrand from '~/pages/AdminPages/BrandAdmin/Update/UpdateBrand';
 import CategoryAdmin from '~/pages/AdminPages/CategoryAdmin';
 import InsertCategory from '~/pages/AdminPages/CategoryAdmin/Insert/InsertCategory';
 import UpdateCategory from '~/pages/AdminPages/CategoryAdmin/Update/UpdateCategory';
+import CouponAdmin from '~/pages/AdminPages/CouponAdmin';
+import InsertCoupon from '~/pages/AdminPages/CouponAdmin/Insert/InsertCoupon';
+import UpdateCoupon from '~/pages/AdminPages/CouponAdmin/Update/UpdateCoupon';
 import HomeAdmin from '~/pages/AdminPages/HomeAdmin';
 import MailAdmin from '~/pages/AdminPages/MailAdmin';
+import MailDetail from '~/pages/AdminPages/MailAdmin/Detail/MailDetail';
+import OrderAdmin from '~/pages/AdminPages/OrderAdmin';
+import UpdateOrder from '~/pages/AdminPages/OrderAdmin/Update/UpdateOrder';
 import ProductAdmin from '~/pages/AdminPages/ProductAdmin';
 import InsertProduct from '~/pages/AdminPages/ProductAdmin/Insert/InsertProduct';
 import UpdateProduct from '~/pages/AdminPages/ProductAdmin/Update/UpdateProduct';
@@ -17,30 +23,27 @@ import UpdateUser from '~/pages/AdminPages/UserAdmin/Update/UpdateUser';
 import Login from '~/pages/AuthenPages/Login/Login';
 import Contact from '~/pages/Contact';
 import Detail from '~/pages/Detail';
+import News from '~/pages/News';
+import Order from '~/pages/Order/Order';
+import OrderSuccess from '~/pages/Order/OrderSuccess';
 import Product from '~/pages/Product';
 import config from '../config';
 import Home from '../pages/Home';
-import MailDetail from '~/pages/AdminPages/MailAdmin/Detail/MailDetail';
-import Order from '~/pages/Order/Order';
-import OrderSuccess from '~/pages/Order/OrderSuccess';
-import CouponAdmin from '~/pages/AdminPages/CouponAdmin';
-import UpdateCoupon from '~/pages/AdminPages/CouponAdmin/Update/UpdateCoupon';
-import InsertCoupon from '~/pages/AdminPages/CouponAdmin/Insert/InsertCoupon';
-import OrderAdmin from '~/pages/AdminPages/OrderAdmin';
-import UpdateOrder from '~/pages/AdminPages/OrderAdmin/Update/UpdateOrder';
-import Chatbox from '~/components/Chatbox/Chatbox';
-
+import FeaturePage from '~/pages/FeaturePage';
 
 const publicRoutes = [
     { path: '/', component: Home },
     { path: config.routes.home, component: Home },
     { path: config.routes.detailId, component: Detail },
     // { path: config.routes.cart, component: Cart },
-    { path: config.routes.product, component: Product},
-    { path: config.routes.contact, component: Contact},
+    { path: config.routes.product, component: Product },
+    { path: config.routes.contact, component: Contact },
     // { path: config.routes.search, component: SearchProduct },
-    { path: config.routes.order, component: Order},
-    { path: config.routes.orderSuccess, component: OrderSuccess},
+    { path: config.routes.order, component: Order },
+    { path: config.routes.orderSuccess, component: OrderSuccess },
+    //News fetch from vnexpress
+    { path: config.routes.news, component: News },
+    { path: config.routes.feature, component: FeaturePage },
 ];
 const authRoutes = [{ path: config.routes.login, component: Login, layout: AuthenLayout }];
 
@@ -76,5 +79,4 @@ const adminRoutes = [
     { path: config.routes.adminMailDetailId, component: MailDetail, layout: AdminLayout },
 ];
 
-export { publicRoutes, authRoutes, adminRoutes };
-
+export { adminRoutes, authRoutes, publicRoutes };

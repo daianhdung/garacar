@@ -126,7 +126,6 @@ const Chatbox = ({chatActive, handleActive }) => {
         let recentlyTimeConnect = '';
         if (action === constantObject.RECENTLY_CONNECTION) {
             recentlyTimeConnect = JSON.parse(localStorage.getItem(constantObject.RECENTLY_CONNECTION)).localDateTime;
-            console.log(recentlyTimeConnect);
             // console.log(recentlyTimeConnect);
         }
         const now = new Date();

@@ -21,12 +21,6 @@ export const ChatProvider = ({ children }) => {
         countNotSeenGroupMessage()
     }, [chatSection])
 
-    console.log(4);
-    console.log(chatSection);
-    console.log(chatting);
-    console.log(messageChatting);
-
-
     const connectWebsocket = () => {
         if (stompClient === null) {
             const socket = new SockJS(`${process.env.REACT_APP_DEFAULT_API_URL}ws`);
@@ -46,7 +40,6 @@ export const ChatProvider = ({ children }) => {
     };
 
     const countNotSeenGroupMessage = () => {
-        console.log(3);
         let count = 0;
         [...chatSection.values()].map((item) => {
             if (!item.seen) {

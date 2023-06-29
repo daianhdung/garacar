@@ -61,6 +61,20 @@ function Home() {
         getAllProductApi();
     }, [page.currentPage]);
 
+    const handleNext = () => {
+        if (page.currentPage < page.totalPage) {
+            filterContext.handleNextPage();
+        }
+    };
+    const handlePrev = () => {
+        if (page.currentPage > 1) {
+            filterContext.handlePrevPage();
+        }
+    };
+    const handleSetCurrentPage = (page) => {
+        filterContext.handleCurrentPage(page);
+    };
+
     return (
         <>
             <div className={cx('row', 'block_slide')}>
@@ -181,7 +195,13 @@ function Home() {
                         ))}
                     <div className="row">
                         <div className="offset-md-6 col-md-3 offset-4 col-3">
-                            <Paging currentPage={page.currentPage} totalPage={page.totalPage} />
+                            <Paging
+                                currentPage={page.currentPage}
+                                totalPage={page.totalPage}
+                                handleNext={handleNext}
+                                handlePrev={handlePrev}
+                                handleSetCurrentPage={handleSetCurrentPage}
+                            />
                         </div>
                     </div>
                 </div>

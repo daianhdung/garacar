@@ -56,10 +56,19 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    &:hover{
+    &:hover {
         background: #278da7;
     }
     color: white;
+
+    // &::before {
+    //     content: '';
+    //     border-width: 15px 30px;
+    //     border-style: solid;
+    //     border-color: transparent transparent transparent #fff;
+    //     position: absolute;
+    //     right: 12px;
+    // }
 }
 
 .wrap_chat {
@@ -71,7 +80,39 @@
     right: 75px;
     border-radius: 8px;
 }
-.wrap_chat.hide{
+.wrap_chat.hide {
     display: none;
 }
 
+.number_red_message {
+    position: absolute;
+    background-color: rgb(247, 66, 66);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 500;
+    min-width: 20px;
+    padding: 2px 0;
+    right: 0px;
+    bottom: -4px;
+    text-align: center;
+}
+
+.notifi_message {
+    position: absolute;
+    background-color: #34bed6;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+    min-width: 20px;
+    padding: 2px 5px;
+    border-radius: 8px;
+    left: -220px;
+    bottom: 2px;
+    text-align: center;
+}
+// width: 0;
+// height: 0;
+// border-left: 50px solid transparent;
+// border-right: 50px solid transparent;
+// border-top: 100px solid black;
