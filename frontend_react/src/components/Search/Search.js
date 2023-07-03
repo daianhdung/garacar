@@ -62,9 +62,9 @@ function Search(prop) {
     const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
-        <div className="w-100">
+        <div className={`${prop.minWidth && 'ms-3'}`} style={{maxWidth: '60%', minWidth: prop.minWidth}}>
             <Tippy
-                maxWidth={'450px'}
+                // maxWidth={'450px'}
                 placement="bottom"
                 interactive
                 visible={showResult}
@@ -95,6 +95,7 @@ function Search(prop) {
                         spellCheck={false}
                         onChange={handleChange}
                         onFocus={() => setShowResult(true)}
+                        className={cx(prop.minWidth && 'over100Y')}
                     />
 
                     {searchValue && !loading && (

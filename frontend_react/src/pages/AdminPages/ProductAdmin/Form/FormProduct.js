@@ -49,8 +49,6 @@ function FormProduct({ product, handleUpdate, handleInsert, brands, categories }
         }
     };
 
-    console.log(formProduct);
-
     return (
         <div>
             {product ? (

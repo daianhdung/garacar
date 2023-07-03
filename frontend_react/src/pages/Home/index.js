@@ -36,6 +36,9 @@ function Home() {
     const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     useEffect(() => {
+        if (isMobile) {
+            window.scrollTo(0, 0);
+        }
         const getAllHomeAPI = async () => {
             const responseBrand = await brandService.getAllBrand();
             setBrand(responseBrand);

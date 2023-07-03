@@ -25,11 +25,9 @@ function MailAdmin({ setIsLoading }) {
         const fetchApiGetAllMail = async () => {
             const response = await mailService.getAllMail();
             setMail(response);
-            console.log(response);
             setIsLoading(false);
         };
         fetchApiGetAllMail();
-        console.log(mail);
     }, []);
 
     return <div>{mail ? <ListMail mails={mail} handleDelete={handleDelete} /> : <div>Không có dữ liệu</div>}</div>;

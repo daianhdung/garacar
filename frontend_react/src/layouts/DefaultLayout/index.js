@@ -14,9 +14,10 @@ import LoaderModal from '~/components/Modal/LoaderModal/LoaderModal';
 import Chatbox from '~/components/Chatbox/Chatbox';
 import images from '~/assets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faAngleUp, faXmark } from '@fortawesome/free-solid-svg-icons';
 import * as vitsitorService from '~/services/visitorService';
 import * as thirdPartyService from '~/services/thirdApi';
+import useScrollY from '~/hooks/useScrollY';
 
 const cx = classNames.bind(styles);
 
@@ -39,9 +40,14 @@ function DefaultLayout({ children }) {
 
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        checkIfNewVisitor();
+    const viewPort = useViewport();
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
+    useEffect(() => {
+        if (isMobile) {
+            window.scrollTo(0, 0);
+        }
+        checkIfNewVisitor();
         const handleBeforeUnload = () => {
             const ipVisitor = sessionStorage.getItem('ip');
             const visitorDTO = {
@@ -49,7 +55,6 @@ function DefaultLayout({ children }) {
             };
             vitsitorService.endVisitor(visitorDTO);
         };
-
         window.onbeforeunload = handleBeforeUnload;
         return () => {
             window.onbeforeunload = null;
@@ -72,25 +77,28 @@ function DefaultLayout({ children }) {
         }
     };
 
-    const viewPort = useViewport();
-    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
+    const scrollY = useScrollY();
+
+    const scrollToTop = () => {
+        window.scrollTo(0, 0);
+    };
 
     return (
         <>
             {isLoading && <LoaderModal isLoading={isLoading} />}
-            <div className={cx('chat-container')}>
-                <div className={cx('wrap_chat', !chatActive && 'hide')}>
-                    <Chatbox chatActive={chatActive} handleActive={handleActive} />
-                </div>
+            <div className={cx('wrap_chat', !chatActive && 'hide')}>
+                <Chatbox chatActive={chatActive} handleActive={handleActive} />
+            </div>
+            <div style={{ width: '80%' }} className={cx('chat-container')}>
                 {chatActive ? (
                     <>
-                        <div>
+                        <div className="f-justify-end">
                             <div className={cx('contain_icon_chat')}>
                                 <a href={config.routes.linkZalo} target="_blank">
                                     <img
                                         style={{ objectFit: 'cover' }}
-                                        width="70"
-                                        height="70"
+                                        width={isMobile ? 40 : 70}
+                                        height={isMobile ? 40 : 70}
                                         src={images.zaloLogo}
                                         alt=""
                                     />
@@ -98,21 +106,29 @@ function DefaultLayout({ children }) {
                             </div>
                             <div className={cx('contain_icon_chat')}>Mess</div>
                             <div onClick={() => setChatActive(false)} className={cx('contain_icon_chat')}>
-                                <FontAwesomeIcon style={{ fontSize: '30px', color: 'white' }} icon={faXmark} />
+                                <FontAwesomeIcon
+                                    style={{ fontSize: isMobile ? '20px' : '30px', color: 'white' }}
+                                    icon={faXmark}
+                                />
                             </div>
                         </div>
                     </>
-                   
                 ) : (
-                    <>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                         <div onClick={() => setChatActive(true)} className={cx('contain_icon_chat')}>
-                            <img style={{ objectFit: 'cover' }} width="35" height="35" src={images.chatIcon} alt="" />
+                            <img
+                                style={{ objectFit: 'cover' }}
+                                width={isMobile ? 20 : 35}
+                                height={isMobile ? 20 : 35}
+                                src={images.chatIcon}
+                                alt=""
+                            />
                             <span className={cx('number_red_message')}>1</span>
                             <div className={cx('notifi_message')}>
                                 <span>Bạn cần hỗ trợ ? Chat với chúng tôi ngay nhé!</span>
                             </div>
                         </div>
-                    </>
+                    </div>
                 )}
             </div>
             <div>
@@ -125,7 +141,7 @@ function DefaultLayout({ children }) {
                                     <div className={cx('sidebar-mobile', canvasVisible ? 'toggler-sidebar' : '')}>
                                         <div className={cx('button-hide')} onClick={toggleCanvas}>
                                             <button className="btn btn-outline-info">
-                                                <i class="bi bi-chevron-double-left"></i>
+                                                <i class={!canvasVisible ? 'bi bi-chevron-double-left' : 'bi bi-chevron-double-right'}></i>
                                             </button>
                                         </div>
                                         <Sidebar />
@@ -153,6 +169,12 @@ function DefaultLayout({ children }) {
                         </>
                     )}
                     <Footer />
+                </div>
+                <div
+                    onClick={scrollToTop}
+                    className={cx('scroll_top_btn', 'f-center-align', scrollY.scrollY > 500 && 'active')}
+                >
+                    <FontAwesomeIcon icon={faAngleUp} />
                 </div>
             </div>
         </>

@@ -16,11 +16,16 @@ import 'swiper/swiper-bundle.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import useViewport from '~/hooks/useViewport';
+import constantObject from '~/utils/constant-var';
 
 const cx = classNames.bind(styles);
 
 function ShoesThumb({ children, news }) {
     const [activeThumb, setActiveThumb] = useState();
+
+    const viewPort = useViewport();
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
 
     return (
         <>
@@ -74,7 +79,7 @@ function ShoesThumb({ children, news }) {
                         {news &&
                             news.map((item, index) => (
                                 <SwiperSlide key={index}>
-                                    <Link key={item.title} to={item.link} target="_blank">
+                                    <Link className={isMobile && 'f-center-align'} key={item.title} to={item.link} target="_blank">
                                         <div className={cx('new_wrapper')}>
                                             <div dangerouslySetInnerHTML={{ __html: item.imgTag }}></div>
                                             <div className={cx('title_wrap')}>
@@ -93,7 +98,7 @@ function ShoesThumb({ children, news }) {
                     <Swiper
                         onSwiper={setActiveThumb}
                         spaceBetween={10}
-                        slidesPerView={3}
+                        slidesPerView={isMobile ? 1.3 : 3}
                         loop={true}
                         autoplay={{ delay: 2500 }}
                         modules={[Navigation, Thumbs]}

@@ -9,8 +9,6 @@ function MailDetail() {
     const { id } = useParams();
     const [mail, setMail] = useState();
 
-    console.log(id);
-
     useEffect(() => {
         const fetchApiGetProduct = async () => {
             const response = await mailService.getMailId(id);

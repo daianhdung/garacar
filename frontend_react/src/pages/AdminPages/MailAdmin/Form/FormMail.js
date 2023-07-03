@@ -10,7 +10,6 @@ function FormMail({ mail, handleUpdate, handleInsert }) {
 
     const [formReply, setFormReply] = useState({subject: '', message : ''});
 
-    console.log(formReply);
 
     const navigate = useNavigate();
 

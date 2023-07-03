@@ -21,7 +21,6 @@ export const FilterProvider = ({ children }) => {
     };
 
     const handleKeyword = (name) => {
-        console.log(name);
         setFilter({
             ...filter,
             searchKeyword : name

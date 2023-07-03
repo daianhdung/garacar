@@ -18,7 +18,6 @@ function OrderSuccess() {
     useEffect(() => {
         const fetchApiGetDetailOrder = async () => {
             const response = await getOrderDetail(token);
-            console.log(response);
             setOrderDetail(response.data);
         };
         fetchApiGetDetailOrder();

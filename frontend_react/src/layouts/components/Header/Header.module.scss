@@ -6,13 +6,28 @@
             color: var(--bs-link-hover-color);
         }
     }
+
+    .navbar_mobile {
+        transition: 0.5s ease;
+        // opacity: 0;
+    }
+
+    .sticky {
+        position: sticky !important;
+        top: 0px;
+        z-index: 999;
+        left: 0px;
+        background-color: #fff;
+    }
 }
 
-.nav_link_logo {
-    margin-right: 20px;
-    position: relative;
-    &:hover .logo_number {
-        color: var(--bs-link-hover-color);
+@media (min-width: 40.1em) {
+    .nav_link_logo {
+        margin-right: 20px;
+        position: relative;
+        &:hover .logo_number {
+            color: var(--bs-link-hover-color);
+        }
     }
 }
 

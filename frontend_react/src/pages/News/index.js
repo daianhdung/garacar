@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import ShoesThumb from '~/components/swiper/SlideThumb/ShoesThumb';
 import Paging from '~/components/Paging/Paging';
+import constantObject from '~/utils/constant-var';
 
 const cx = classNames.bind(styles);
 
@@ -24,7 +25,13 @@ function News() {
 
     const [dataCurrentPage, setDataCurrentPage] = useState({ currentPage: 1, totalPage: '' });
 
+    const viewPort = useViewport();
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
+
     useEffect(() => {
+        if (isMobile) {
+            window.scrollTo(0, 0);
+        }
         const fetchExpressvn = () => {
             axios
                 .get(
@@ -34,7 +41,6 @@ function News() {
                     },
                 )
                 .then(function (response) {
-                    console.log(response.data.items);
                     const array = response.data.items.map((item) => {
                         const regex = /(<a[^>]+>)([\s\S]*?)(<\/a>)(.+)/;
                         const matches = item.content.match(regex);
@@ -80,7 +86,7 @@ function News() {
     }, []);
 
     useEffect(() => {
-        window.scrollTo(0, 830);
+        isMobile ? window.scrollTo(0, 780) : window.scrollTo(0, 830);
     }, [dataCurrentPage.currentPage]);
 
     const handleCurrentPage = (page) => {
@@ -107,26 +113,56 @@ function News() {
         <>
             <div>
                 <div className={cx('mid-detail')}>
-                    <div>
+                    <div className='f-center-align'>
                         <div className={cx('left-detail', 'p-2')}>
                             <ShoesThumb news={dataSwiper} />
                             <div className={cx('pagination_section')}>
                                 {dataCurrentPage.data &&
                                     dataCurrentPage.data.map((item) => (
-                                        <Link  key={item.title} to={item.link} target="_blank" className={cx('new_wrapper')}>
-                                            <div dangerouslySetInnerHTML={{ __html: item.imgTag }}></div>
-                                            <div className={cx('title_wrap')}>
-                                                <h4
-                                                    className="fw-bold"
-                                                    dangerouslySetInnerHTML={{ __html: item.title }}
-                                                ></h4>
-                                                <div dangerouslySetInnerHTML={{ __html: item.remainText }}></div>
-                                            </div>
+                                        <Link
+                                            key={item.title}
+                                            to={item.link}
+                                            target="_blank"
+                                            className={cx('new_wrapper', 'f-center-align')}
+                                        >
+                                            {isMobile ? (
+                                                <>
+                                                    <div className={cx('title_wrap')}>
+                                                        <h4
+                                                            className="fw-bold"
+                                                            dangerouslySetInnerHTML={{ __html: item.title }}
+                                                        ></h4>
+                                                        <div
+                                                            dangerouslySetInnerHTML={{ __html: item.remainText }}
+                                                        ></div>
+                                                    </div>
+                                                    <div className={cx('wrap_img')} dangerouslySetInnerHTML={{ __html: item.imgTag }}></div>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <div dangerouslySetInnerHTML={{ __html: item.imgTag }}></div>
+                                                    <div className={cx('title_wrap')}>
+                                                        <h4
+                                                            className="fw-bold"
+                                                            dangerouslySetInnerHTML={{ __html: item.title }}
+                                                        ></h4>
+                                                        <div
+                                                            dangerouslySetInnerHTML={{ __html: item.remainText }}
+                                                        ></div>
+                                                    </div>
+                                                </>
+                                            )}
                                         </Link>
                                     ))}
                                 {dataPagination && (
                                     <div className="row">
-                                        <div className="offset-md-5 col-md-3 offset-2 col-3">
+                                        <div
+                                            className={`${
+                                                isMobile
+                                                    ? `mt-3 col-md-2 offset-2 col-2`
+                                                    : `offset-md-5 col-md-3 offset-2 col-5`
+                                            }`}
+                                        >
                                             <Paging
                                                 currentPage={dataCurrentPage.currentPage}
                                                 totalPage={dataCurrentPage.totalPage}
@@ -140,27 +176,34 @@ function News() {
                             </div>
                         </div>
                     </div>
-                    <div className={cx('right-detail')}>
-                        <div>
-                            {dataColumn &&
-                                dataColumn.map((item) => (
-                                    <div className="mb-4">
-                                        <a className={cx('wrap_link')} key={item.title} href={item.link} target="_blank">
-                                            <div className={cx('news-thumb-wrapper')}>
-                                                <div dangerouslySetInnerHTML={{ __html: item.imgTag }}></div>
-                                            </div>
-                                            <div>
-                                                <h6
-                                                    className="fw-bold"
-                                                    dangerouslySetInnerHTML={{ __html: item.title }}
-                                                ></h6>
-                                                <div dangerouslySetInnerHTML={{ __html: item.remainText }}></div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                ))}
+                    {!isMobile && (
+                        <div className={cx('right-detail')}>
+                            <div>
+                                {dataColumn &&
+                                    dataColumn.map((item) => (
+                                        <div className="mb-4">
+                                            <a
+                                                className={cx('wrap_link')}
+                                                key={item.title}
+                                                href={item.link}
+                                                target="_blank"
+                                            >
+                                                <div className={cx('news-thumb-wrapper')}>
+                                                    <div dangerouslySetInnerHTML={{ __html: item.imgTag }}></div>
+                                                </div>
+                                                <div>
+                                                    <h6
+                                                        className="fw-bold"
+                                                        dangerouslySetInnerHTML={{ __html: item.title }}
+                                                    ></h6>
+                                                    <div dangerouslySetInnerHTML={{ __html: item.remainText }}></div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </>

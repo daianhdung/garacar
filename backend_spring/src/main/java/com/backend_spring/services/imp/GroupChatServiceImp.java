@@ -81,7 +81,7 @@ public class GroupChatServiceImp implements GroupChatService {
     @Override
     public GroupChatDTO fetchGroupWithAllMessage(int groupId) {
         Optional<GroupChatEntity> groupChatEntity = groupChatRepository.findById(groupId);
-        groupChatEntity.get().setIsSeen(true);
+        groupChatEntity.get().setSeen(true);
         groupChatRepository.save(groupChatEntity.get());
         GroupChatDTO groupDTO = new GroupChatDTO();
         groupDTO.setId(groupChatEntity.get().getId());

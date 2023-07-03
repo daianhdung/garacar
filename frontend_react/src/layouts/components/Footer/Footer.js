@@ -6,6 +6,10 @@ import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 import useViewport from '~/hooks/useViewport';
 import constantObject from '~/utils/constant-var';
+import { Link, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import config from '~/config';
+import { faBox, faComment, faGear, faHouse, faNewspaper } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -13,6 +17,8 @@ function Footer() {
     const [time, setTime] = useState('');
     const [date, setDate] = useState('');
     const [clockSubscription, setClockSubscription] = useState();
+
+    const location = useLocation();
 
     useEffect(() => {
         const clock = interval(1000).pipe(map(() => new Date()));
@@ -131,15 +137,60 @@ function Footer() {
                         {/* Grid container --> */}
                     </footer>
                 </div>
-                <span>
-                    <div style={{ zIndex: '999' }} className={cx('scroll-text-container')}>
-                        <p className={cx('scroll-text')}>
-                            {isMobile ? '' : `Ngày giờ hiện tại: ${time} ${date} `}
-                            Đia chỉ: 199 Đ. Gò Dưa,
-                            Tam Bình, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam
-                        </p>
-                    </div>
-                </span>
+                {isMobile ? (
+                    <>
+                        <div className={cx('navbar_mobile')}>
+                            <ul
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    width: '100%',
+                                }}
+                                className=""
+                            >
+                                <li
+                                    className={cx(
+                                        '',
+                                        (location.pathname == config.routes.home ||
+                                            location.pathname == config.routes.homePage) &&
+                                            'active',
+                                    )}
+                                >
+                                    <FontAwesomeIcon icon={faHouse} />
+                                    <Link to={config.routes.home} aria-current="page">
+                                        Trang chủ
+                                    </Link>
+                                </li>
+                                <li className={cx('', location.pathname == config.routes.product && 'active')}>
+                                    <FontAwesomeIcon icon={faBox} />
+                                    <Link to={config.routes.product}>Sản phẩm</Link>
+                                </li>
+                                <li className={cx('', location.pathname == config.routes.feature && 'active')}>
+                                    <FontAwesomeIcon icon={faGear} />
+                                    <Link to={config.routes.feature}>Dịch vụ</Link>
+                                </li>
+                                <li className={cx('', location.pathname == config.routes.contact && 'active')}>
+                                    <FontAwesomeIcon icon={faComment} />
+                                    <Link to={config.routes.contact}>Liên hệ</Link>
+                                </li>
+                                <li className={cx('', location.pathname == config.routes.news && 'active')}>
+                                    <FontAwesomeIcon icon={faNewspaper} />
+                                    <Link to={config.routes.news}>Tin tức</Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </>
+                ) : (
+                    <span>
+                        <div style={{ zIndex: '999' }} className={cx('scroll-text-container')}>
+                            <p className={cx('scroll-text')}>
+                                {isMobile ? '' : `Ngày giờ hiện tại: ${time} ${date} `}
+                                Đia chỉ: 199 Đ. Gò Dưa, Tam Bình, Thủ Đức, Thành phố Hồ Chí Minh, Việt Nam
+                            </p>
+                        </div>
+                    </span>
+                )}
             </footer>
         </>
     );

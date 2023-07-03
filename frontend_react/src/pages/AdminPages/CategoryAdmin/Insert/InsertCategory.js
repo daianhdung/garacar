@@ -22,7 +22,6 @@ function InsertCategory() {
 
         const fetchApiCreateCategory = async () => {
             const response = await categoryService.createCategory(formData);
-            console.log(response);
             if (response.success) {
                 successToast('Tạo thể loại thành công');
             } else {

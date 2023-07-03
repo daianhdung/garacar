@@ -20,7 +20,6 @@ function InsertCoupon() {
 
         const fetchApiCreateCoupon = async () => {
             const response = await couponService.createCoupon(couponDTO);
-            console.log(response);
             if (response.success) {
                 
                 successToast('Tạo coupon thành công');

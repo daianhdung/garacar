@@ -8,7 +8,6 @@ import { formatNumber } from '~/utils/stringUtils';
 const cx = classNames.bind(styles);
 
 function ListMail({ mails, handleDelete }) {
-    console.log(mails);
 
     return (
         <div className={cx('wrapper')}>

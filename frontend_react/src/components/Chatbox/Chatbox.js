@@ -148,8 +148,6 @@ const Chatbox = ({chatActive, handleActive }) => {
         stompClient.send('/app/private-message-create', {}, JSON.stringify(chatMessage));
     };
 
-    console.log(privateChats);
-
     const onPrivateMessageReceived = (payload) => {
         let payloadData = JSON.parse(payload.body);
         if (payloadData.action === constantObject.RECENTLY_CONNECTION) {
@@ -287,7 +285,7 @@ const Chatbox = ({chatActive, handleActive }) => {
                     <div className={cx('start-chat')}>
                         <div className="h-30 p-4" style={{ userSelect: 'none' }}>
                             <select
-                                className={`form-select wm-20 ${isMobile ? 'w-50' : ''}`}
+                                className={`form-select wm-20 ${isMobile ? 'w-100' : ''}`}
                                 name="message"
                                 onChange={handleValue}
                             >

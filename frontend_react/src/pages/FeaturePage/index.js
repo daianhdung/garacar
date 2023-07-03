@@ -1,16 +1,26 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
-
 import config from '~/config';
 import styles from './FeaturePage.module.scss';
 import useAuth from '~/hooks/useAuth';
+import useViewport from '~/hooks/useViewport';
+import constantObject from '~/utils/constant-var';
+import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
 function FeaturePage() {
+    const contextAuth = useAuth();
 
-    const contextAuth = useAuth()
+    const viewPort = useViewport();
+    const isMobile = viewPort.width <= constantObject.MOBILE_VIEWPORT_PX;
+
+    useEffect(() => {
+        if (isMobile) {
+            window.scrollTo(0, 0);
+        }
+    }, []);
 
     return (
         <section id={cx('wrapper')} className={cx('error-page')}>

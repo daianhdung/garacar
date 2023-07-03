@@ -9,7 +9,7 @@ public class GroupChatMapper {
 
     public GroupChatEntity toGroupChatEntity(GroupChatDTO groupChatDTO){
         GroupChatEntity groupChatEntity = new GroupChatEntity();
-        groupChatEntity.setIsSeen(groupChatDTO.isSeen());
+        groupChatEntity.setSeen(groupChatDTO.isSeen());
         groupChatEntity.setSenderName(groupChatDTO.getSenderName());
         groupChatEntity.setReceiverName(groupChatDTO.getReceiverName());
 
@@ -19,7 +19,7 @@ public class GroupChatMapper {
     public GroupChatDTO toGroupChatDTO(GroupChatEntity groupChatEntity){
         GroupChatDTO groupChatDTO = new GroupChatDTO();
         groupChatDTO.setId(groupChatEntity.getId());
-        groupChatDTO.setSeen(groupChatEntity.getIsSeen());
+        groupChatDTO.setSeen(groupChatEntity.isSeen());
         groupChatDTO.setSenderName(groupChatEntity.getSenderName());
         groupChatDTO.setReceiverName(groupChatEntity.getReceiverName());
         return groupChatDTO;

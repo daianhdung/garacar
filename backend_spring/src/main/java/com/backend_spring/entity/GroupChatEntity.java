@@ -28,7 +28,7 @@ public class GroupChatEntity {
     private LocalDateTime creatAt;
 
     @Column(name = "is_seen", columnDefinition = "boolean default false")
-    private Boolean isSeen;
+    private boolean isSeen;
 
     @OneToMany(mappedBy = "group")
     private Set<MessageEntity> messageEntitySet;

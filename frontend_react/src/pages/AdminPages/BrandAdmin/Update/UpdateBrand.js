@@ -23,7 +23,6 @@ function UpdateBrand() {
 
         const fetchApiUpdateBrand = async () => {
             const response = await updateBrandById( id,formData);
-            console.log(response);
             if (response.success) {
                 successToast('Thay đổi thành công');
             } else {

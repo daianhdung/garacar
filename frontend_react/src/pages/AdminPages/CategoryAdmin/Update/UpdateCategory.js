@@ -23,7 +23,6 @@ function UpdateCategory() {
 
         const fetchApiUpdateCategory = async () => {
             const response = await categoryService.updateCategoryById( id,formData);
-            console.log(response);
             if (response.success) {
                 successToast('Thay đổi thành công');
             } else {

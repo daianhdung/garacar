@@ -22,7 +22,6 @@ function UpdateOrder() {
         };
         const fetchApiUpdateOrder = async () => {
             const response = await updateOrderService.updateOrderStatus(orderDTO);
-            console.log(response);
             if (response.success) {
                 successToast('Cập nhật thành công');
             } else {

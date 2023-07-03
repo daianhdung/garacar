@@ -186,7 +186,6 @@ function Order({ setIsLoading }) {
 
     //Validate form and call api set new order
     const onSubmit = () => {
-        console.log(formInformUser);
         let newErrors = {};
         if (!formInformUser.email) {
             newErrors.email = 'Email bắt buộc';
@@ -229,7 +228,6 @@ function Order({ setIsLoading }) {
             const fetchApiNewOrder = async () => {
                 setIsLoading(true)
                 const response = await CheckoutOrder(userDto, deliveryAddress, productDTOList, checkCoupon.rate, tempTotal, total, costDeli)
-                console.log(response);
                 if (response.success) {
                     cart.deleteAllFromCart()
                     navigate(`/order/success/${response.data}`)

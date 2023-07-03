@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Contact.module.scss';
 import classNames from 'classnames/bind';
 import { createMail } from '~/services/mailService';
@@ -12,6 +12,12 @@ function Contact() {
     const [errors, setErrors] = useState({});
 
     const [success, setSuccesss] = useState('');
+
+    useEffect(() => {
+        if (isMobile) {
+            window.scrollTo(0, 0);
+        }
+    },[])
 
     const onSubmitMail = () => {
         let newErrors = {};
